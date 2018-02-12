@@ -222,11 +222,9 @@ With the cursor place at the begining of this line, press `Ctl+C` key to yank it
 
 ##### Step 5
 
-Edit this new line to add a new route to `10.255.0.0/24` using the gateway `10.0.0.254`, using the `MANAGEMENT` vrf.
+Edit this new line to add a new route to `10.255.255.0/24` using the gateway `10.0.0.254`, using the `MANAGEMENT` vrf.
 
 Save the file.
-
-![ ](images/sublime10.png)
 
 
 ##### Step 6

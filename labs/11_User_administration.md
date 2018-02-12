@@ -1,4 +1,4 @@
-## Lab 9 - User Administration 
+## Lab 11 - User Administration 
 
 In this lab you will understand how to add and remove users, create groups, control permissions and elevate user permissions in Linux
 

@@ -215,6 +215,22 @@ DESCRIPTION
 .
 <output truncated for readability>
 ```
+---
+# The Linux directory layout
+
+*/bin*: Binaries for system operations
+*/sbin*: Binaries that requires "Superuser" privileges
+*/lib*: System libraries
+*/dev*: Hardware devices
+*/opt*: Optional, 3rd Party applications
+*/home*: User home directories
+*/tmp*: Temporary files - Wiped at every reboot
+*/etc*: System Wide configurations
+*/boot*: Kernel
+*/proc*: Runtime process information
+*/usr*: User binaries - most apps get installed here
+*/var*: Variable files (Files that change during system operation)
+
 
 ---
 

@@ -15,5 +15,6 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 8 - VIM visual mode editing ](labs/08_text_editors_vim.md)
 - [Lab 9 - Cyberduck](labs/09_cyberduck.md)
 - [Lab 10 - GUI text editors - SublimeText](labs/10_text_editors_sublime_text.md)
+- [Lab 11 - User Administration](labs/11_User_administration.md)
 
 

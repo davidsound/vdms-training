@@ -1,4 +1,4 @@
-## Lab - Package Management
+## Lab 14 - Package Management
 
 In this lab you will learn how to check for installed software, install, upgrade and delete the necessary packages. In this lab focus will only be on the application lifecycle on CentOS operating system (Also applicable to Fedora and Red Hat)
 

@@ -1,4 +1,4 @@
-## Lab 11 - SSH access, keys, and configuration
+## Lab 13 - SSH access, keys, and configuration
 
 In this lab we will learn about SSH access in Linux, as well as advanced configuration parameters for using SSH effectively.
 

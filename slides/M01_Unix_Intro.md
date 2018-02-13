@@ -1858,12 +1858,112 @@ KiB Swap:  1572860 total,  1572860 free,        0 used.  3525532 avail Mem
 Depending on your distribution, `htop` might not come installed as part of the core operating system and will need to be installed.
 
 
+---
+
+class: ubuntu
+# Process Management
+
+
+Use the `&` to run a command in the background
+
+```
+[ntc@ntc ~]$ top &
+[1] 2361
+[ntc@ntc ~]$ 
+
+```
+
+- The output `2361` is the process ID or `PID`
+- Typically used for long running processes that do not need intervention
+- Use `fg` to immediately bring a task to foreground
+
+---
+# The process ID
+
+Use `ps -ef` to list current running processes
+
+.left-column[
+```
+[ntc@ntc ~]$ ps -ef | more
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 06:42 ?        00:00:16 /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+root         2     0  0 06:42 ?        00:00:00 [kthreadd]
+root         3     2  0 06:42 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 06:42 ?        00:00:00 [kworker/0:0H]
+root         6     2  0 06:42 ?        00:00:00 [kworker/u16:0]
+root         7     2  0 06:42 ?        00:00:00 [migration/0]
+root         8     2  0 06:42 ?        00:00:00 [rcu_bh]
+root         9     2  0 06:42 ?        00:00:01 [rcu_sched]
+root        10     2  0 06:42 ?        00:00:00 [watchdog/0]
+root        11     2  0 06:42 ?        00:00:00 [watchdog/1
+
+.
+.
+.
+.
+.
+<output truncated for readability>
+```
+]
+
+.right-column[
+Extensive command with many options
+```
+[ntc@ntc ~]$ ps --help simple
+
+Usage:
+ ps [options]
+
+Basic options:
+ -A, -e               all processes
+ -a                   all with tty, except session leaders
+  a                   all with tty, including other users
+ -d                   all except session leaders
+ -N, --deselect       negate selection
+  r                   only running processes
+  T                   all processes on this terminal
+  x                   processes without controlling ttys
+
+For more details see ps(1).
+[ntc@ntc ~]$ 
+
+```
+]
+
+# Terminating a process
+
+- Kill by process id:
+
+
+```
+[ntc@ntc ~]$ kill 20827 
+
+```
+
+    Kill `-9` is used to `force kill` processes 
+
+- Kill by process name:
+
+```
+[ntc@ntc ~]$ sudo pkill httpd
+```
+
+- "Hangup" to read a config file
+
+
+```
+[ntc@ntc ~]$ sudo kill -HUP httpd
+```
+    *Process ID will not change*
+
+
 
 
 ---
 # Lab Time
 
 Lab 15 - System health
+Lab 16 - Process management
 
 ---
 

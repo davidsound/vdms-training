@@ -1,4 +1,4 @@
-## Lab 10 - Aliases, environment variables and the BASH shell
+## Lab 12 - Aliases, environment variables and the BASH shell
 
 In this lab we will learn about aliases and how to use them to make our tasks easy. This lab will introduce you to environment variables, their lifetime and durability within the shell.
 

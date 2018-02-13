@@ -1,4 +1,4 @@
-# Lab 13 Linux Systems Management
+# Lab 15 Linux Systems Management
 
 In this lab we will take a deeper dive into Linux systems management & built in commands.  For the tasks & steps below, assume that you have inherited a server/system with very few details.  This lab will help with common Linux systems administration & engineering tasks.  
 
@@ -400,7 +400,7 @@ Complete!
 
 Then launch with `htop`:
 
-![](htop.png)
+![](images/htop.png)
 
 > To quit, issue `q` or `F10`
 

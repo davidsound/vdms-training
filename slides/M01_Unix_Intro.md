@@ -1133,6 +1133,8 @@ ntc-netops-user1 : ntc-netops-user1
 ```
 
 ---
+class: ubuntu
+
 # Groups(Contd.)
 
 ```
@@ -1150,6 +1152,8 @@ kmem:x:9:
 
 ```
 ---
+class: ubuntu
+
 # The usermod command
 
 The `usermod` command can be used to update group memberships of an existing user:
@@ -1159,12 +1163,16 @@ The `usermod` command can be used to update group memberships of an existing use
 [ntc@ntc ~]$
 ```
 ---
+class: ubuntu
+
 # Adding a privileged user
 
 - Done through editing the `/etc/sudoers` file 
 - Best practice - update `/etc/sudoers.d` directory
 - Use `visudo`
 ---
+class: ubuntu
+
 # File permissions
 
 Every file in Unix has the following attributes:
@@ -1189,6 +1197,7 @@ total 4
 [ntc-netops-user1@ntc ~]$
 ```
 ---
+class: ubuntu
 
 # Change owner or group
 

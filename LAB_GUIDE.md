@@ -23,5 +23,6 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 16 - Process Management](labs/16_process_mgmt.md)
 - [Lab 17 - Logging](labs/17_logging.md)
 - [Lab 18 - Disk Usage, find, grep](labs/18_disk_usage.md)
+- [Lab 19 - Basic network tasks](labs/19_basic_network_lab.md)
 
 

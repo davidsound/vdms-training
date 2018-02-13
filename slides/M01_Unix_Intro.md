@@ -506,9 +506,17 @@ class: ubuntu
 
 ---
 
-class: ubuntu
 
 # Editing text
+
+
+<img src="slides/media/real_programmers.png" alt="Pep8" style="align: left:;width:600px;height:500px;">
+
+
+---
+class: ubuntu
+
+# Editing text(Contd.)
 
 - The `cat` command can be used with redirection to create or update files.
 - Close out files using the `CTRL-d` key combination.
@@ -1068,7 +1076,8 @@ passwd: all authentication tokens updated successfully.
 - Elevates privileges of a normal user to allow her to "do" "superuser" operations
 - Use wisely!!
 
-![](https://www.xkcd.com/149/)
+<img src="slides/media/sandwich.png" alt="Pep8" style="align: left:;width:600px;height:500px;">
+
 
 ---
 class: ubuntu
@@ -1101,4 +1110,92 @@ ntc-netops-user1:x:1003:1003::/home/ntc-netops-user1:/bin/bash
 
 ---
 
-# 
+class: ubuntu
+
+# Groups
+
+- By default when a new user is added, a group by the same name is created and the user is added to that group
+
+```
+# Adding a new group
+
+[ntc@ntc ~]$ sudo groupadd ntc-netops
+[sudo] password for ntc: 
+[ntc@ntc ~]$
+```
+
+The groups command can be used to check the current groups a user is member off:
+
+```
+[ntc@ntc ~]$ groups ntc-netops-user1
+ntc-netops-user1 : ntc-netops-user1
+[ntc@ntc ~]$
+```
+
+---
+# Groups(Contd.)
+
+```
+[ntc@ntc ~]$ cat /etc/group
+root:x:0:
+bin:x:1:
+daemon:x:2:
+sys:x:3:
+adm:x:4:
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mem:x:8:
+kmem:x:9:
+
+```
+---
+# The usermod command
+
+The `usermod` command can be used to update group memberships of an existing user:
+
+```
+[ntc@ntc ~]$ sudo usermod -a -G ntc-netops ntc-netops-user1 
+[ntc@ntc ~]$
+```
+---
+# Adding a privileged user
+
+- Done through editing the `/etc/sudoers` file 
+- Best practice - update `/etc/sudoers.d` directory
+- Use `visudo`
+---
+# File permissions
+
+Every file in Unix has the following attributes:
+
+- Owner permissions − The owner's permissions determine what actions the owner of the file can perform on the file.
+
+- Group permissions − The group's permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.
+
+- Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.
+
+The actions typically are Read(r), Write(w) and eXecute(x).
+
+
+`chmod` to change these permissions
+
+```
+[ntc-netops-user1@ntc ~]$ chmod o-r /opt/ntc-netops/Ops_workflow.md 
+[ntc-netops-user1@ntc ~]$ 
+[ntc-netops-user1@ntc ~]$ ls -l /opt/ntc-netops/
+total 4
+-rw-rw----. 1 ntc-netops-user1 ntc-netops 252 Feb  6 07:44 Ops_workflow.md
+[ntc-netops-user1@ntc ~]$
+```
+---
+
+# Change owner or group
+
+```
+[ntc-netops-user1@ntc ~]$ sudo chown -R  ntc-netops-user1:ntc-netops /opt/ntc-netops/
+[sudo] password for ntc-netops-user1: 
+[ntc-netops-user1@ntc ~]$ ls -l /opt
+total 0
+drwxr-xr-x. 2 ntc-netops-user1 ntc-netops  6 Feb  6 05:25 ntc-netops
+```

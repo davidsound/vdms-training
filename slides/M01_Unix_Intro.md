@@ -1627,11 +1627,6 @@ Resolving Dependencies
 
 ---
 
-
-
-
-
-
 class: center, middle, segue
 
 # System Administration
@@ -1966,4 +1961,268 @@ Lab 15 - System health
 Lab 16 - Process management
 
 ---
+
+
+class: ubuntu
+# Logging
+
+System log files depend on distribution
+
+**RedHat variants**: `/var/log/messages`
+**Debian variants**: `/var/log/syslog`
+
+
+```
+[ntc@ntc ~]$ sudo tail -f /var/log/messages
+Feb  8 17:01:01 localhost systemd: Started Session 32 of user root.
+Feb  8 17:01:01 localhost systemd: Starting Session 32 of user root.
+Feb  8 17:01:01 localhost systemd: Removed slice User Slice of root.
+Feb  8 17:01:01 localhost systemd: Stopping User Slice of root.
+Feb  8 18:01:01 localhost systemd: Created slice User Slice of root.
+Feb  8 18:01:01 localhost systemd: Starting User Slice of root.
+Feb  8 18:01:01 localhost 
+
+```
+
+*Need to invoke `sudo` to view logs
+
+---
+
+class: ubuntu
+# Generating logs
+
+
+Use `logger` to write log messages to file
+
+
+```
+[ntc@ntc ~]$ logger -h
+
+Usage:
+ logger [options] [message]
+
+```
+
+Generating a "maillog" event
+```
+[ntc@ntc ~]$ sudo logger -p mail.err "Test Log"
+[sudo] password for ntc: 
+
+```
+
+Observed output
+```
+
+[ntc@ntc ~]$ sudo tail -1 /var/log/maillog
+Feb 13 08:20:11 ntc ntc: Test Log
+[ntc@ntc ~]$ 
+
+```
+
+---
+
+class: ubuntu
+# Disk usage
+
+The `df` command is used to display information concerning the file systems available to the host.
+
+```
+[ntc@ntc ~]$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       100G  3.5G   97G   4% /
+devtmpfs        7.8G     0  7.8G   0% /dev
+tmpfs           7.8G     0  7.8G   0% /dev/shm
+tmpfs           7.8G  8.8M  7.8G   1% /run
+tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup
+/dev/sda1       5.0G  226M  4.8G   5% /boot
+/dev/sda5        90G  148M   90G   1% /home
+tmpfs           1.6G   12K  1.6G   1% /run/user/42
+tmpfs           1.6G     0  1.6G   0% /run/user/1001
+
+```
+
+To check usage of a single mount point:
+
+```
+[ntc@ntc ~]$ df -h /home
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda5        90G  148M   90G   1% /home
+[ntc@ntc ~]$ 
+
+```
+
+---
+# Disk usage(Contd.)
+
+The `du` command reports the sizes of directory trees including all files within that tree.
+
+```
+[ntc@ntc ~]$ sudo du -h /var/log
+[sudo] password for ntc: 
+0	/var/log/samba/old
+0	/var/log/samba
+0	/var/log/ppp
+0	/var/log/glusterfs
+9.8M	/var/log/audit
+0	/var/log/chrony
+0	/var/log/ntpstats
+0	/var/log/pluto/peer
+0	/var/log/pluto
+0	/var/log/libvirt/qemu
+0	/var/log/libvirt
+0	/var/log/sssd
+0	/var/log/speech-dispatcher
+4.0K	/var/log/cups
+88K	/var/log/gdm
+16K	/var/log/tuned
+1.1M	/var/log/sa
+0	/var/log/qemu-ga
+2.9M	/var/log/anaconda
+0	/var/log/rhsm
+21M	/var/log
+[ntc@ntc ~]$ 
+
+```
+
+To only generate a summary:
+
+```
+[ntc@ntc ~]$ sudo du -hs /var/log
+21M	/var/log
+[ntc@ntc ~]$ 
+
+```
+
+---
+
+class: middle, segue
+
+# Regular Expressions
+
+---
+
+
+# RegEx Overview
+
+- A Regular Expression (RegEx) is a special sequence of characters used to search patterns inside text.
+- They are a powerful tool for checking if a specific pattern is present inside a text.
+
+---
+
+# Web Utilities for Testing
+
+Online tools used for testing and learning regular expressions
+
+- Regexr.com (picture below)
+- Regex101.com
+
+
+
+.center[
+<img src="slides/media/regexr/regexr1.png" alt="Regexr.com Example" style="alight:middle;width:800px;height:325px;">
+]
+
+---
+
+# Regex patterns
+
+- **\d**: Matches any decimal digit
+- **\D**: Matches any non-digit character
+- **\w**: Matches any alphanumeric character
+- **\W**: Matches any non-alphanumeric character
+- **\s**: Matches any whitespace character
+- **\S**: Matches any non-whitespace character
+- **.**: Matches anything except a newline character
+- **+**: Specifies that the previous character can be matched one or more times
+- ** * **: Specifies that the previous character can be matched zero or more times
+- ** ? **: Matches either once or zero times. Indicates something as being optional
+    - Example: **ntc-?training** matches either **ntctraining** or **ntc-training**
+
+
+---
+
+
+class: ubuntu
+# Using grep
+
+Prints lines matching a pattern
+
+.left-column[
+Find all interfaces  and routes withing a file
+
+```
+[ntc@ntc ~]$ grep -inE "(route|gigabitethernet)" ./configs/atl-rtr01.cfg
+150:interface GigabitEthernet1
+155:interface GigabitEthernet2
+160:interface GigabitEthernet3
+165:interface GigabitEthernet4
+178:ip route vrf MANAGEMENT 0.0.0.0 0.0.0.0 10.0.0.2
+```
+]
+
+.right-column[
+
+Find all IP addresses within a file:
+
+```
+[ntc@ntc ~]$ grep -nE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" ./configs/atl-rtr01.cfg
+152: ip address 10.0.0.51 255.255.255.0
+178:ip route vrf MANAGEMENT 0.0.0.0 0.0.0.0 10.0.0.2
+
+```
+
+]
+
+---
+
+class: ubuntu
+# Using grep context
+
+The `-A` flag is used to print the number of lines "after" search context
+
+```
+[ntc@ntc ~]$ grep -A 4 "GigabitEthernet1" configs/nyc-rtr02.cfg 
+interface GigabitEthernet1
+ vrf forwarding MANAGEMENT
+ ip address 10.0.0.51 255.255.255.0
+ negotiation auto
+!
+
+```
+
+Similarly use the `-B` flag for printing "before" context
+
+
+---
+
+
+# The `find` command
+
+The `find` command helps search for files in a directory hierarchy
+
+
+```
+[ntc@ntc ~]$ sudo find / -name "yum.conf"
+[sudo] password for ntc: 
+/etc/yum.conf
+[ntc@ntc ~]$ 
+
+```
+
+Use find with `xargs` and `grep` to search within files
+
+
+```
+[ntc@ntc ~]$ sudo find / -name "yum.conf" | xargs grep log
+logfile=/var/log/yum.log
+[ntc@ntc ~]$ 
+
+```
+
+
+---
+# Lab Time
+
+Lab 18 - Disk usage, find and grep
+
 

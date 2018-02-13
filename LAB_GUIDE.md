@@ -17,5 +17,11 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 10 - GUI text editors - SublimeText](labs/10_text_editors_sublime_text.md)
 - [Lab 11 - User Administration](labs/11_User_administration.md)
 - [Lab 12 - System variables ](labs/12_alias_vars.md)
+- [Lab 13 - Configuring SSH ](labs/13_ssh_lab.md)
+- [Lab 14 - Package Management](labs/14_package_mgmt.md)
+- [Lab 15 - Health Monitoring](labs/15_health_check.md)
+- [Lab 16 - Process Management](labs/16_process_mgmt.md)
+- [Lab 17 - Logging](labs/17_logging.md)
+- [Lab 18 - Disk Usage, find, grep](labs/18_disk_usage.md)
 
 

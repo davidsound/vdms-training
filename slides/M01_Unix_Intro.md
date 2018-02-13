@@ -1281,6 +1281,13 @@ Add aliases into `.bashrc` for ensuring they are present always
 Add environment variables into `.bash_profile` for each login
 
 
+
+---
+
+# Lab Time
+
+- Lab 12 - Aliases and environment variables
+
 ---
 
 class: ubuntu
@@ -2284,3 +2291,7 @@ hosts:      files dns myhostname
 ```
 
 
+---
+
+class: ubuntu
+# 

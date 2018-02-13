@@ -2257,6 +2257,30 @@ logfile=/var/log/yum.log
 
 Lab 18 - Disk usage, find and grep
 
+
 ---
+class: center, middle, segue
+
+# Networking on Linux
+
+---
+
+
+
+class: ubuntu
+# Network name resolution
+
+- By default checks `/etc/hosts` file first.
+
+- Based on the order defined in `/etc/nssswitch.conf`
+
+```
+[ntc@ntc ~]$ cat /etc/nsswitch.conf | grep dns
+#	dns			Use DNS (Domain Name Service)
+#hosts:     db files nisplus nis dns
+hosts:      files dns myhostname
+[ntc@ntc ~]$ 
+
+```
 
 

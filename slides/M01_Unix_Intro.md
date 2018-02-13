@@ -1471,4 +1471,150 @@ Host asa1
 
 ---
 
+# Lab Time
+
+- Lab 12 - Aliases
+- Lab 13 - SSH Configuration
+
+
+
+---
+
+
+class: ubuntu
+
+# Package management
+
+
+`yum` is used to install packages for CentOS (`apt` for Ubuntu)
+
+`/etc/yum.conf` is used to configure yum settings
+
+```
+# Configuring yum access through a proxy
+
+proxy=http://proxy.ntc.com:8080
+```
+
+---
+
+class: ubuntu
+
+# YUM commands
+
+Query the public repositories and give a list of updated software
+```
+[ntc@ntc ~]$ sudo yum list updates
+```
+
+Find whether updates exists for software already installed on the system
+
+```
+[ntc@ntc ~]$ yum check-update command
+
+```
+Install all updates
+
+```
+[ntc@ntc ~]$ sudo yum update
+
+```
+---
+
+class: ubuntu
+# Yum commands(Contd.)
+
+See all currently installed packages
+
+```
+[ntc@ntc ~]$yum list installed
+```
+
+Check if a particular package is installed
+
+```
+[ntc@ntc ~]$sudo yum list installed python
+```
+
+Search for a package within the public repository,
+
+```
+[ntc@ntc ~]$sudo yum search fortune
+```
+
+Installing a package
+
+```
+[ntc@ntc ~]$sudo yum install fortune-mod.x86_64
+```
+
+---
+
+class: ubuntu
+# More YUM commands...
+
+.left-column[
+`yum info` will give details about a package
+
+```
+[ntc@ntc ~]$sudo yum info htop
+Loaded plugins: fastestmirror, priorities
+Loading mirror speeds from cached hostfile
+* base: mirror.cc.columbia.edu
+* epel: mirror.cogentco.com
+* extras: ftp.linux.ncsu.edu
+* updates: repos-va.psychz.net
+Available Packages
+Name        : htop
+Arch        : x86_64
+Version     : 2.0.2
+Release     : 1.el7
+Size        : 98 k
+Repo        : epel/x86_64
+Summary     : Interactive process viewer
+URL         : http://hisham.hm/htop/
+License     : GPL+
+Description : htop is an interactive text-mode process viewer for Linux, similar to
+: top(1).
+
+[ntc@ntc ~]$
+```
+
+]
+
+.right-column[
+
+```
+[ntc@ntc ~]$sudo yum whatprovides tree
+Loaded plugins: fastestmirror, priorities
+Loading mirror speeds from cached hostfile
+* base: mirrors.gigenet.com
+* epel: mirror.cogentco.com
+* extras: ftp.linux.ncsu.edu
+* updates: mirror.cloud-bricks.net
+
+```
+
+
+]
+
+
+---
+
+class: ubuntu
+# Uninstalling packages
+
+
+Use `yum remove` to uninstall packages
+
+```
+[ntc@ntc ~]$sudo yum remove fortune-mod.x86_64
+Loaded plugins: fastestmirror, priorities
+Resolving Dependencies
+--> Running transaction check
+---> Package fortune-mod.x86_64 0:1.99.1-17.el7 will be erased
+--> Finished Dependency Resolution
+```
+
+---
 

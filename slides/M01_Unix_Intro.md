@@ -1208,3 +1208,267 @@ class: ubuntu
 total 0
 drwxr-xr-x. 2 ntc-netops-user1 ntc-netops  6 Feb  6 05:25 ntc-netops
 ```
+---
+
+# Lab Time
+
+- Lab 11 - User administration
+
+
+---
+class: ubuntu
+# Alias
+
+Shortcuts to common commands
+
+```
+alias e='vim'
+```
+
+To list current aliases
+
+```
+[ntc@ntc ~]$ alias
+alias e='vim'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias la='ls -ltra'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias vi='vim'
+alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+[ntc@ntc ~]$
+```
+
+
+---
+class: ubuntu
+
+# Modifying the PATH
+
+The `$PATH` variable determines the search path for executables
+
+Use the `which` command to find the current path of a given binary:
+
+```
+[ntc@ntc ~]$ which python
+/bin/python
+[ntc@ntc ~]$
+```
+
+Update the path using `export`
+
+```
+[ntc@ntc ~]$ mkdir mybin
+[ntc@ntc ~]$ 
+[ntc@ntc ~]$ export PATH=$PATH:$HOME/mybin/
+[ntc@ntc ~]$ echo $PATH
+/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ntc/.local/bin:/home/ntc/bin:./mybin/:/home/ntc/mybin/
+[ntc@ntc ~]$ 
+
+```
+
+---
+
+# .bashrc and .bash_profile
+
+- `.bash_profile` is invoked at login
+- `.bashrc` is invoked every time the shell is created
+
+Add aliases into `.bashrc` for ensuring they are present always
+Add environment variables into `.bash_profile` for each login
+
+
+---
+
+class: ubuntu
+# SSH - Generating keys
+
+.left-column[
+Use the `ssh-keygen` to generate key pairs
+
+```
+[ntc@ntc ~]$ ssh-keygen -t rsa -b 4096
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ntc/.ssh/id_rsa):
+Created directory '/home/ntc/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/ntc/.ssh/id_rsa.
+Your public key has been saved in /home/ntc/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:VKxJehWj6PjCDdZBeAlddX5205ivgoKIHBS41yKbZ9k ntc@ntc
+The key's randomart image is:
++---[RSA 4096]----+
+| .. .+.o.o=..    |
+|.  ...+..oo+   o.|
+| ... .ooo+  . =.o|
+|o.o .+.o+    o o.|
+| =.++ o.S       .|
+|o.+=E= .   .   . |
+| oo + + . . . .  |
+|     .   .   .   |
+|                 |
++----[SHA256]-----+
+```
+]
+
+.right-column[
+
+Private and public keys
+
+```
+[ntc@ntc ~]$ tree ~/.ssh
+/home/ntc/.ssh
+├── id_rsa
+└── id_rsa.pub
+```
+
+]
+
+---
+
+class: ubuntu
+# Known hosts
+
+Known public keys :
+- Automatically gathered by initial key exchange OR
+- Manually added
+
+```
+[ntc@ntc .ssh]$ tree
+.
+├── id_rsa
+├── id_rsa.pub
+└── known_hosts
+```
+
+---
+
+class: ubuntu
+# SSH login without password
+
+Adding the public key to `~/.ssh/authorized_hosts` either manually or using the `ssh-copy-id` command:
+
+```
+[ntc@ntc .ssh]$ ssh-copy-id ntc@proxy.ntc.com
+/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/ntc/.ssh/id_rsa.pub"
+/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+ntc@proxy.ntc.com's password:
+
+Number of key(s) added: 1
+
+```
+
+---
+
+class: ubuntu
+
+# The SSH `config` file
+
+Used to store SSH specific configuration:
+
+```
+Host bastion.ntc.com
+  Hostname proxy.ntc.com
+  User ntc
+  ForwardAgent yes
+```
+
+Here we created an alias for proxy.ntc.com as bastion.ntc.com 
+
+Unlike other aliases, this only impacts SSH. It also enables us to adjust ssh parameters on a per-host basis
+
+---
+
+class: ubuntu
+# SSH Proxying
+
+SSH supports a `ProxyCommand` option to bounce through an intermediate host
+
+```
+ssh -o ProxyCommand="ssh -W %h:%p bastion.ntc.com" veos1
+
+
+```
+
+Add this to the `~/.ssh/config` file
+```
+Host veostest
+  Hostname eos-spine1
+  User ntc
+  ForwardAgent yes
+  ProxyCommand ssh -W %h:%p bastion.ntc.com veos1
+```
+
+
+```
+[ntc@ntc .ssh]$ ssh veostest
+Password: 
+Last login: Wed Feb  7 17:16:24 2018 from 10.0.0.3
+eos-spine1#
+
+```
+
+
+---
+
+class: ubuntu
+# Troubleshooting SSH
+
+Example of an error: 
+
+.left-column[
+```
+[ntc@ntc ~]$ ssh ntc@asa1
+Unable to negotiate with 192.168.33.96 port 22: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1
+```
+
+```
+[ntc@ntc ~]$ ssh ntc@asa1 -v
+OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017
+debug1: Reading configuration data /home/ntc/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 59: Applying options for *
+debug1: Connecting to asa1 [192.168.33.96] port 22.
+debug1: Connection established.
+### cut for brevity ###
+debug1: Authenticating to asa1:22 as 'ntc'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: (no match)
+```
+
+]
+
+.right-column[
+Increase the level of verbosity for even more debug 
+
+```
+debug2: KEX algorithms: diffie-hellman-group-exchange-sha256,curve25519-sha256@libssh.org,ext-info-c # client acceptance
+debug2: KEX algorithms: diffie-hellman-group1-sha1 # target offer
+```
+]
+
+
+---
+
+class: ubuntu
+
+# Fix for the issue:
+
+```
+Host asa1
+  User ntc
+  ForwardAgent yes
+  ProxyCommand ssh -W %h:%p bastion.ntc.com asa1
+  KexAlgorithms +diffie-hellman-group1-sha1
+```
+
+
+---
+
+

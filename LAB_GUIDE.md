@@ -16,6 +16,6 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 9 - Cyberduck](labs/09_cyberduck.md)
 - [Lab 10 - GUI text editors - SublimeText](labs/10_text_editors_sublime_text.md)
 - [Lab 11 - User Administration](labs/11_User_administration.md)
-- [Lab 12 - System variables ](labs/12_
+- [Lab 12 - System variables ](labs/12_alias_vars.md)
 
 

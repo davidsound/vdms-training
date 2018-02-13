@@ -1477,6 +1477,12 @@ Host asa1
 - Lab 12 - Aliases
 - Lab 13 - SSH Configuration
 
+---
+
+class: center, middle, segue
+
+# System Administration
+
 
 
 ---
@@ -1627,15 +1633,10 @@ Resolving Dependencies
 
 ---
 
-class: center, middle, segue
-
-# System Administration
-
----
-
 class: ubuntu
 
 # System Identification
+
 
 Release information is in `/etc/redhat-release`
 
@@ -1646,6 +1647,7 @@ CentOS Linux release 7.4.1708 (Core)
 
 For more details:
 
+.small-code[
 ```
 [ntc@ntc ~]$ cat /etc/*elease
 CentOS Linux release 7.4.1708 (Core) 
@@ -1669,6 +1671,7 @@ CentOS Linux release 7.4.1708 (Core)
 CentOS Linux release 7.4.1708 (Core)
 
 ```
+]
 
 ---
 
@@ -1677,6 +1680,7 @@ class: ubuntu
 
 Using `hostnamectl`
 
+.small-code[
 ```
 [ntc@ntc ~]$ hostnamectl
    Static hostname: ntc
@@ -1693,9 +1697,11 @@ Using `hostnamectl`
 
 
 ```
+]
 
 `hostnamectl` can also be used to update the hostname of the server
 
+.small-code[
 ```
 [ntc@ntc ~]$ hostnamectl --help                                                                                                 master
 hostnamectl [OPTIONS...] COMMAND ...
@@ -1721,6 +1727,8 @@ Commands:
 
 
 ```
+]
+
 ---
 
 class: ubuntu
@@ -1791,13 +1799,13 @@ Inactive(anon):     8324 kB
 Active(file):     149396 kB
 Inactive(file):    75764 kB
 ```
+]
 
 ---
 
 class: ubuntu
 # Health check using `vmstat` and `free`
 
-.left-column[
 `vmstat` reports information about processes, memory, paging, block IO, traps, disks and cpu activity.
 
 ```
@@ -1808,9 +1816,6 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 
 ```
 
-]
-
-.right-column[
 `free`  displays  the total amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel. The information is gathered by parsing /proc/meminfo. 
 
 ```
@@ -1820,8 +1825,12 @@ Mem:           3.7G        103M        3.3G        8.3M        279M        3.4G
 Swap:          1.5G          0B        1.5G
 ```
 
+---
+# Lab Time
 
-]
+- Lab 14 - Package Management
+- Lab 15 - Health Monitoring
+
 
 ---
 
@@ -1873,11 +1882,16 @@ Use the `&` to run a command in the background
 - Use `fg` to immediately bring a task to foreground
 
 ---
+
+class: ubuntu
 # The process ID
 
-Use `ps -ef` to list current running processes
 
 .left-column[
+Use `ps -ef` to list current running processes
+
+.small-code[
+
 ```
 [ntc@ntc ~]$ ps -ef | more
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -1885,24 +1899,22 @@ root         1     0  0 06:42 ?        00:00:16 /usr/lib/systemd/systemd --switc
 root         2     0  0 06:42 ?        00:00:00 [kthreadd]
 root         3     2  0 06:42 ?        00:00:00 [ksoftirqd/0]
 root         5     2  0 06:42 ?        00:00:00 [kworker/0:0H]
-root         6     2  0 06:42 ?        00:00:00 [kworker/u16:0]
-root         7     2  0 06:42 ?        00:00:00 [migration/0]
-root         8     2  0 06:42 ?        00:00:00 [rcu_bh]
 root         9     2  0 06:42 ?        00:00:01 [rcu_sched]
 root        10     2  0 06:42 ?        00:00:00 [watchdog/0]
-root        11     2  0 06:42 ?        00:00:00 [watchdog/1
+root        11     2  0 06:42 ?        00:00:00 [watchdog/1]
 
-.
-.
-.
 .
 .
 <output truncated for readability>
 ```
 ]
+]
+
 
 .right-column[
 Extensive command with many options
+.small-code[
+
 ```
 [ntc@ntc ~]$ ps --help simple
 
@@ -1924,6 +1936,13 @@ For more details see ps(1).
 
 ```
 ]
+
+]
+
+---
+
+
+class: ubuntu
 
 # Terminating a process
 
@@ -1949,16 +1968,12 @@ For more details see ps(1).
 ```
 [ntc@ntc ~]$ sudo kill -HUP httpd
 ```
-    *Process ID will not change*
+
+*Process ID will not change*
 
 
 
 
----
-# Lab Time
-
-Lab 15 - System health
-Lab 16 - Process management
 
 ---
 
@@ -2019,6 +2034,13 @@ Feb 13 08:20:11 ntc ntc: Test Log
 
 ```
 
+
+---
+# Lab Time
+
+- Lab 16 - Process Management
+- Lan 17 - Logging
+
 ---
 
 class: ubuntu
@@ -2052,10 +2074,13 @@ Filesystem      Size  Used Avail Use% Mounted on
 ```
 
 ---
+
+class: ubuntu
 # Disk usage(Contd.)
 
 The `du` command reports the sizes of directory trees including all files within that tree.
 
+.small-code[
 ```
 [ntc@ntc ~]$ sudo du -h /var/log
 [sudo] password for ntc: 
@@ -2083,6 +2108,12 @@ The `du` command reports the sizes of directory trees including all files within
 [ntc@ntc ~]$ 
 
 ```
+]
+
+---
+
+class: ubuntu
+# Disk usage summary
 
 To only generate a summary:
 
@@ -2195,6 +2226,7 @@ Similarly use the `-B` flag for printing "before" context
 
 ---
 
+class: ubuntu
 
 # The `find` command
 
@@ -2224,5 +2256,7 @@ logfile=/var/log/yum.log
 # Lab Time
 
 Lab 18 - Disk usage, find and grep
+
+---
 
 

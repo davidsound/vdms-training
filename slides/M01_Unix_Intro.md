@@ -1468,6 +1468,7 @@ Host asa1
   KexAlgorithms +diffie-hellman-group1-sha1
 ```
 
+*ForwardAgent*: This option allows authentication keys stored on our local machine to be forwarded onto the system you are connecting to. This can allow you to hop from host-to-host using your home keys.
 
 ---
 
@@ -1477,6 +1478,14 @@ Host asa1
 - Lab 13 - SSH Configuration
 
 
+
+---
+
+
+
+class: center, middle, segue
+
+# Package Management
 
 ---
 
@@ -1615,6 +1624,246 @@ Resolving Dependencies
 ---> Package fortune-mod.x86_64 0:1.99.1-17.el7 will be erased
 --> Finished Dependency Resolution
 ```
+
+---
+
+
+
+
+
+
+class: center, middle, segue
+
+# System Administration
+
+---
+
+class: ubuntu
+
+# System Identification
+
+Release information is in `/etc/redhat-release`
+
+```
+[ntc@ntc ~]$ cat /etc/redhat-release 
+CentOS Linux release 7.4.1708 (Core)
+```
+
+For more details:
+
+```
+[ntc@ntc ~]$ cat /etc/*elease
+CentOS Linux release 7.4.1708 (Core) 
+NAME="CentOS Linux"
+VERSION="7 (Core)"
+ID="centos"
+ID_LIKE="rhel fedora"
+VERSION_ID="7"
+PRETTY_NAME="CentOS Linux 7 (Core)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:centos:centos:7"
+HOME_URL="https://www.centos.org/"
+BUG_REPORT_URL="https://bugs.centos.org/"
+
+CENTOS_MANTISBT_PROJECT="CentOS-7"
+CENTOS_MANTISBT_PROJECT_VERSION="7"
+REDHAT_SUPPORT_PRODUCT="centos"
+REDHAT_SUPPORT_PRODUCT_VERSION="7"
+
+CentOS Linux release 7.4.1708 (Core) 
+CentOS Linux release 7.4.1708 (Core)
+
+```
+
+---
+
+class: ubuntu
+# System Information(Contd.)
+
+Using `hostnamectl`
+
+```
+[ntc@ntc ~]$ hostnamectl
+   Static hostname: ntc
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: 1e2b46dbc0c04b05b592c837c366bb76
+           Boot ID: 907bb0e54c8c47a1a4d6a7dda082156e
+    Virtualization: xen
+  Operating System: CentOS Linux 7 (Core)
+       CPE OS Name: cpe:/o:centos:centos:7
+            Kernel: Linux 3.10.0-693.17.1.el7.x86_64
+      Architecture: x86-64
+[ntc@ntc ~]$ 
+
+
+```
+
+`hostnamectl` can also be used to update the hostname of the server
+
+```
+[ntc@ntc ~]$ hostnamectl --help                                                                                                 master
+hostnamectl [OPTIONS...] COMMAND ...
+
+Query or change system hostname.
+
+  -h --help              Show this help
+     --version           Show package version
+     --no-ask-password   Do not prompt for password
+  -H --host=[USER@]HOST  Operate on remote host
+  -M --machine=CONTAINER Operate on local container
+     --transient         Only set transient hostname
+     --static            Only set static hostname
+     --pretty            Only set pretty hostname
+
+Commands:
+  status                 Show current hostname settings
+  set-hostname NAME      Set system hostname
+  set-icon-name NAME     Set icon name for host
+  set-chassis NAME       Set chassis type for host
+  set-deployment NAME    Set deployment environment for host
+  set-location NAME      Set location for host
+
+
+```
+---
+
+class: ubuntu
+# Kernel Information
+
+Use `uname -r` for identifying the current kernel
+
+```
+[ntc@ntc ~]$ uname -r
+3.10.0-693.17.1.el7.x86_64
+[ntc@ntc ~]$ 
+
+```
+Details can be obtained from `/proc/version`
+```
+
+[ntc@ntc ~]$ cat /proc/version 
+Linux version 3.10.0-693.17.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) ) #1 SMP Thu Jan 25 20:13:58 UTC 2018
+[ntc@ntc ~]$ 
+
+```
+
+---
+
+class: ubuntu
+# Gathering CPU and Memory information
+
+.left-column[
+CPU information
+
+```
+[ntc@ntc ~]$ cat /proc/cpuinfo
+processor    : 0
+vendor_id    : GenuineIntel
+cpu family    : 6
+model        : 158
+model name    : Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz
+stepping    : 9
+cpu MHz        : 2808.002
+cache size    : 6144 KB
+physical id    : 0
+siblings    : 2
+core id        : 0
+cpu cores    : 2
+apicid        : 0
+initial apicid    : 0
+fpu        : yes
+fpu_exception    : yes
+cpuid level    : 22
+```
+]
+
+.right-column[
+Memory Information
+
+```
+[ntc@ntc ~]$ cat /proc/meminfo 
+MemTotal:        3881696 kB
+MemFree:         3489816 kB
+MemAvailable:    3526364 kB
+Buffers:            2108 kB
+Cached:           231576 kB
+SwapCached:            0 kB
+Active:           207288 kB
+Inactive:          84088 kB
+Active(anon):      57892 kB
+Inactive(anon):     8324 kB
+Active(file):     149396 kB
+Inactive(file):    75764 kB
+```
+
+---
+
+class: ubuntu
+# Health check using `vmstat` and `free`
+
+.left-column[
+`vmstat` reports information about processes, memory, paging, block IO, traps, disks and cpu activity.
+
+```
+[ntc@ntc ~]$ vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  0      0 3489668   2108 283628    0    0     2     1    9    8  0  0 100  0  0
+
+```
+
+]
+
+.right-column[
+`free`  displays  the total amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel. The information is gathered by parsing /proc/meminfo. 
+
+```
+[ntc@ntc ~]$ free -h
+              total        used        free      shared  buff/cache   available
+Mem:           3.7G        103M        3.3G        8.3M        279M        3.4G
+Swap:          1.5G          0B        1.5G
+```
+
+
+]
+
+---
+
+class: ubuntu
+# Process monitoring
+
+`top` and the more human-readable `htop` are excellent tools to troubleshoot processes using hardware resources on the system
+
+```
+[ntc@ntc ~]$ top
+
+top - 05:59:51 up 14:37,  1 user,  load average: 0.00, 0.01, 0.05
+Tasks:  96 total,   2 running,  94 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.2 sy,  0.0 ni, 99.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  3881696 total,  3488304 free,   107008 used,   286384 buff/cache
+KiB Swap:  1572860 total,  1572860 free,        0 used.  3525532 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                               
+    1 root      20   0  128168   6840   4080 S   0.3  0.2   0:04.98 systemd                               
+10688 ntc       20   0   57524   2172   1508 R   0.3  0.1   0:00.06 top                                   
+    2 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kthreadd                              
+    3 root      20   0       0      0      0 S   0.0  0.0   0:00.29 ksoftirqd/0                           
+    5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H                          
+    6 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kworker/u4:0                          
+    7 root      rt   0       0      0      0 S   0.0  0.0   0:00.04 migration/0                           
+    8 root      20  
+```
+
+Depending on your distribution, `htop` might not come installed as part of the core operating system and will need to be installed.
+
+
+
+
+---
+# Lab Time
+
+Lab 15 - System health
 
 ---
 

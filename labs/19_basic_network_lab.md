@@ -765,3 +765,251 @@ e10346.dscb.akamaiedge.net.
 [ntc@ntc ~]$ 
 
 ```
+
+
+### Task 5 - Daemons
+
+In this lab we will look at the [ntp daemon](http://doc.ntp.org/4.1.0/ntpd.htm), or `ntpd`.  This daemon sets & maintains system time on our Linux systems.  It sync's the time of our local system with an authorized ntp server.  
+
+Before we get further into NTPD, let's examine daemons.
+
+##### Step 1 - Daemons
+
+A "daemon" in Linux is an application that runs unobtrusively in the background.  It is not under the direct control of a user.  Most often, these are reserved for system-level & long-running applications.
+
+If you recall our 'Foreground vs Background' application lab, when we added an `&` to send our script to the background, we essentially created a daemon.  Most daemons read configuration files at startup, and then are only manipulated editing this file and resarting the application/process.
+
+Daemons are _normally_ started at a certain point in the bootup process, and are triggered by certain `init` applications (`systemd`, `System V`, `init.d`).
+
+More information can be found [here](http://www.linfo.org/daemon.html)
+
+A list of common Unix daemons can be found [here](https://en.wikipedia.org/wiki/List_of_Unix_daemons)
+
+##### Step 2 - NTPD Process
+
+First, let's determine if NTPD is currently running:
+
+```
+[root@ntc ~]# systemctl status ntpd
+● ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+```
+
+Our server reports that ntpd is dead.  Let's use the systemd daemon to start our ntpd daemon.
+
+```
+[root@ntc ~]# systemctl start ntpd
+```
+
+Let's check the status:
+
+```
+[root@ntc ~]# systemctl status ntpd
+● ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Fri 2018-02-09 15:09:06 EST; 4s ago
+  Process: 6438 ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 6440 (ntpd)
+   CGroup: /system.slice/ntpd.service
+           └─6440 /usr/sbin/ntpd -u ntp:ntp -g
+
+Feb 09 15:09:06 ntc ntpd[6440]: Listen and drop on 0 v4wildcard 0.0.0.0 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen and drop on 1 v6wildcard :: UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 2 lo 127.0.0.1 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 3 ens3 10.0.0.3 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 4 ens4 192.168.0.52 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 5 virbr0 192.168.122.1 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 6 lo ::1 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 7 ens3 fe80::2ec2:60ff:fe3e:dd80 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 8 ens4 fe80::7070:148a:e15b:b2fb UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listening on routing socket on fd #25 for interface updates
+[root@ntc ~]# 
+```
+
+Now, let's stop the daemon & check the status again:
+
+```
+[root@ntc ~]# systemctl stop ntpd
+[root@ntc ~]# systemctl status ntpd
+● ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead) since Fri 2018-02-09 15:11:15 EST; 3s ago
+  Process: 6438 ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 6440 (code=exited, status=0/SUCCESS)
+
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 7 ens3 fe80::2ec2:60ff:fe3e:dd80 UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listen normally on 8 ens4 fe80::7070:148a:e15b:b2fb UDP 123
+Feb 09 15:09:06 ntc ntpd[6440]: Listening on routing socket on fd #25 for interface updates
+Feb 09 15:09:11 ntc ntpd[6440]: 0.0.0.0 c016 06 restart
+Feb 09 15:09:11 ntc ntpd[6440]: 0.0.0.0 c012 02 freq_set kernel 0.000 PPM
+Feb 09 15:09:11 ntc ntpd[6440]: 0.0.0.0 c011 01 freq_not_set
+Feb 09 15:09:17 ntc ntpd[6440]: 0.0.0.0 c614 04 freq_mode
+Feb 09 15:11:15 ntc ntpd[6440]: ntpd exiting on signal 15
+Feb 09 15:11:15 ntc systemd[1]: Stopping Network Time Service...
+Feb 09 15:11:15 ntc systemd[1]: Stopped Network Time Service.
+```
+
+##### Step 3 - NTPD Status
+
+Daemons can come with their own commands and flags, just like other processes/scripts.  Lets start ntpd and look at some of the options:
+
+```
+[root@ntc ~]# systemctl start ntpd
+```
+
+ntpd comes with a few built-in commands  to configure, verify, troubleshoot ntp connectivity. These are:
+
+- ntpd
+- ntpupdate
+- ntpdc
+- ntp-keygen
+- ntpq
+- ntpstat
+- ntptime
+
+Instead of checking the status of the daemon, using `systemctl status ntpd`, we can query the daemon itself using `ntpq`. `ntpq` has many options:
+
+```
+[root@ntc ~]# ntpq --help
+ntpq - standard NTP query program - Ver. 4.2.6p5
+USAGE:  ntpq [ -<flag> [<val>] | --<name>[{=| }<val>] ]... [ host ...]
+  Flg Arg Option-Name    Description
+   -4 no  ipv4           Force IPv4 DNS name resolution
+				- prohibits the option 'ipv6'
+   -6 no  ipv6           Force IPv6 DNS name resolution
+				- prohibits the option 'ipv4'
+   -c Str command        run a command and exit
+				- may appear multiple times
+   -d no  debug-level    Increase output debug message level
+				- may appear multiple times
+   -D Str set-debug-level Set the output debug message level
+				- may appear multiple times
+   -p no  peers          Print a list of the peers
+				- prohibits the option 'interactive'
+   -i no  interactive    Force ntpq to operate in interactive mode
+				- prohibits these options:
+				command
+				peers
+   -n no  numeric        numeric host addresses
+      no  old-rv         Always output status line with readvar
+      opt version        Output version information and exit
+   -? no  help           Display extended usage information and exit
+   -! no  more-help      Extended usage information passed thru pager
+   -> opt save-opts      Save the option state to a config file
+   -< Str load-opts      Load options from a config file
+				- disabled as '--no-load-opts'
+				- may appear multiple times
+```
+
+Most often we will use the `-p` flag to check the status of configured peers:
+
+```
+[root@ntc ~]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
++ns1.infomir.com 243.50.127.182   2 u   14   64   77  125.862    0.662   3.259
+-node54.ia64.org 144.76.96.7      3 u   18   64   77    6.497  -16.112   2.885
+*owners.kjsl.com 216.218.254.202  2 u   13   64   77   63.591   -6.754   3.241
++linode.appus.or 216.218.254.202  2 u   17   64   77   65.555   -3.632   2.344
+```
+
+##### Step 4 - NTPD Configuration
+
+To see how the peers above were setup, lets look at our configuration file for `ntpd`:
+
+```
+[root@ntc ~]# cat /etc/ntp.conf 
+# For more information about this file, see the man pages
+# ntp.conf(5), ntp_acc(5), ntp_auth(5), ntp_clock(5), ntp_misc(5), ntp_mon(5).
+
+driftfile /var/lib/ntp/drift
+
+# Permit time synchronization with our time source, but do not
+# permit the source to query or modify the service on this system.
+restrict default nomodify notrap nopeer noquery
+
+# Permit all access over the loopback interface.  This could
+# be tightened as well, but to do so would effect some of
+# the administrative functions.
+restrict 127.0.0.1 
+restrict ::1
+
+# Hosts on local network are less restricted.
+#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
+
+# Use public servers from the pool.ntp.org project.
+# Please consider joining the pool (http://www.pool.ntp.org/join.html).
+server 0.centos.pool.ntp.org iburst
+server 1.centos.pool.ntp.org iburst
+server 2.centos.pool.ntp.org iburst
+server 3.centos.pool.ntp.org iburst
+
+#broadcast 192.168.1.255 autokey	# broadcast server
+#broadcastclient			# broadcast client
+#broadcast 224.0.1.1 autokey		# multicast server
+#multicastclient 224.0.1.1		# multicast client
+#manycastserver 239.255.254.254		# manycast server
+#manycastclient 239.255.254.254 autokey # manycast client
+
+# Enable public key cryptography.
+#crypto
+
+includefile /etc/ntp/crypto/pw
+
+# Key file containing the keys and key identifiers used when operating
+# with symmetric key cryptography. 
+keys /etc/ntp/keys
+
+# Specify the key identifiers which are trusted.
+#trustedkey 4 8 42
+
+# Specify the key identifier to use with the ntpdc utility.
+#requestkey 8
+
+# Specify the key identifier to use with the ntpq utility.
+#controlkey 8
+
+# Enable writing of statistics records.
+#statistics clockstats cryptostats loopstats peerstats
+
+# Disable the monitoring facility to prevent amplification attacks using ntpdc
+# monlist command when default restrict does not include the noquery flag. See
+# CVE-2013-5211 for more details.
+# Note: Monitoring will not be disabled with the limited restriction flag.
+disable monitor
+```
+
+The interesting (for our purposes) part of the file is in the middle, here:
+
+```
+server 0.centos.pool.ntp.org iburst
+server 1.centos.pool.ntp.org iburst
+server 2.centos.pool.ntp.org iburst
+server 3.centos.pool.ntp.org iburst
+```
+
+These lines configure our ntp servers to use `[0..3].centos.pool.ntp.org` as the authorized servers for system time.
+
+Let's make a change, and check the output of our peers.  Edit the lines above to remove the first and last entries, leaving only:
+
+```
+server 1.centos.pool.ntp.org iburst
+server 2.centos.pool.ntp.org iburst
+```
+
+Then restart the daemon by running `systemctl restart ntpd`
+
+Let's query our ntp peers again:
+
+```
+[root@ntc ~]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*tools.ninjaneer 127.67.113.92    2 u   29   64    1   63.767   -6.872   0.175
+ resolver1.skyfi 216.218.192.202  2 u   29   64    1   70.836   -4.847   1.444
+```
+
+As we can see, editing the configuration file, and restarting the daemon caused two of the servers to disappear
+
+

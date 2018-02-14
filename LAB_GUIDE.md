@@ -30,6 +30,7 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 23 - iptables - Part 2](labs/23_iptables_Part2.md)
 - [Lab 24 - Basic Bash scripting](labs/24_bash_scripting_lab.md)
 - [Lab 25 - Advanced Bash Scripting](labs/25_adv_bash_scripting_lab.md)
+- [Lab 26 - Advanced Ping Bash Scripting](labs/26_ping_scripting_lab.md)
 
 
 

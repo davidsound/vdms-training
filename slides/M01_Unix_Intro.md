@@ -2529,7 +2529,7 @@ This brings up the link but you will need to manually start the dhcp client.
 To turn the interface down:
 
 ```
-[ntc@ntc ~]$ sudo ip link set ens3 up
+[ntc@ntc ~]$ sudo ip link set ens3 down
 [sudo] password for ntc: 
 [ntc@ntc ~]$
 ```

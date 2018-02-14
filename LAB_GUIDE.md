@@ -24,12 +24,12 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 17 - Logging](labs/17_logging.md)
 - [Lab 18 - Disk Usage, find, grep](labs/18_disk_usage.md)
 - [Lab 19 - Basic network tasks](labs/19_basic_network_lab.md)
-- [Lab 20 - Network tools: Tcpdump](20_network_tools_tcpdump_lab.md)
-- [Lab 21 - Network tools: netcat and nmap](21_network_tools_ncnmap_lab.md)
-- [Lab 22 - iptables - Part 1](22_iptables_Part1.md)
-- [Lab 23 - iptables - Part 2](23_iptables_Part2.md)
-- [Lab 24 - Basic Bash scripting](24_bash_scripting_lab.md)
-- [Lab 25 - Advanced Bash Scripting](25_adv_bash_scripting_lab.md)
+- [Lab 20 - Network tools: Tcpdump](labs/20_network_tools_tcpdump_lab.md)
+- [Lab 21 - Network tools: netcat and nmap](labs/21_network_tools_ncnmap_lab.md)
+- [Lab 22 - iptables - Part 1](labs/22_iptables_Part1.md)
+- [Lab 23 - iptables - Part 2](labs/23_iptables_Part2.md)
+- [Lab 24 - Basic Bash scripting](labs/24_bash_scripting_lab.md)
+- [Lab 25 - Advanced Bash Scripting](labs/25_adv_bash_scripting_lab.md)
 
 
 

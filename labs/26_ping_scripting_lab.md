@@ -123,4 +123,55 @@ Here is an example of the output once you complete the script.
 ```
 
 
+##### Step 6
 
+Extend `ping.sh` further by adding a function to handle the `ping` action.
+
+A function is a section of a program that performs a specific task.  Functions often can be reused multiple times within a program or used in other programs to server a purpose without recreating code.
+
+Here is the snippet of the function that will be created.
+
+```bash
+host_is_up() {
+  # Send one ping (-c) and wait at most 1 second (-w)
+  ping -c 1 -w 1 "${host}" > /dev/null 2>&1
+}
+```
+
+The name of the function is `host_is_up()`.  We will pass the variable `host` to the function, and the function will return the exit code to the prgram for further processing.
+
+```bash
+#! /usr/bin/env bash
+#
+# A Script to ping list of IPs
+
+
+hosts=(
+    "192.168.0.51"
+    "10.0.0.11"
+    "192.168.0.52"
+    "4.2.2.2"
+    "10.0.0.14"
+    "192.168.0.54"
+    )
+
+host_is_up() {
+  # Send one ping (-c) and wait at most 1 second (-w)
+  ping -c 1 -w 1 "${host}" > /dev/null 2>&1
+}
+
+for host in ${hosts[@]}; do
+
+  ping -c 1 "${host}" > /dev/null 2>&1
+
+  if host_is_up "${host}"
+  then
+    echo "${host} is up"
+  else
+    echo "${host} is down"
+  fi
+
+done
+```
+
+See the changes that are made to the structure of the script when adding and using functions.  In many cases functions can make code easier to extend and maintain.

@@ -2585,7 +2585,525 @@ The `systemctl` command is used to stop and start services on the device
 ---
 # Lab Time
 
-- Lab - Basic network lab
+- Lab 19 - Basic network lab
 ---
+
+class: ubuntu
+# Network tools 
+
+- **tcpdump**: Command line traffic dump tool
+- **netcat**: Swiss knife tool for TCP/UDP traffic testing
+- **nmap**: Network exploration tool and security / port scanner
+
+---
+
+class: ubuntu
+# Network tools - tcpdump
+
+Flags while using `tcpdump`
+
+```
+    -i any : Listen on all interfaces just to see if you’re seeing any traffic.
+    -i eth0 : Listen on the eth0 interface.
+    -D : Show the list of available interfaces
+    -n : Don’t resolve hostnames.
+    -nn : Don’t resolve hostnames or port names.
+    -t : Give human-readable timestamp output.
+    -tttt : Give maximally human-readable timestamp output.
+    -X : Show the packet’s contents in both hex and ASCII.
+    -XX : Same as -X, but also shows the ethernet header.
+    -v, -vv, -vvv : Increase the amount of packet information you get back.
+    -c : Only get x number of packets and then stop.
+    -s : Define the snaplength (size) of the capture in bytes. Use -s0 to get everything, unless you are intentionally capturing less.
+    -S : Print absolute sequence numbers.
+    -e : Get the ethernet header as well.
+    -q : Show less protocol information.
+    -E : Decrypt IPSEC traffic by providing an encryption key.
+
+```
+
+
+---
+
+class: ubuntu
+
+# tcpdump - examples
+
+Traffic by IP or network
+
+```
+[ntc@ntc web]$ sudo tcpdump host 1.2.3.4
+```
+
+```
+[ntc@ntc web]$ sudo tcpdump net 10.0.0.0/8
+
+```
+
+Traffic on any interface on port 5000 (src or dest)
+
+```bash
+[ntc@ntc web]$ sudo tcpdump -i any port 5000
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+```
+
+Traffic on any interface on port 5000 (src only)
+
+```bash
+[ntc@ntc web]$ sudo tcpdump -i any src port 5000
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+```
+
+---
+
+class: ubuntu
+# Network Tools - netcat
+
+Netcat is often referred to as the Swiss army knife in networking tools.
+
+Example use cases:
+
+- Simple File Transfer
+- Streaming text 
+- Testing path connectivity over TCP/UDP
+- Security/Penetration use cases
+
+
+---
+
+class: ubuntu
+# netcat - examples
+
+Validating listener ports:
+
+```bash
+[ntc@ntc ~]$ nc -v 127.0.0.1 5000
+Ncat: Version 7.60 ( https://nmap.org/ncat )
+Ncat: Connected to 127.0.0.1:5000.
+```
+
+Scan a range of ports
+```
+[ntc@ntc ~]$nc -z -v 127.0.0.1 1-65535 #this will scan all ports
+```
+
+To check external connectivity:
+
+```bash
+[ntc@ntc ~]$nc -v google.com 80
+Ncat: Version 7.60 ( https://nmap.org/ncat )
+Ncat: Connected to 172.217.1.46:80.
+```
+
+
+---
+
+class: ubuntu
+# netcat - examples(Contd.)
+Stream text
+
+.left-column[
+```
+#Server side/listener
+[ntc@ntc ~]$ nc -lvp 1111
+Ncat: Version 6.40 ( http://nmap.org/ncat )
+Ncat: Listening on :::1111
+Ncat: Listening on 0.0.0.0:1111
+
+
+```
+
+
+```
+#Client site
+[ntc@ntc ~]$ nc localhost 1111 < vlan.yml 
+[ntc@ntc ~]$ 
+```
+]
+
+.right-column[
+
+```
+[ntc@ntc ~]$ nc -lvp 1111
+Ncat: Version 6.40 ( http://nmap.org/ncat )
+Ncat: Listening on :::1111
+Ncat: Listening on 0.0.0.0:1111
+Ncat: Connection from ::1.
+Ncat: Connection from ::1:35846.
+---                                                                                                           
+output:                                                                                                       
+  proposed:                                                                                                   
+    name: NTC                                                                                                 
+  existing_vlans_list:                                                                                        
+    - '1'                                                                                                     
+  end_state_vlans_list:                                                                                       
+    - '1'                                                                                                     
+    - '100'                                                                                                   
+  existing: {}                                                                                                
+  updates:                                                                                                    
+  - vlan 100                  
+```
+
+
+]
+
+---
+
+class: ubuntu
+# Network Tools - nmap
+
+- Nmap (“Network Mapper”) is an open source tool for network
+exploration and security auditing. It was designed to rapidly
+scan large networks, although it works fine against single
+hosts. 
+- Nmap uses raw IP packets to determine :
+  - what hosts are available on the network,
+  - what services (application name and version) those hosts are offering,
+  - what operating systems (and OS versions) they are running,
+  - what type of packet filters/firewalls are in use etc.
+
+Nmap is commonly used for security audits. It is useful
+for routine tasks such as network inventory, managing service
+upgrade schedules, and monitoring host or service uptime.
+
+
+
+---
+
+class: ubuntu
+# Nmap - common examples/cheat sheet
+
+Ping scan:
+
+```
+ntc@ntc:~$ nmap -sP 10.0.0.0/24
+
+```
+Full TCP port scan:
+
+```
+ntc@ntc:~$ nmap -p 1-65535 -sV -sS -T4 target
+```
+
+Scan a list of IP addresses
+
+```
+ntc@ntc:~$ nmap -iL ip-addresses.txt
+```
+
+---
+
+class: ubuntu
+# Nmap - flags
+
+Host discovery
+
+```
+-sL List Scan - simply list targets to scan
+-sn Ping Scan - disable port scan
+-Pn Treat all hosts as online -- skip host discovery
+-PE/PP/PM ICMP echo, timestamp, and netmask request discovery probes
+-n/-R Never do DNS resolution/Always resolve
+
+```
+
+Scan techniques
+```
+-sS TCP SYN scan
+-sT Connect scan
+-sU UDP Scan
+-sF FIN scan
+-sX Xmas scan
+```
+
+---
+
+# Lab Time
+
+- Lab 20 - Using tcpdump
+- Lab 21 - Using netcat and nmap
+
+
+---
+
+# Linux firewall - iptables
+
+`iptables` is an administration tool for IPv4 and IPv6 packet filtering and NAT
+
+- Iptables are  used  to  set  up,  maintain,  and
+inspect  the tables of IPv4 and IPv6 packet filter rules in the
+Linux kernel.
+
+- Several different tables may be  defined.   Each
+table contains a number of built-in chains and may also contain
+user-defined chains.
+
+- Each chain is a list of rules which can match a set of packets.
+Each  rule  specifies  what  to  do with a packet that matches.
+This is called a `target`, which may  be  a  jump  to  a  user-
+defined chain in the same table.
+
+---
+
+class: ubuntu
+
+# Linux firewall - iptables terminology
+
+- **Rules**: The iptables firewall operates by comparing network traffic against a set of rules. The rules define the characteristics that a packet must have to match the rule, and the action that should be taken for matching packets.
+- **Target**: When the defined pattern matches, the action that takes place is called a target. A target can be a final policy decision for the packet, such as accept, or drop. It can also be move the packet to a different chain for processing, or simply log the encounter. There are many options.
+- **Chains**: The rules are organized into groups called chains. A chain is a set of rules that a packet is checked against sequentially
+
+A user can create chains as needed. There are three chains defined by default. They are:
+
+```
+INPUT: This chain handles all packets that are addressed to your server.
+OUTPUT: This chain contains rules for traffic created by your server.
+FORWARD: This chain is used to deal with traffic destined for other servers
+```
+
+---
+
+# iptables - IPv4 Versus IPv6
+
+The netfilter firewall that is included in the Linux kernel keeps IPv4 and IPv6 traffic completely separate. 
+
+
+The regular iptables command is used to manipulate the table containing rules that govern IPv4 traffic. For IPv6 traffic, a companion command called ip6tables is used. 
+
+---
+
+class: ubuntu
+# iptables - Basic commands
+
+```
+sudo iptables -L -v -n
+	List all rules with verbose and numeric output
+sudo iptables -S
+	Print all rules in iptables-save format
+sudo iptables -A <chain> <rule>
+	Append one or more rules to the end of the selected chain
+sudo iptables -I <chain> <rulenum> <rule>
+	Insert one or more rules in the selected chain as the given rule number
+sudo iptables -D <chain> <rulenum>
+	Delete one or more rules at the given position from the selected chain
+sudo iptables -P <chain> <target>
+	Set the policy for the chain to the given target
+sudo iptables -N <chain>
+	Create a new user-defined chain by the given name
+sudo iptables -F <chain>
+	Flush the selected chain
+sudo iptables -X <chain>
+	Delete the optional user-defined chain 
+sudo iptables-save > /path/to/file
+	Save current rules
+sudo iptables-restore < /path/to/file
+	Load rules from a file 
+```
+
+---
+
+class: ubuntu
+
+# iptables - Examples
+
+Flush the tables:
+
+```
+iptables -F
+```
+
+Set the default chain policies:
+
+```
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+```
+
+Show the status
+```
+iptables -L -n -v --line-numbers
+```
+---
+class: ubuntu
+
+# iptables - examples (Contd.)
+
+Block an IP (incoming)
+
+```
+iptables -A INPUT -s 1.2.3.4 -j DROP
+```
+
+Block outbound connectivity
+
+```
+iptables -A OUTPUT -p tcp -d www.facebook.com -j DROP
+iptables -A OUTPUT -p tcp -d facebook.com -j DROP
+```
+
+
+---
+# Lab Time
+
+- Lab 22 - iptables part1
+- Lab 23 - iptables part2
+
+
+---
+class: center, middle, segue
+
+# Bash scripting
+
+---
+
+class: ubuntu
+# Bash scripting 
+
+Scripts are typically nothing but a collection of Linux commands placed in a file. 
+Scripts begin with a `#!` followed by the shell being used.
+
+Eg:
+
+```
+#!/bin/bash
+
+echo "HELLO!"
+```
+
+The `#!` or "shebang" line tells the shell what interpreter to use while processing the script.
+
+
+---
+
+class: ubuntu
+# Bash scripting - variables
+
+While assigning values to variables, make sure there are no spaces. 
+Shell script variables are referenced using the `$` symbol. 
+
+.left-column[
+```
+#!/bin/bash
+
+hostname=router1
+echo "The core router is $hostname"
+```
+
+```
+[ntc@ntc ~]$ bash router.sh 
+The core router is router1
+[ntc@ntc ~]$ 
+```
+
+Use `chmod +x ` to allow direct execution of the script for everyone
+
+```
+[ntc@ntc ~]$ chmod +x router.sh 
+[ntc@ntc ~]$ 
+
+```
+
+]
+
+.right-column[
+
+Environment variables are also available within the script.
+
+```
+#!/bin/bash
+
+hostname=router1
+echo "The core router is $hostname"
+echo "The managemet script is being executed by $USER from $HOSTNAME"
+
+```
+
+```
+[ntc@ntc ~]$ ./router.sh 
+The core router is router1
+The managemet script is being executed by ntc from ntc
+[ntc@ntc ~]$ 
+
+```
+]
+
+
+---
+
+
+class: ubuntu
+
+# Bash scripting - Conditionals
+
+Conditionals provide an easy way to change a scripts behavior based on a certain value, assignment, or input.
+
+The basic syntax for conditionals is `if (test passes) then`
+
+*testing*: Use the `test (expression)` command 
+
+```
+
+[ntc@ntc ~]$ test 5 -eq 5 && echo Yes || echo No
+Yes
+[ntc@ntc ~]$ test 5 -eq 15 && echo Yes || echo No
+No
+[ntc@ntc ~]$ 
+```
+
+Placing the expression within `[ ]` is common
+
+---
+
+class: ubuntu
+
+# Using the `if` conditional
+
+
+Example:
+
+```
+#!/bin/bash
+
+hostname=router1
+echo "The core router is $hostname"
+
+if [ $hostname == "router1" ]; then
+  echo "The managemet script is being executed by $USER from $HOSTNAME"
+fi
+
+```
+
+output:
+
+```
+[ntc@ntc ~]$ ./router.sh 
+The core router is router1
+The managemet script is being executed by ntc from ntc
+
+```
+
+---
+
+class: ubuntu
+# Handling test failure using `else`
+
+```
+#!/bin/bash
+
+interface="Ethernet1/1"
+
+if [ $interface == "Tunnel101" ]
+then
+  echo "Configuring Tunnel101"
+else
+  echo "Configuring Ethernet1/1"
+fi
+
+```
+
+
 
 

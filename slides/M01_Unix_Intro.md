@@ -3055,6 +3055,56 @@ No
 
 Placing the expression within `[ ]` is common
 
+
+---
+
+class: ubuntu
+# Testing files
+
+A common operation while scripting is to check for the presence of a file or folder
+
+
+
+```
+-e
+file exists
+
+-a
+file exists
+
+This is identical in effect to -e. It has been "deprecated," [1] and its use is discouraged.
+
+-f
+file is a regular file (not a directory or device file)
+
+-s
+file is not zero size
+
+-d
+file is a directory
+```
+
+---
+
+class: ubuntu
+# Testing if directory
+
+```
+[ntc@ntc ~]$ ls -p
+configs/    findme/                  ping.sh     Videos/
+Desktop/    interface_validation.sh  Public/     vlan.json
+Documents/  Music/                   router.sh   vlan.yml
+Downloads/  Pictures/                Templates/  whitespace.data
+[ntc@ntc ~]$ 
+
+```
+
+```
+[ntc@ntc ~]$ test -d configs && echo yes || echo no
+yes
+
+```
+
 ---
 
 class: ubuntu
@@ -3104,6 +3154,177 @@ fi
 
 ```
 
+---
+
+class: ubuntu
+
+# The `elif` statement
+
+Can be used to test multiple conditionals
 
 
+```
+#!/bin/bash
 
+interface="Ethernet1/1"
+
+if [ $interface == "Tunnel101" ]
+then
+  echo "Configuring Tunnel101"
+elif [ $interface == "Ethernet1/1" ]
+then
+  echo "Configuring Ethernet1/1"
+else
+  echo "unknown interface"
+fi
+
+```
+
+
+---
+
+
+---
+# Lab Time
+
+- Lab 24 - Basic Bash scripting
+- Lab 25 - Advanced Bash scripting
+
+---
+
+class: ubuntu
+
+# Using Loops - the for loop
+
+Used for repeating tasks until exhaustion of a vairable
+
+A script to list files
+```
+#!/bin/bash
+for i in `ls`; do
+    echo item: $i
+done 
+```
+
+A script to loop through each interface
+
+```
+intfs=("Ethernet1" "Ethernet2" "Tunnel101")
+
+for intf in ${intfs[@]} 
+do
+  echo $intf
+  if [ $intf == "Tunnel101" ]
+  then
+    echo "Configuring Tunnel101"
+  elif [ $intf == "Ethernet1" ]
+  then
+    echo "Configuring Ethernet1"
+  else
+   echo "unknown interface"
+fi
+
+
+done
+
+```
+---
+
+class: ubuntu
+
+# For loop - execution
+
+```
+[ntc@ntc ~]$ ./interface_validation.sh 
+Configuring Ethernet1/1
+Ethernet1
+Configuring Ethernet1
+Ethernet2
+unknown interface
+Tunnel101
+Configuring Tunnel101
+[ntc@ntc ~]$ 
+
+```
+---
+
+class: ubuntu
+# Loops - while loops
+
+Used for repeating tasks until a change of state to a variable occurs
+
+
+```
+#!/bin/bash
+
+COUNTER=0
+while [  $COUNTER -lt 10 ]; do
+ echo "router$COUNTER" > /home/ntc/configs/router-$COUNTER.cfg
+ let COUNTER=COUNTER+1 
+done
+
+```
+Execution output:
+
+.small-code[
+```
+[ntc@ntc ~]$ sh generate_intf.sh 
+[ntc@ntc ~]$ ls -ltr configs/
+total 116
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:43 nyc-rtr02.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:44 nyc-rtr03.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:44 nyc-rtr04.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:44 nyc-rtr05.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:44 atl-rtr01.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:44 atl-rtr02.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:44 atl-rtr03.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:45 atl-rtr04.cfg
+-rw-rw-r--. 1 ntc ntc 4181 Feb  8 11:45 atl-rtr05.cfg
+-rw-rw-r--. 1 ntc ntc 4059 Feb 12 09:26 nyc-rtr01.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-0.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-2.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-1.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-3.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-5.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-4.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-6.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-8.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-7.cfg
+-rw-rw-r--. 1 ntc ntc    8 Feb 14 15:52 router-9.cfg
+
+```
+]
+
+
+---
+
+
+class: ubuntu
+
+# DRY - Using functions in bash
+
+
+Allow repeated calls. 
+
+```
+#!/bin/bash
+
+vlan_return () {
+  multiplier=10
+  vlan=$(($multiplier * $1))
+  return $vlan
+}
+
+
+vlan_return 1
+echo $?
+vlan_return 33
+echo $?
+[ntc@ntc ~]$ 
+```
+
+
+---
+# Lab Time
+
+Lab var 

@@ -698,18 +698,123 @@ Git automatically figures out the current master and creates a new commit ( rath
 
 ---
 
+
+class: ubuntu
+# Handling conflicts
+
+If you changed the same part of the same file differently in the two branches you’re merging together, Git won’t be able to merge them cleanly
+
+```
+ntc@ntc:backup_configs (master)$ git merge CHG002
+Auto-merging nyc-rtr01.cfg
+CONFLICT (content): Merge conflict in nyc-rtr01.cfg
+Automatic merge failed; fix conflicts and then commit the result.
+```
+---
+
+class: ubuntu
+# Handling conflicts(Contd.)
+
+Use `git status` and `git diff` to identify the confilict
+
+```
+ntc@ntc:backup_configs (master)$ git diff master CHG002
+diff --git a/nyc-rtr01.cfg b/nyc-rtr01.cfg
+index c8dee07..c7032da 100644
+--- a/nyc-rtr01.cfg
++++ b/nyc-rtr01.cfg
+@@ -164,7 +164,7 @@ interface GigabitEthernet4
+  negotiation auto
+ !
+ interface Loopback101
+- description Loopback interface for OSPF
++ description OSPF router id
+  ip address 10.1.1.1 255.255.255.255
+ !
+ interface Loopback102
+```
+
+
+---
+# Fixing conflicts
+
+When a merge conflict happens, git will highlight the conflict within the file causing the conflict.
+
+Resolution is manual: 
+    - Edit the file to resolve the conflict
+    - Use `git add` to stage the changes
+    - Finally commit the changes
+
+
+The `git log --graph`  is a great tool to visualize the branching.
+
+
+---
+# Deleting a branch
+
+Typically branches used to make "fixes" are deleted upon completing the task
+
+```
+ntc@ntc:backup_configs (master)$ git branch -d CHG002
+Deleted branch CHG002 (was a49a07a).
+```
+
+---
+
+class: ubuntu
 # Some branching stratergies
 <img src="slides/media/git/branch-strategy.png" alt="Pep8" style="align:middle:;width:750px;height:400px;">
 
 
+---
+
+# Lab Time
+
+- Lab 32 - Git Branches
+- Lab 33 - Merge Conflits
+
+---
+
+
+class: ubuntu
+# Forking and pull requests
+
+
+A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
+
+<img src="slides/media/git/fork1.png" alt="Pep8" style="align:middle:;width:350px;height:100px;">
+
+
+---
+
+# Workflow
+
+1. Fork a public repo
+2. Clone the "forked" version locally
+3. Make updates
+4. Push upstream
+5. Submit a pull request
+
+---
+
+class: ubuntu
+# Pull request
+
+Pull requests are a way to request changes to a repository
+
+- Can be made between branches from within a repo
+- Submitting PRs from a forked copy of a public repo is how the maintainer gets an opportunity to review the request
+- Typically used to build CI pipelines as a trigger to kick off automated testing
 
 
 ---
 # Lab Time
 
-Lab 32 - Git Branches
+- Lab 33 - Resolving git conflicts
+- Lab 34 - Pull requests
 ---
 
 
-class: ubuntu
-# 
+
+
+

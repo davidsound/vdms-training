@@ -305,6 +305,9 @@ ntc@ntc:configs (master)$ git rm atl-rtr01.cfg
 rm 'atl-rtr01.cfg'
 ```
 
+---
+# Removing files
+
 NOTE: If you need to remove a file/directory from the git repository but still keep it on the hard disk, use the `--cached` option.
 
 ```
@@ -432,5 +435,171 @@ HEAD is now at d9b108c... Add new configuration file
 
 
 ---
+# Lab Time
+
+Lab 28 - Navigate git history
+
+---
+
+
+class: ubuntu
+# Using GitHub
+
+GitHub is the single largest host for Git repositories, and is the central point of collaboration for millions of developers and projects. A large percentage of all Git repositories are hosted on GitHub, and many open-source projects use it for Git hosting, issue tracking, code review, and other things.
+
+---
+# Creating a GitHub repository
+
+
+You can create a repository by clicking on the option
+
+<img src="slides/media/git/new_repo.png" alt="Pep8" style="align:middle:;width:800px;height:550px;">
+
+
+---
+
+# Creating a GitHub repository(Contd.)
+
+Give the repo a new name
+
+<img src="slides/media/git/repo_name.png" alt="Pep8" style="align:middle:;width:800px;height:550px;">
+
+
+---
+
+class: ubuntu
+
+# Connecting the local and remote repositories
+
+"Remotes" tell the local git repo, which remote repo to connect with.
+
+```
+ntc@ntc:configs (master)$ git remote add origin https://github.com/smith-ntc/JS_configs
+ntc@ntc:configs (master)$
+```
+
+Note: The word `origin` is just a string and used by convention as the default `remote`
+
+(When you clone a repo from github, by default, that repo's "origin" is mapped to this name)
+
+---
+
+class: ubuntu
+# Viewing the remote
+
+By default, the same origin is used for `pushing to` and `fetching from` 
+
+
+```
+ntc@ntc:configs (master)$ git remote -v
+origin  https://github.com/smith-ntc/JS_configs (fetch)
+origin  https://github.com/smith-ntc/JS_configs (push)
+```
+
+---
+
+class: ubuntu
+# Pushing the local repository to remote
+
+After ensuring that all local commits are good to be pushed to the remote server, use the `git push origin master` command 
+
+```
+ntc@ntc:configs (master)$ git push origin master
+Username for 'https://github.com': smith-ntc
+Password for 'https://smith-ntc@github.com':
+Counting objects: 22, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (22/22), done.
+Writing objects: 100% (22/22), 4.45 KiB | 0 bytes/s, done.
+Total 22 (delta 13), reused 0 (delta 0)
+remote: Resolving deltas: 100% (13/13), done.
+To https://github.com/smith-ntc/JS_configs
+ * [new branch]      master -> master
+```
+
+
+Here, the "master" is referencing the local repository.
+
+
+---
+# Lab Time
+
+Lab 29 - Getting started with GitHub
+
+---
+
+class: ubuntu
+# Cloning from remote repositories
+
+Many open source projects are available as github repositories.
+
+Use the `git clone` command
+
+```
+ntc@ntc:~$ git clone https://github.com/ansible/ansible
+Cloning into 'ansible'...
+remote: Counting objects: 298586, done.
+remote: Compressing objects: 100% (52/52), done.
+remote: Total 298586 (delta 46), reused 33 (delta 25), pack-reused 298505
+Receiving objects: 100% (298586/298586), 103.44 MiB | 13.48 MiB/s, done.
+Resolving deltas: 100% (190396/190396), done.
+Checking connectivity... done.
+Checking out files: 100% (8546/8546), done.
+ntc@ntc:~$ 
+
+```
+
+By default adds the project to a directory
+
+```
+ntc@ntc:~$ ls -lp | grep ans
+drwxrwxr-x 14 ntc ntc    4096 Feb 15 10:36 ansible/
+ntc@ntc:~$ 
+```
+
+---
+
+class: ubuntu
+# Cloning (Contd.)
+
+Optionally clone into another directory
+
+```
+ntc@ntc:~$ git clone https://github.com/napalm-automation/napalm.git my_project
+Cloning into 'my_project'...
+remote: Counting objects: 24022, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 24022 (delta 1), reused 4 (delta 0), pack-reused 24015
+Receiving objects: 100% (24022/24022), 5.12 MiB | 8.05 MiB/s, done.
+Resolving deltas: 100% (12966/12966), done.
+Checking connectivity... done.
+ntc@ntc:~$ 
+
+
+```
+
+Check the remote to see the path for the push and pull repositories
+
+```
+ntc@ntc:~$ cd my_project/
+ntc@ntc:my_project (develop)$ git remote -v
+origin	https://github.com/napalm-automation/napalm.git (fetch)
+origin	https://github.com/napalm-automation/napalm.git (push)
+ntc@ntc:my_project (develop)$ 
+
+```
+
+
+---
+# Lab Time
+
+- Lab 30 - Using GitHub to restore backup
+- Lab 31 - Working with Open Source Projects
+
+---
+
+# Branches in git
+
+Branching means you diverge from the main line of development and continue to do work without messing with that main line
 
 

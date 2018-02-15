@@ -1,4 +1,4 @@
-## Lab 6 - Work with branches
+## Lab - Work with branches
 
 ### Task 1 - Work with branches
 

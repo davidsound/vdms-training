@@ -1,4 +1,4 @@
-## Lab 1 - Starting with Git
+## Lab - Starting with Git
 
 This lab will help you build familiarity with Git and master the key commands to become proficient.
 

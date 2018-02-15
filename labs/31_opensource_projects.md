@@ -1,4 +1,4 @@
-## Lab 5 - Opensource Projects
+## Lab - Opensource Projects
 
 ### Task 1 - Clone remote repository
 

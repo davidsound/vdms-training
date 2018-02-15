@@ -1,4 +1,4 @@
-## Lab 8 - Pull Requests
+## Lab - Pull Requests
 
 ### Task 1 - Create a PR
 

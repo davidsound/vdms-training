@@ -1,4 +1,4 @@
-## Lab 2 - Navigate Git history
+## Lab - Navigate Git history
 
 This lab will help you inspect and move within Git logs and history.
 

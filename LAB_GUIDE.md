@@ -32,7 +32,12 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 25 - Advanced Bash Scripting](labs/25_adv_bash_scripting_lab.md)
 - [Lab 26 - Advanced Ping Bash Scripting](labs/26_ping_scripting_lab.md)
 - [Lab 27 - Getting started with Git ](labs/27_start_with_git.md)
-- [Lab 28 - Navigating git history](28_navigate_git_history.md)
-
-
-
+- [Lab 28 - Navigating git history](labs/28_navigate_git_history.md)
+- [Lab 29 - Getting Started with GitHub](labs/29_starting_github.md)
+- [Lab 30 - Cloning with GitHub](labs/30_clone_from_github.md)
+- [Lab 31 - Wokring with Open Source Projects](labs/31_opensource_projects.md)
+- [Lab 32 - Working with Branches in git](labs/32_git_branches.md)
+- [Lab 33 - Working with Conflicts in git](labs/33_git_conflicts.md)
+- [Lab 34 - Working with Pull Requests in git](labs/34_pull_requests.md)
+- [Lab 35 - Working with GitHub Shared Repos](labs/35_working_with_shared_repo.md)
+- [Lab 36 - Maintaining a Fork in git](labs/36_maintaining_fork.md)

@@ -1,4 +1,4 @@
-## Lab 4 - Clone from GitHub
+## Lab - Clone from GitHub
 
 
 

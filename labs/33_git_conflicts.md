@@ -1,4 +1,4 @@
-## Lab 7 - Deal with conflicts
+## Lab - Deal with conflicts
 
 ### Task 1 - Deal with conflicts
 

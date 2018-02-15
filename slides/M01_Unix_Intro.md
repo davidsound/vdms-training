@@ -3327,4 +3327,4 @@ echo $?
 ---
 # Lab Time
 
-Lab var 
+Lab 26  - Network functions scripting 

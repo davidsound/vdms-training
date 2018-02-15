@@ -31,6 +31,8 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 24 - Basic Bash scripting](labs/24_bash_scripting_lab.md)
 - [Lab 25 - Advanced Bash Scripting](labs/25_adv_bash_scripting_lab.md)
 - [Lab 26 - Advanced Ping Bash Scripting](labs/26_ping_scripting_lab.md)
+- [Lab 27 - Getting started with Git ](labs/27_start_with_git.md)
+- [Lab 28 - Navigating git history](28_navigate_git_history.md)
 
 
 

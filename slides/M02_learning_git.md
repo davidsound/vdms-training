@@ -603,3 +603,113 @@ ntc@ntc:my_project (develop)$
 Branching means you diverge from the main line of development and continue to do work without messing with that main line
 
 
+<img src="slides/media/git/branch1.png" alt="Pep8" style="align:middle:;width:500px;height:350px;">
+
+---
+# How does git keep track of the current branch?
+
+A special pointer called "HEAD" is used to keep track of the current branch
+
+<img src="slides/media/git/branch2.png" alt="Pep8" style="align:middle:;width:700px;height:350px;">
+
+---
+
+# Checking out a branch
+
+Checking out a branch means making "HEAD" point to the new branch
+
+<img src="slides/media/git/branch3.png" alt="Pep8" style="align:middle:;width:700px;height:500px;">
+
+
+---
+
+# Advancing the branch
+
+<img src="slides/media/git/branch4.png" alt="Pep8" style="align:middle:;width:700px;height:500px;">
+
+---
+# Checking out master
+
+"Master" is simply a name used by convention. The "HEAD" moves back to that commit
+
+<img src="slides/media/git/branch5.png" alt="Pep8" style="align:middle:;width:700px;height:500px;">
+
+---
+# Advancing the "master" branch
+Advancing master causes a split
+
+<img src="slides/media/git/branch6.png" alt="Pep8" style="align:middle:;width:700px;height:500px;">
+
+
+
+---
+class: center, middle, segue
+
+
+# Using a scenario to understand branching
+
+---
+
+# Branching master
+
+Create a new branch "iss53" to work on "Issue 53"
+
+<img src="slides/media/git/branch7.png" alt="Pep8" style="align:middle:;width:700px;height:450px;">
+
+ 
+---
+# Update branch 
+
+Update "iss53"
+
+<img src="slides/media/git/branch8.png" alt="Pep8" style="align:middle:;width:700px;height:450px;">
+
+
+---
+# Request for a fix in master
+
+While still working on "iss53" quickly revert back to fix master
+
+<img src="slides/media/git/branch9.png" alt="Pep8" style="align:middle:;width:700px;height:450px;">
+
+
+---
+# Advance master
+
+New master is old master + the fix applied to it (Fast Forward)
+
+<img src="slides/media/git/branch10.png" alt="Pep8" style="align:middle:;width:700px;height:450px;">
+
+
+---
+
+# Continue working on branch
+
+Complete work on "iss53" (which was branched of the old master - C2)
+
+<img src="slides/media/git/branch11.png" alt="Pep8" style="align:middle:;width:700px;height:450px;">
+
+---
+
+# Merge commit
+
+Git automatically figures out the current master and creates a new commit ( rather than just move the pointer) 
+<img src="slides/media/git/branch12.png" alt="Pep8" style="align:middle:;width:700px;height:450px;">
+
+---
+
+# Some branching stratergies
+<img src="slides/media/git/branch-strategy.png" alt="Pep8" style="align:middle:;width:750px;height:400px;">
+
+
+
+
+---
+# Lab Time
+
+Lab 32 - Git Branches
+---
+
+
+class: ubuntu
+# 

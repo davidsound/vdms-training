@@ -4,7 +4,7 @@
 
 ##### Step 1
 
-Download the EOS vagrant box from [this](link) link.
+Download the EOS vagrant box from [this](https://drive.google.com/drive/folders/1OQvC7qCFygTRXuR76xqt2fBovcgbOy_7) link.
 
 ##### Step 2
 

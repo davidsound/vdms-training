@@ -60,7 +60,7 @@
         display: none;
         position: absolute;
         height: 100%;
-        width: 100%;
+        width: 100%;lfd;jghjf
         page-break-after: always;
       }
       .remark-slide-scaler {

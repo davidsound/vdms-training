@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
     centos.vm.box = "centos/7"
     centos.vm.network :forwarded_port, guest: 22, host: 12200, id: 'ssh'
     centos.vm.network "private_network", virtualbox__intnet: "link_1",
-                                       ip: "10.0.1.100"
+                                       ip: "169.254.1.10"
   end
 ```
 
@@ -68,7 +68,7 @@ Append a JunOS box to the Vagrantfile. Map port 22 into port 12203 and add a pri
     junos.vm.box = "juniper/ffp-12.1X47-D15.4-packetmode"
     junos.vm.network :forwarded_port, guest: 22, host: 12203, id: 'ssh'
     junos.vm.network "private_network", virtualbox__intnet: "link_1",
-                                        ip: "169.254.1.11", auto_config: false
+                                        ip: "169.254.1.12", auto_config: false
   end
 ```
 
@@ -85,7 +85,7 @@ Append a JunOS box to the Vagrantfile. Map port 22 into port 12201 and port 443 
     eos.vm.network :forwarded_port, guest: 443, host: 12443, id: 'https'
 
     eos.vm.network "private_network", virtualbox__intnet: "link_1",
-                                      ip: "169.254.1.11", auto_config: false
+                                      ip: "169.254.1.13", auto_config: false
   end
 ```
 

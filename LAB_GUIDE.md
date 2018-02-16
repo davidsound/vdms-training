@@ -44,7 +44,7 @@ Please be sure to review the [device information](labs/DEVICE_INFO.md) before st
 - [Lab 37 - Installing VirtualBox](labs/37_virtualbox_install.md)
 - [Lab 38 - Creating a JUNOS VirtualBox](labs/38_virtualizing_junos.md)
 - [Lab 39 - Creating an Arista VirtualBox](labs/39_virtualizing_arista.md)
-- [Lab 40 - Installing Vagrant](labs/40_installing_vagrant_md)
+- [Lab 40 - Installing Vagrant](labs/40_installing_vagrant.md)
 - [Lab 41 - Adding a CentOS vagrant box](labs/41_vagrant_centos.md)
 - [Lab 42 - Adding a JunOS vagrant box](labs/42_vagrant_junos.md)
 - [Lab 43 - Building a multi-host topology with Vagrant](labs/43_vagrant_multiple.md)

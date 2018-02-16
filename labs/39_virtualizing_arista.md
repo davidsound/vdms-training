@@ -1,10 +1,10 @@
-## Lab 3 - Arista
+## Lab - Arista
 
 ### Task 1 - Arista
 
 ##### Step 1
 
-Download the `vEOS` and its `Aboot` images for virtualbox from [link](link).
+Download the `vEOS` and its `Aboot` images for virtualbox from [link](https://drive.google.com/drive/folders/1OQvC7qCFygTRXuR76xqt2fBovcgbOy_7).
 
 ##### Step 2
 
@@ -93,7 +93,7 @@ localhost(config)#hostname ntc-eos01
 ntc-eos01(config)#username ntc secret 0 ntc123
 ntc-eos01(config)#ip routing
 ntc-eos01(config)#int management 1
-ntc-eos01(config-if-Ma1)#ip address 192.168.99.3/24
+ntc-eos01(config-if-Ma1)#ip address 192.168.56.3/24
 ntc-eos01(config-if-Ma1)#no shut
 ntc-eos01(config)#copy run startup-config
 Copy completed successfully.
@@ -105,7 +105,7 @@ ntc-eos01(config)#
 Connect to the VM using SSH from your local machine.
 
 ```
-$ ssh ntc@192.168.99.3
+$ ssh ntc@192.168.56.3
 Password:
 ntc-eos01>
 ```

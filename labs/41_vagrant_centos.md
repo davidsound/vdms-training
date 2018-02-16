@@ -1,4 +1,4 @@
-## Lab 2 - Vagrant CentOS
+## Lab - Vagrant CentOS
 
 ### Task 1 - Vagrant CentOS
 

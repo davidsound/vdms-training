@@ -1,4 +1,4 @@
-## Lab 1 - Vagrant
+## Lab - Vagrant
 
 ### Task 1 - Install Vagrant
 

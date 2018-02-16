@@ -1,4 +1,4 @@
-## Lab xxx - Vagrant
+## Lab - Vagrant
 
 ### Task 1 - Build multiple boxes
 

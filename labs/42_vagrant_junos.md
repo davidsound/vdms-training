@@ -1,4 +1,4 @@
-## Lab xx - Vagrant Junos
+## Lab - Vagrant Junos
 
 ### Task 1 - Vagrant Junos
 

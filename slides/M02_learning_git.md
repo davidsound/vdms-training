@@ -806,13 +806,26 @@ Pull requests are a way to request changes to a repository
 - Submitting PRs from a forked copy of a public repo is how the maintainer gets an opportunity to review the request
 - Typically used to build CI pipelines as a trigger to kick off automated testing
 
+---
+
+# Working with a shared repo
+
+Best practices
+
+- Add the original repo as a remote called `upstream`
+- Always `fetch` from upstream but push to `origin`
 
 ---
 # Lab Time
 
-- Lab 33 - Resolving git conflicts
 - Lab 34 - Pull requests
+- Lab 35 - Working with a shared repo
+- Lab 36 - Maintaining a forked repo
 ---
+
+
+
+
 
 
 

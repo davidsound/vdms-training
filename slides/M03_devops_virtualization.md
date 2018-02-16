@@ -294,4 +294,96 @@ sudo pip install napalm
 ---
 # Lab Time
 
-Lab var 
+- Lab 40 - Installing Vagrant
+- Lab 41 - Vagrant CentOS 
+
+
+---
+
+class: ubuntu
+# Vagrant Plugins
+
+Plugins are powerful, first-class citizens that extend Vagrant using a well-documented, stable API that can withstand major version upgrade
+
+Plugins are installed using vagrant `plugin install`:
+
+
+```
+ntc@ntc:~$ vagrant plugin install vagrant-junos
+Installing the 'vagrant-junos' plugin. This can take a few minutes...
+Fetching: vagrant-junos-0.2.1.gem (100%)
+Installed the plugin 'vagrant-junos (0.2.1)'!
+```
+
+Once a plugin is installed, it will automatically be loaded by Vagrant. 
+
+---
+
+class: ubuntu
+# Adding a custom box 
+
+The `vagrant box add` command can be used to add custom boxes
+
+
+```
+ntc@ntc:~$ vagrant box add juniper/ffp-12.1X47-D15.4-packetmode
+==> box: Loading metadata for box 'juniper/ffp-12.1X47-D15.4-packetmode'
+    box: URL: https://vagrantcloud.com/juniper/ffp-12.1X47-D15.4-packetmode
+This box can work with multiple providers! The providers that it
+can work with are listed below. Please review the list and choose
+the provider you will be working with.
+
+1) virtualbox
+2) vmware_desktop
+
+Enter your choice: 1
+==> box: Adding box 'juniper/ffp-12.1X47-D15.4-packetmode' (v0.5.0) for provider: virtualbox
+    box: Downloading: https://vagrantcloud.com/juniper/boxes/ffp-12.1X47-D15.4-packetmode/versions/0.5.0/providers/virtualbox.box
+==> box: Successfully added box 'juniper/ffp-12.1X47-D15.4-packetmode' (v0.5.0) for 'virtualbox'!
+```
+
+---
+# Lab Time
+
+- Lab 42 - Vagrant JUNOS box
+
+---
+
+
+# Bringing up a full topology using vagrant
+
+
+Private network interconnections can be defined using the `Vagrantfile`.
+
+
+
+**Example:**
+
+- Connect a CentOS box to a private network using virtualbox internal network
+
+```
+#Vagrantfile network entry 
+    centos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.10"
+```
+
+- Connect a Juniper box to the same private network:
+
+```
+#Vagrantfile network entry 
+
+    junos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.11", auto_config: false
+```
+
+- Connect an Arista box to the same private network:
+
+```
+#Vagrantfile network entry 
+    eos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.13", auto_config: false
+```
+
+---
+# Lab Time
+
+- Lab 43 - Using Vagrant to bring up a complex network 
+
+---

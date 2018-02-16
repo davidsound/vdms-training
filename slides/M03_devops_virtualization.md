@@ -22,7 +22,7 @@ class: center, middle, title
 
 # VirtualBox
 
-- VirtualBox is a cross-platform virtualization application, that can run multiple operating systems as virtual machines the same time. 
+VirtualBox is a cross-platform virtualization application, that can run multiple operating systems as virtual machines the same time. 
 
 Typical use cases:
 - Testing and disaster recovery
@@ -349,6 +349,7 @@ Enter your choice: 1
 
 ---
 
+class: ubuntu
 
 # Bringing up a full topology using vagrant
 

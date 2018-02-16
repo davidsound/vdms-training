@@ -46,7 +46,7 @@ ntc@ntc:vagrant_multiple
 
 Create a new Vagrantfile with a CentOS box. Map port 22 into port 12200 and add a private network interface.
 
-```
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -63,7 +63,7 @@ Vagrant.configure(2) do |config|
 
 Append a JunOS box to the Vagrantfile. Map port 22 into port 12203 and add a private network interface.
 
-```
+```ruby
   config.vm.define "junos" do |junos|
     junos.vm.box = "juniper/ffp-12.1X47-D15.4-packetmode"
     junos.vm.network :forwarded_port, guest: 22, host: 12203, id: 'ssh'
@@ -77,7 +77,7 @@ Append a JunOS box to the Vagrantfile. Map port 22 into port 12203 and add a pri
 
 Append a JunOS box to the Vagrantfile. Map port 22 into port 12201 and port 443 into port 12443. Also add a private network interface.
 
-```
+```ruby
   config.vm.define "eos" do |eos|
     eos.vm.box = "vEOS-lab-4.18.5M"
 
@@ -87,6 +87,7 @@ Append a JunOS box to the Vagrantfile. Map port 22 into port 12201 and port 443 
     eos.vm.network "private_network", virtualbox__intnet: "link_1",
                                       ip: "169.254.1.13", auto_config: false
   end
+end
 ```
 
 ##### Step 7
@@ -148,4 +149,36 @@ ntc@ntc:vagrant_multiple$  vagrant ssh centos
 ntc@ntc:vagrant_multiple$ vagrant ssh junos
 --- JUNOS 12.1X47-D15.4 built 2014-11-12 02:13:59 UTC
 root@vsrx%
+```
+
+##### Final Vagrantfile
+
+Your final `Vagrantfile` should look like this.
+
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.define "centos" do |centos|
+    centos.vm.box = "centos/7"
+    centos.vm.network :forwarded_port, guest: 22, host: 12200, id: 'ssh'
+    centos.vm.network "private_network", virtualbox__intnet: "link_1",
+                                       ip: "169.254.1.10"
+  end
+  config.vm.define "junos" do |junos|
+    junos.vm.box = "juniper/ffp-12.1X47-D15.4-packetmode"
+    junos.vm.network :forwarded_port, guest: 22, host: 12203, id: 'ssh'
+    junos.vm.network "private_network", virtualbox__intnet: "link_1",
+                                        ip: "169.254.1.12", auto_config: false
+  end
+  config.vm.define "eos" do |eos|
+    eos.vm.box = "vEOS-lab-4.18.5M"
+
+    eos.vm.network :forwarded_port, guest: 22, host: 12201, id: 'ssh'
+    eos.vm.network :forwarded_port, guest: 443, host: 12443, id: 'https'
+
+    eos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.13", auto_config: false
+  end
+end
 ```

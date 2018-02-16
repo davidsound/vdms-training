@@ -1,4 +1,4 @@
-## Lab 2 - Junos
+## Lab - Junos in  VirtualBox
 
 ### Task 1 - Junos
 
@@ -107,9 +107,9 @@ Enter a basic configuration setting the hostname, the password (`ntc123`), the m
 
 ```
 set system host-name ntc_junos01
-set system root-authentication encrypted-password "$1$RGiWW4K4$9OeozdIr2RYvo..mVNXH0."
+set system root-authentication plain-text-password
 set system services ssh
-set interfaces em0 unit 0 family inet address 192.168.99.2/24
+set interfaces em0 unit 0 family inet address 192.168.56.2/24
 commit and-quit
 ```
 
@@ -120,13 +120,15 @@ Note: `em0` IP address should be on the same network of the `vboxnet0` or `Virtu
 root@root# set system host-name ntc_junos01
 
 [edit]
-root@root# set system root-authentication encrypted-password "$1$RGiWW4K4$9OeozdIr2RYvo..mVNXH0."
+root@root# set system root-authentication plain-text-password
+New password: ntc123
+Retype new password: ntc123
 
 [edit]
 root@root# set system services ssh
 
 [edit]
-root@root# set interfaces em0 unit 0 family inet address 192.168.99.2/24
+root@root# set interfaces em0 unit 0 family inet address 192.168.56.2/24
 
 [edit]
 root@root# commit and-quit
@@ -142,7 +144,7 @@ root@ntc_junos01>
 Connect to the VM using SSH from your local machine.
 
 ```
-$ ssh root@192.168.99.2
+$ ssh root@192.168.56.2
 
 --- JUNOS 12.1R1.9 built 2012-03-24 12:52:33 UTC
 root@ntc_junos01%

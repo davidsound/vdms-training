@@ -1,4 +1,4 @@
-## Lab  - Virtualbox
+## Lab - Virtualbox
 
 ### Task 1 - Install Virtualbox
 

@@ -4,70 +4,13 @@ In this lab we will start a basic webserver using python's [SimpleHTTPServer](ht
 
 ### Task 1 - Setup
 
-##### Step 1 - Webserver
 
-Let's create a directory & script for our webserver
+##### Step 1 - Start Web Server
 
-```bash
-[ntc@ntc ~]$ mkdir ~/web && cd ~/web
-[ntc@ntc web]$
-```
-
-Let's create two files in the `~/web` directory - `index.html` & `server.py`
-
-> index.html
-
-```html
-<html>
-<header><title>Linux is Cool!</title></header>
-<body>
-LINUX IS AWESOME!!!!
-</body>
-<html>
-```
-
-> server.py
-
-```python
-import SimpleHTTPServer
-import SocketServer
-
-PORT=5000
-
-Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-
-httpd = SocketServer.TCPServer(("", PORT), Handler)
-
-print "Server Running at Port", PORT
-
-httpd.serve_forever()
-```
+Start the webserver on the `centos` host that we will use for this testing.
 
 ```bash
-[ntc@ntc web]$ ls
-index.html  server.py
-[ntc@ntc web]$
-```
-
-##### Step 2 - Tools
-
-Before we start our web server, let's install the tools we need to analyze the web traffic
-
-```bash
-[ntc@ntc web]$ sudo yum install -y tcpdump nc nmap
-```
-
-Details on the tools we installed:
-
-* [tcpdump](https://www.tcpdump.org/tcpdump_man.html) dumps traffic on a network
-* [netcat](http://netcat.sourceforge.net/) reads & writes data across network connections
-* [nmap](https://nmap.org/) is a utility for network discovery & security auditing
-
-##### Step 3 - Start Server
-
-Start the webserver
-
-```bash
+[ntc@ntc ~]$ cd web
 [ntc@ntc web]$ python server.py &
 [1] 5738
 [ntc@ntc web]$ Server at Port 5000
@@ -75,7 +18,7 @@ Start the webserver
 
 ##### Step 4 - Verify Server
 
-Open a browser and go to `localhost:5000`
+Open a browser on your **jumphost** and go to `http://centos:5000`
 
 ![](images/webserver.png)
 
@@ -85,10 +28,10 @@ Now that our server is running, lets examine the traffic
 
 #### Step 1 - `tcpdump`
 
-To use `tcpdump` open a new terminal window & enter the following command:
+To use `tcpdump` open a new session to your `centos` host and enter the following command:
 
 ```bash
-[ntc@ntc web]$ sudo tcpdump -i any port 5000
+[ntc@ntc ~]$ sudo tcpdump -i any port 5000
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
 ```
@@ -130,7 +73,7 @@ Let's add some options to `tcpdump`
 In the output above, we saw both sides of the HTTP conversation.  We can adjust the `tcpdump` output to show only `inbound` traffic:
 
 ```bash
-[ntc@ntc web]$ sudo tcpdump -i any src port 5000
+[ntc@ntc ~]$ sudo tcpdump -i any src port 5000
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
 ```

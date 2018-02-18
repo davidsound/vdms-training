@@ -74,48 +74,88 @@ At times it can be beneficial to see the size of directories when investigating 
 
 ##### Step 1
 
-Navigate to the `findme` directory within the `ntc` user home directory on the `centos` host.
+Navigate to the `backup_dir` directory within the `ntc` user home directory on the `centos` host.
 
 ```bash
 [ntc@ntc ~]$ pwd
 /home/ntc
-[ntc@ntc ~]$ cd findme/
-[ntc@ntc findme]$ 
+[ntc@ntc ~]$ cd backup_dir/
+[ntc@ntc backup_dir]$ 
 ```
 
 ##### Step 2
 
-From the `~/findme/` directory run the `du` command to show the sizes of subdirectories within the `findme` directory.
+From the `~/backup_dir/` directory run the `du` command to show the sizes of subdirectories within the `backup_dir` directory.
 
 ```bash
-[ntc@ntc findme]$ du
-120     ./a/e/h
-120     ./a/e/i
-120     ./a/e/j
-480     ./a/e
-120     ./a/f/h
-120     ./a/f/i
-120     ./a/f/j
-480     ./a/f
-128     ./a/g/h
-120     ./a/g/i
-120     ./a/g/j
-488     ./a/g
-1568    ./a
-120     ./b/e/h
-120     ./b/e/i
-102520  ./b/e/j
-102880  ./b/e
-120     ./b/f/h
-120     ./b/f/i
-120     ./b/f/j
-480     ./b/f
-120     ./b/g/h
-120     ./b/g/i
-120     ./b/g/j
-480     ./b/g
-103960  ./b
-105528  .
+[ntc@ntc backup_dir]$ du
+484     ./january/week1/monday
+484     ./january/week1/tuesday
+484     ./january/week1/wednesday
+484     ./january/week1/thursday
+484     ./january/week1/friday
+484     ./january/week1/saturday
+484     ./january/week1/sunday
+3388    ./january/week1
+484     ./january/week2/monday
+484     ./january/week2/tuesday
+484     ./january/week2/wednesday
+484     ./january/week2/thursday
+484     ./january/week2/friday
+484     ./january/week2/saturday
+484     ./january/week2/sunday
+3388    ./january/week2
+484     ./january/week3/monday
+484     ./january/week3/tuesday
+484     ./january/week3/wednesday
+484     ./january/week3/thursday
+484     ./january/week3/friday
+484     ./january/week3/saturday
+484     ./january/week3/sunday
+3388    ./january/week3
+484     ./january/week4/monday
+484     ./january/week4/tuesday
+484     ./january/week4/wednesday
+484     ./january/week4/thursday
+484     ./january/week4/friday
+484     ./january/week4/saturday
+484     ./january/week4/sunday
+3388    ./january/week4
+13552   ./january
+484     ./february/week1/monday
+484     ./february/week1/tuesday
+484     ./february/week1/wednesday
+484     ./february/week1/thursday
+484     ./february/week1/friday
+484     ./february/week1/saturday
+484     ./february/week1/sunday
+3388    ./february/week1
+484     ./february/week2/monday
+484     ./february/week2/tuesday
+484     ./february/week2/wednesday
+102884  ./february/week2/thursday
+484     ./february/week2/friday
+484     ./february/week2/saturday
+484     ./february/week2/sunday
+105788  ./february/week2
+484     ./february/week3/monday
+484     ./february/week3/tuesday
+484     ./february/week3/wednesday
+484     ./february/week3/thursday
+484     ./february/week3/friday
+484     ./february/week3/saturday
+484     ./february/week3/sunday
+3388    ./february/week3
+484     ./february/week4/monday
+484     ./february/week4/tuesday
+484     ./february/week4/wednesday
+484     ./february/week4/thursday
+484     ./february/week4/friday
+484     ./february/week4/saturday
+484     ./february/week4/sunday
+3388    ./february/week4
+115952  ./february
+129504  .
 ```
 
 This output is not very straightforward without knowing more about the `du` command and its output.  The default output of the `du` command is `kilobytes`.
@@ -125,34 +165,74 @@ This output is not very straightforward without knowing more about the `du` comm
 Run the `du` command using the `-h` option to make the output more _human readable_.
 
 ```bash
-[ntc@ntc findme]$ du -h
-120K    ./a/e/h
-120K    ./a/e/i
-120K    ./a/e/j
-480K    ./a/e
-120K    ./a/f/h
-120K    ./a/f/i
-120K    ./a/f/j
-480K    ./a/f
-128K    ./a/g/h
-120K    ./a/g/i
-120K    ./a/g/j
-488K    ./a/g
-1.6M    ./a
-120K    ./b/e/h
-120K    ./b/e/i
-101M    ./b/e/j
-101M    ./b/e
-120K    ./b/f/h
-120K    ./b/f/i
-120K    ./b/f/j
-480K    ./b/f
-120K    ./b/g/h
-120K    ./b/g/i
-120K    ./b/g/j
-480K    ./b/g
-102M    ./b
-104M    .
+[ntc@ntc backup_dir]$ du -h
+484K    ./january/week1/monday
+484K    ./january/week1/tuesday
+484K    ./january/week1/wednesday
+484K    ./january/week1/thursday
+484K    ./january/week1/friday
+484K    ./january/week1/saturday
+484K    ./january/week1/sunday
+3.4M    ./january/week1
+484K    ./january/week2/monday
+484K    ./january/week2/tuesday
+484K    ./january/week2/wednesday
+484K    ./january/week2/thursday
+484K    ./january/week2/friday
+484K    ./january/week2/saturday
+484K    ./january/week2/sunday
+3.4M    ./january/week2
+484K    ./january/week3/monday
+484K    ./january/week3/tuesday
+484K    ./january/week3/wednesday
+484K    ./january/week3/thursday
+484K    ./january/week3/friday
+484K    ./january/week3/saturday
+484K    ./january/week3/sunday
+3.4M    ./january/week3
+484K    ./january/week4/monday
+484K    ./january/week4/tuesday
+484K    ./january/week4/wednesday
+484K    ./january/week4/thursday
+484K    ./january/week4/friday
+484K    ./january/week4/saturday
+484K    ./january/week4/sunday
+3.4M    ./january/week4
+14M     ./january
+484K    ./february/week1/monday
+484K    ./february/week1/tuesday
+484K    ./february/week1/wednesday
+484K    ./february/week1/thursday
+484K    ./february/week1/friday
+484K    ./february/week1/saturday
+484K    ./february/week1/sunday
+3.4M    ./february/week1
+484K    ./february/week2/monday
+484K    ./february/week2/tuesday
+484K    ./february/week2/wednesday
+101M    ./february/week2/thursday
+484K    ./february/week2/friday
+484K    ./february/week2/saturday
+484K    ./february/week2/sunday
+104M    ./february/week2
+484K    ./february/week3/monday
+484K    ./february/week3/tuesday
+484K    ./february/week3/wednesday
+484K    ./february/week3/thursday
+484K    ./february/week3/friday
+484K    ./february/week3/saturday
+484K    ./february/week3/sunday
+3.4M    ./february/week3
+484K    ./february/week4/monday
+484K    ./february/week4/tuesday
+484K    ./february/week4/wednesday
+484K    ./february/week4/thursday
+484K    ./february/week4/friday
+484K    ./february/week4/saturday
+484K    ./february/week4/sunday
+3.4M    ./february/week4
+114M    ./february
+127M    .
 ```
 
 Now the output of the command provides more details around the the size ok each folder by displaying kilobytes (K), megabytes (M) and gigabytes (G).
@@ -164,27 +244,27 @@ You can use the `-sh` option to only show a summary of the directory instead of 
 Run `du -sh` and investigate the output.
 
 ```bash
-[ntc@ntc findme]$ du -sh
-104M    .
+[ntc@ntc backup_dir]$ du -sh
+127M    .
 ```
 
 ##### Step 5
 
 `du` can also be used to show the size of individual files.  You can include one or multiple files as arguments to the `du` command.
 
-Use `du` to find the size of the file `./a/e/file.01` in the _human readable_ format.
+Use `du` to find the size of the file `./january/week2/monday/config_backup.01` in the _human readable_ format.
 
 ```bash
-[ntc@ntc findme]$ du -h ./a/e/file.01
-12K     ./a/e/file.01
+[ntc@ntc backup_dir]$ du -h ./january/week2/monday/config_backup.01
+20K     ./january/week2/monday/config_backup.01
 ```
 
-Now find the size of files `./a/file.01` and `./b/file.01`.
+Now find the size of files `./january/week1/monday/config_backup.01` and `./february/week1/monday/config_backup.01`.
 
 ```bash
-[ntc@ntc findme]$ du -h ./a/file.01 ./b/file.01
-12K     ./a/file.01
-12K     ./b/file.01
+[ntc@ntc backup_dir]$ du -h ./january/week1/monday/config_backup.01 ./february/week1/monday/config_backup.01
+20K     ./january/week1/monday/config_backup.01
+20K     ./february/week1/monday/config_backup.01
 ```
 
 You can pass as many individual files as needed to `du` to find their size.
@@ -193,48 +273,52 @@ You can pass as many individual files as needed to `du` to find their size.
 
 In the same way you pass indiviual files to `du`, you can also pass individual directories.
 
-Use `du` to find only the size of the directory `./a/e/` in the _human readable_ format.
+Use `du` to find only the size of the directory `./january/week4/` in the _human readable_ format.
 
 > Remember, if you only want the size of a specific directory, and not all subdirectories, you must use the `-sh` option.
 
 ```bash
-[ntc@ntc findme]$ du -h -sh ./a/e/
-480K    ./a/e/
+[ntc@ntc backup_dir]$ du -h -sh ./january/week4/
+3.4M    ./january/week4/
 ```
 
 To find the size of any subdirectories run the `du` command without the `-sh` option.
 
 ```bash
-[ntc@ntc findme]$ du -h ./a/e/
-120K    ./a/e/h
-120K    ./a/e/i
-120K    ./a/e/j
-480K    ./a/e/
+[ntc@ntc backup_dir]$ du -h ./january/week4/
+484K    ./january/week4/monday
+484K    ./january/week4/tuesday
+484K    ./january/week4/wednesday
+484K    ./january/week4/thursday
+484K    ./january/week4/friday
+484K    ./january/week4/saturday
+484K    ./january/week4/sunday
+3.4M    ./january/week4/
 ```
 
 ##### Step 7
 
 You can also pass multiple directories to `du`.
 
-Find only the size of directories `./a/e/` and `./b/e/`.
+Find only the size of directories `./january/week4/` and `./february/week4/`.
 
 ```bash
-[ntc@ntc findme]$ du -h -sh ./a/e/ ./b/e/
-480K    ./a/e/
-101M    ./b/e/
+[ntc@ntc backup_dir]$ du -h -sh ./january/week4/ ./february/week4/
+3.4M    ./january/week4/
+3.4M    ./february/week4/
 ```
 
 ##### Step 8
 
 Try mixing files and directories as arguments to `du`.
 
-Find the sizes of `./a/f/`, `./b/f/file.01`, and `./b/g/j/file.01`.
+Find the sizes of `./january/week4/`, `./february/week1/monday/config_backup.01`, and `./january/week3/friday/config_backup.01`.
 
 ```bash
-[ntc@ntc findme]$ du -h -sh ./a/f/ ./b/f/file.01 ./b/g/j/file.01           
-480K    ./a/f/
-12K     ./b/f/file.01
-12K     ./b/g/j/file.01
+[ntc@ntc backup_dir]$ du -h -sh ./january/week4/ ./february/week1/monday/config_backup.01 ./january/week3/friday/config_backup.01
+3.4M    ./january/week4/
+20K     ./february/week1/monday/config_backup.01
+20K     ./january/week3/friday/config_backup.01
 ```
 
 
@@ -248,125 +332,181 @@ Find the sizes of `./a/f/`, `./b/f/file.01`, and `./b/g/j/file.01`.
 
 ### Task 3 - Use the `du` command to locate a large file
 
-Within the `findme` directory structure there is a file that is 100M.  Use the `du` commands we have covered to locate this file.
+Within the `backup_dir` directory structure there is a file that is 100M.  Use the `du` commands we have covered to locate this file.
 
 Scroll down for the answer.
 
 ```bash
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ 
-[ntc@ntc findme]$ du -h
-120K    ./a/e/h
-120K    ./a/e/i
-120K    ./a/e/j
-480K    ./a/e
-120K    ./a/f/h
-120K    ./a/f/i
-120K    ./a/f/j
-480K    ./a/f
-128K    ./a/g/h
-120K    ./a/g/i
-120K    ./a/g/j
-488K    ./a/g
-1.6M    ./a
-120K    ./b/e/h
-120K    ./b/e/i
-101M    ./b/e/j
-101M    ./b/e
-120K    ./b/f/h
-120K    ./b/f/i
-120K    ./b/f/j
-480K    ./b/f
-120K    ./b/g/h
-120K    ./b/g/i
-120K    ./b/g/j
-480K    ./b/g
-102M    ./b
-104M    .
-[ntc@ntc findme]$ du -h ./b/e/j  
-101M    ./b/e/j
-[ntc@ntc findme]$ ls -ltr ./b/e/j
-total 102520
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.01
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.02
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.03
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.04
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.05
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.06
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.07
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.08
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.09
--rw-rw-r--. 1 ntc ntc      9216 Feb  9 16:56 file.10
--rw-r--r--. 1 ntc ntc 104857600 Feb  9 16:56 findmebig
-[ntc@ntc findme]$ du -h ./b/e/j/findmebig
-100M    ./b/e/j/findmebig
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ 
+[ntc@ntc backup_dir]$ du -h
+[ntc@ntc backup_dir]$ du -h
+484K    ./january/week1/monday
+484K    ./january/week1/tuesday
+484K    ./january/week1/wednesday
+484K    ./january/week1/thursday
+484K    ./january/week1/friday
+484K    ./january/week1/saturday
+484K    ./january/week1/sunday
+3.4M    ./january/week1
+484K    ./january/week2/monday
+484K    ./january/week2/tuesday
+484K    ./january/week2/wednesday
+484K    ./january/week2/thursday
+484K    ./january/week2/friday
+484K    ./january/week2/saturday
+484K    ./january/week2/sunday
+3.4M    ./january/week2
+484K    ./january/week3/monday
+484K    ./january/week3/tuesday
+484K    ./january/week3/wednesday
+484K    ./january/week3/thursday
+484K    ./january/week3/friday
+484K    ./january/week3/saturday
+484K    ./january/week3/sunday
+3.4M    ./january/week3
+484K    ./january/week4/monday
+484K    ./january/week4/tuesday
+484K    ./january/week4/wednesday
+484K    ./january/week4/thursday
+484K    ./january/week4/friday
+484K    ./january/week4/saturday
+484K    ./january/week4/sunday
+3.4M    ./january/week4
+14M     ./january
+484K    ./february/week1/monday
+484K    ./february/week1/tuesday
+484K    ./february/week1/wednesday
+484K    ./february/week1/thursday
+484K    ./february/week1/friday
+484K    ./february/week1/saturday
+484K    ./february/week1/sunday
+3.4M    ./february/week1
+484K    ./february/week2/monday
+484K    ./february/week2/tuesday
+484K    ./february/week2/wednesday
+101M    ./february/week2/thursday
+484K    ./february/week2/friday
+484K    ./february/week2/saturday
+484K    ./february/week2/sunday
+104M    ./february/week2
+484K    ./february/week3/monday
+484K    ./february/week3/tuesday
+484K    ./february/week3/wednesday
+484K    ./february/week3/thursday
+484K    ./february/week3/friday
+484K    ./february/week3/saturday
+484K    ./february/week3/sunday
+3.4M    ./february/week3
+484K    ./february/week4/monday
+484K    ./february/week4/tuesday
+484K    ./february/week4/wednesday
+484K    ./february/week4/thursday
+484K    ./february/week4/friday
+484K    ./february/week4/saturday
+484K    ./february/week4/sunday
+3.4M    ./february/week4
+114M    ./february
+127M    .
+[ntc@ntc backup_dir]$ du -h ./february/week2/thursday
+101M    ./february/week2/thursday
+[ntc@ntc backup_dir]$ ls -ltr ./february/week2/thursday
+[ntc@ntc backup_dir]$ ls -ltr ./february/week2/thursday
+total 102880
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.01
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.02
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.03
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.04
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.05
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.06
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.07
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.08
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.09
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.10
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.11
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.12
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.13
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.14
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.15
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.16
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.17
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.18
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.19
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.20
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.21
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.22
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.23
+-rw-rw-r--. 1 ntc ntc     18432 Feb 18 01:06 config_backup.24
+-rw-r--r--. 1 ntc ntc 104857600 Feb 18 01:07 largeimg
+[ntc@ntc backup_dir]$ du -h ./february/week2/thursday/largeimg
+100M    ./february/week2/thursday/largeimg
 ```
 
 
@@ -387,45 +527,75 @@ The `find` command is useful for locating files based on multiple attributes suc
 
 The basic structure to run `find` is the command `find`, followed by the location you want to search in, then an expression, followed by a definition for that expression.  Here is a basic example:
 
-`find . -name file.01`
+`find . -name config_backup.01`
 
-This command tells find to begin looking in the currenty directory for a file named `file.01`.  This will look for a file or files named `file.01` in the current directory and all subdirectories.
+This command tells find to begin looking in the currenty directory for a file named `config_backup.01`.  This will look for a file or files named `config_backup.01` in the current directory and all subdirectories.
 
 Run this command from the `home` directory of the `ntc` user on the `centos` host.
 
 ```bash
 [ntc@ntc ~]$ pwd
 /home/ntc
-[ntc@ntc ~]$ find . -name file.01
-./findme/a/e/h/file.01
-./findme/a/e/i/file.01
-./findme/a/e/j/file.01
-./findme/a/e/file.01
-./findme/a/f/h/file.01
-./findme/a/f/i/file.01
-./findme/a/f/j/file.01
-./findme/a/f/file.01
-./findme/a/g/h/file.01
-./findme/a/g/i/file.01
-./findme/a/g/j/file.01
-./findme/a/g/file.01
-./findme/a/file.01
-./findme/b/e/h/file.01
-./findme/b/e/i/file.01
-./findme/b/e/j/file.01
-./findme/b/e/file.01
-./findme/b/f/h/file.01
-./findme/b/f/i/file.01
-./findme/b/f/j/file.01
-./findme/b/f/file.01
-./findme/b/g/h/file.01
-./findme/b/g/i/file.01
-./findme/b/g/j/file.01
-./findme/b/g/file.01
-./findme/b/file.01
+[ntc@ntc ~]$ find . -name config_backup.01
+./backup_dir/january/week1/monday/config_backup.01
+./backup_dir/january/week1/tuesday/config_backup.01
+./backup_dir/january/week1/wednesday/config_backup.01
+./backup_dir/january/week1/thursday/config_backup.01
+./backup_dir/january/week1/friday/config_backup.01
+./backup_dir/january/week1/saturday/config_backup.01
+./backup_dir/january/week1/sunday/config_backup.01
+./backup_dir/january/week2/monday/config_backup.01
+./backup_dir/january/week2/tuesday/config_backup.01
+./backup_dir/january/week2/wednesday/config_backup.01
+./backup_dir/january/week2/thursday/config_backup.01
+./backup_dir/january/week2/friday/config_backup.01
+./backup_dir/january/week2/saturday/config_backup.01
+./backup_dir/january/week2/sunday/config_backup.01
+./backup_dir/january/week3/monday/config_backup.01
+./backup_dir/january/week3/tuesday/config_backup.01
+./backup_dir/january/week3/wednesday/config_backup.01
+./backup_dir/january/week3/thursday/config_backup.01
+./backup_dir/january/week3/friday/config_backup.01
+./backup_dir/january/week3/saturday/config_backup.01
+./backup_dir/january/week3/sunday/config_backup.01
+./backup_dir/january/week4/monday/config_backup.01
+./backup_dir/january/week4/tuesday/config_backup.01
+./backup_dir/january/week4/wednesday/config_backup.01
+./backup_dir/january/week4/thursday/config_backup.01
+./backup_dir/january/week4/friday/config_backup.01
+./backup_dir/january/week4/saturday/config_backup.01
+./backup_dir/january/week4/sunday/config_backup.01
+./backup_dir/february/week1/monday/config_backup.01
+./backup_dir/february/week1/tuesday/config_backup.01
+./backup_dir/february/week1/wednesday/config_backup.01
+./backup_dir/february/week1/thursday/config_backup.01
+./backup_dir/february/week1/friday/config_backup.01
+./backup_dir/february/week1/saturday/config_backup.01
+./backup_dir/february/week1/sunday/config_backup.01
+./backup_dir/february/week2/monday/config_backup.01
+./backup_dir/february/week2/tuesday/config_backup.01
+./backup_dir/february/week2/wednesday/config_backup.01
+./backup_dir/february/week2/thursday/config_backup.01
+./backup_dir/february/week2/friday/config_backup.01
+./backup_dir/february/week2/saturday/config_backup.01
+./backup_dir/february/week2/sunday/config_backup.01
+./backup_dir/february/week3/monday/config_backup.01
+./backup_dir/february/week3/tuesday/config_backup.01
+./backup_dir/february/week3/wednesday/config_backup.01
+./backup_dir/february/week3/thursday/config_backup.01
+./backup_dir/february/week3/friday/config_backup.01
+./backup_dir/february/week3/saturday/config_backup.01
+./backup_dir/february/week3/sunday/config_backup.01
+./backup_dir/february/week4/monday/config_backup.01
+./backup_dir/february/week4/tuesday/config_backup.01
+./backup_dir/february/week4/wednesday/config_backup.01
+./backup_dir/february/week4/thursday/config_backup.01
+./backup_dir/february/week4/friday/config_backup.01
+./backup_dir/february/week4/saturday/config_backup.01
+./backup_dir/february/week4/sunday/config_backup.01
 ```
 
-As you see `find` was able to locate multiple files with the name `file.01`!
+As you see `find` was able to locate multiple files with the name `config_backup.01`!
 
 > The `-name` expression is case sensitive. You can use the `-iname` expression to ignore the case of a name.
 
@@ -439,11 +609,11 @@ You can find files that are an exact size or larger/smaller than a given size.  
 
 If you would like to search for all files in the current directory that are over 50 megabytes you would use `find . -size +50M`.  To find files less than 50 megabytes you would just change the command to use `-50M`.  To only return files the are exactly 50 megabytes leave off the +/- sign.
 
-Use the `find` command to locate the large file (`findmebig`) that you located using the `du` command is Task 2.
+Use the `find` command to locate the large file (`backup_dirbig`) that you located using the `du` command is Task 2.
 
 ```bash
 [ntc@ntc ~]$ find . -size 100M
-./findme/b/e/j/findmebig
+./backup_dir/february/week2/thursday/largeimg
 ```
 
 ##### Step 3
@@ -460,9 +630,8 @@ Let search for files in the current directory that were modified over 14 days ag
 ./.mozilla/extensions
 ./.mozilla/plugins
 ./.bash_logout
-./.bash_profile
 ./.bashrc
-./findme/a/f/i/findmeold
+./backup_dir/january/week4/sunday/oldconfig
 ```
 
 

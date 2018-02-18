@@ -4,53 +4,70 @@ In this lab we will look into Linux process management, and build upon the previ
 
 ### Task 1 - Foreground Processes
 
-##### Step 1 - Time App
+##### Step 1 - Create basic `date` script
 
 Running a process/application in  the foreground is simply a matter of starting that process. For example, if we run the `date` command.  It runs in the foreground, printing immediately:
 
-```
+```bash
 [ntc@ntc ~]$ date
 Thu Feb  8 07:48:22 UTC 2018
 ```
 
-Lets create the equivalent Python script.  Open a file called `now.py` in your text editor of choice and copy the following:
+Lets create the equivalent `bash` script.  Open a file called `now.sh` in your text editor of choice and copy the following:
+
+```bash
+#! /bin/bash
+
+date
+```
+
+
+##### Step 2 - Set `now.sh` script to be executable.
+
+```bash
+[ntc@ntc ~]$ sudo chmod +x now.sh
+```
+
+
+##### Step 3 - Running the script in the foreground
+
+We can run the `now.sh` script in the foreground by typing `./now.sh`.
 
 ```
-import time
-print(time.asctime(time.localtime(time.time())))
-```
-We can run it in the foreground by typing `python now.py`
-
-```
-[ntc@ntc ~]$ python now.py
+[ntc@ntc ~]$ ./now.sh
 Thu Feb  8 07:56:51 2018
 ```
 
 Lets extend this script to print the time, every 10 seconds, for a minute.  Change our script to look like this:
 
 ```
-import time
+#! /bin/bash
 
-counter = range(1,61,10)
+counter=0
 
-for num in counter:
-    print(time.asctime(time.localtime(time.time())))
-    time.sleep(10)
+date
 
-print('ALL DONE')
+while [ $counter -lt 5 ]
+do
+  sleep 10
+  date
+  counter=$[$counter+1]
+done
+
+echo "ALL DONE!"
 ```
 
-This script will now print the the time every 10 seconds, and end by printing `ALL DONE`.  Run it by typing `python now.py`
+This script will now print the the time every 10 seconds, and end by printing `ALL DONE!`.  Run it by typing `./now.sh`
 
 ```
-[ntc@ntc ~]$ python now.py
+[ntc@ntc ~]$ ./now.sh
 Thu Feb  8 08:00:12 2018
 Thu Feb  8 08:00:22 2018
 Thu Feb  8 08:00:32 2018
 Thu Feb  8 08:00:42 2018
 Thu Feb  8 08:00:52 2018
 Thu Feb  8 08:01:02 2018
-ALL DONE
+ALL DONE!
 ```
 
 This is considered a foreground process.  Notice how when we ran our script, our cursor disappeared, and we were not able to type any commands.  Foreground processes are good for short-running processes, debugging, monitoring, etc... but, for a long-running process, we may not want to tie up our shell session.
@@ -64,11 +81,11 @@ Using our same `now.py` program, lets configure it to run in the background.
 While there are many ways to run background processes, a siple way to accomplish this is to append an ampersand `&` to the end of the command when calling the application. Lets do that, and then type `ls` and then `tree /etc/`:
 
 ```
-[ntc@ntc ~]$ python now.py &
-[1] 17600
+[ntc@ntc ~]$ ./now &
+[1] 4733
 [ntc@ntc ~]$ Thu Feb  8 08:17:08 2018
 ls
-now.py
+now.sh
 [ntc@ntc ~] Thu Feb  8 08:17:18 2018
 [ntc@ntc ~]$ tree /etc
 /etc
@@ -81,12 +98,12 @@ now.py
 Thu Feb  8 08:17:38 2018
 Thu Feb  8 08:17:48 2018
 Thu Feb  8 08:17:58 2018
-ALL DONE
+ALL DONE!
 ```
 
 We noticed that the program still executed - printing the date/time every 10 seconds, but we were able to access the shell session.  
 
-While this is a trivial example, and the programming printing every few seconds would still be annoying, a more in depth application, like a webserver, could run in the background while we monitored files, access logs, etc... 
+While this is a trivial example, and the program printing every few seconds would still be annoying, a more in depth application, like a webserver, could run in the background while we monitored files, access logs, etc... 
 
 What if an application is running in the background, and we want to manipulate it?
 
@@ -94,10 +111,10 @@ What if an application is running in the background, and we want to manipulate i
 
 ##### Step 1 - Background to Foreground
 
-Lets relaunch our `now.py` application in the background:
+Lets relaunch our `now.sh` application in the background:
 
 ```
-[ntc@ntc ~]$ python now.py &
+[ntc@ntc ~]$ ./now.sh &
 [1] 18264
 [ntc@ntc ~]$ Thu Feb  8 08:30:54 2018
 ```
@@ -105,12 +122,12 @@ Lets relaunch our `now.py` application in the background:
 Imagine you wanted to monitor this application - perhaps to debug a problem, you could do this bringing it to the foreground.  To do this, while the application is running, type `fg`.
 
 ```
-[ntc@ntc ~]$ python now.py &
+[ntc@ntc ~]$ ./now.sh &
 [1] 18264
 [ntc@ntc ~]$ Thu Feb  8 08:30:54 2018
 Thu Feb  8 08:31:04 2018
 fg
-python now.py
+./test.sh
 Thu Feb  8 08:31:14 2018
 Thu Feb  8 08:31:24 2018
 Thu Feb  8 08:31:34 2018
@@ -127,11 +144,11 @@ To take this a step further, consider that we have multiple processes running in
 We can view these by typing `jobs`
 
 ```
-[ntc@ntc ~]$ python now.py &
+[ntc@ntc ~]$ ./now.sh &
 [1] 19364
 [ntc@ntc ~]$ Thu Feb  8 08:53:52 2018
 jobs
-[1]+  Running                 python now.py &
+[1]+  Running                 ./test.sh &
 [ntc@ntc ~]$ Thu Feb  8 08:54:02 2018
 ```
 
@@ -140,7 +157,7 @@ jobs
 You may have noticed a number that is immediately displayed after we launch a process in the background.  This is the process id or `pid`
 
 ```
-[ntc@ntc ~]$ python now.py &
+[ntc@ntc ~]$ ./now.sh &
 [1] 19364 <-- Process ID
 ```
 To view running processes run the `ps` command:
@@ -175,27 +192,32 @@ The 1st column indicates the user running the process, and the 2nd, `PID` indica
 
 To stop a running process, we can use the `kill` or `pkill` commands.
 
-Lets change our `now.py` application to run longer:
+Lets change our `now.sh` application to run longer:
 
 ```
-[ntc@ntc ~]$ cat now.py 
-import time
+[ntc@ntc ~]$ cat test.sh
+#! /bin/bash
 
-counter = range(1,3601,10)
+counter=0
 
-for num in counter:
-    print(time.asctime(time.localtime(time.time())))
-    time.sleep(10)
+date
 
-print('ALL DONE')
+while [ $counter -lt 359 ]
+do
+  sleep 10
+  date
+  counter=$[$counter+1]
+done
+
+echo "ALL DONE!"
 ```
 
 It will now run for an hour.
 
-Start it by issuing the `python now.py &` command. 
+Start it by issuing the `./now.sh &` command. 
 
 ```
-[ntc@ntc ~]$ python now.py &
+[ntc@ntc ~]$ ./now.sh &
 [1] 20827
 [ntc@ntc ~]$ Thu Feb  8 09:23:25 2018
 ```

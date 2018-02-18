@@ -1,12 +1,14 @@
 ## Lab - Vagrant CentOS
 
+**Use your local machine for Vagrant labs.**
+
 ### Task 1 - Vagrant CentOS
 
 ##### Step 1
 
 Add a CentOS box to you local vagrant, choosing virtualbox as provider.
 
-```
+```bash
 ntc@ntc:~$ vagrant box add centos/7
 ==> box: Loading metadata for box 'centos/7'
     box: URL: https://vagrantcloud.com/centos/7
@@ -30,7 +32,7 @@ Enter your choice: 3
 
 Verify the box has been imported.
 
-```
+```bash
 ntc@ntc:~$ vagrant box list
 centos/7                             (virtualbox, 1801.02)
 juniper/ffp-12.1X47-D15.4-packetmode (virtualbox, 0.5.0)
@@ -41,7 +43,7 @@ juniper/ffp-12.1X47-D15.4-packetmode (virtualbox, 0.5.0)
 
 Create a new directory called `vagrant_centos`.
 
-```
+```bash
 ntc@ntc:~$ mkdir vagrant_centos
 ntc@ntc:~$ cd vagrant_centos
 ntc@ntc:vagrant_centos
@@ -49,9 +51,11 @@ ntc@ntc:vagrant_centos
 
 ##### Step 4
 
-Create a new Vagrantfile with the following content.
+Create a new file named `Vagrantfile` within your new `vagrant_centos` directory.  Use the following content within your new `Vagrantfile`.
 
-```
+**The new `Vagrantfile` must have a capital `V` at the beginning of the filename.**
+
+```ruby
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.provision :shell, path: "bootstrap.sh"
@@ -65,9 +69,9 @@ end
 
 
 ##### Step 5
-Create a `bootstrap.sh` script to install `netmiko` and `napalm`.
+Create a file named `bootstrap.sh` within your new `vagrant_centos` directory.  This script is used by vagrant to install `netmiko` and `napalm` on your new `centos` machine.
 
-```
+```bash
 # install pip
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 sudo python get-pip.py
@@ -81,9 +85,9 @@ sudo pip install napalm
 
 ##### Step 6
 
-Spin up the vagrant box using the `vagrant up` command.
+Spin up the vagrant box using the `vagrant up` command within your new `vagrant_centos` directory.
 
-```
+```bash
 ntc@ntc:vagrant_centos vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Importing base box 'centos/7'...
@@ -116,7 +120,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
 
 Log into the box.
 
-```
+```bash
 ntc@ntc:vagrant_centos$ vagrant ssh
 [vagrant@localhost ~]$
 ```
@@ -125,7 +129,7 @@ ntc@ntc:vagrant_centos$ vagrant ssh
 
 Verify that napalm and netmiko have been installed.
 
-```
+```bash
 [vagrant@localhost ~]$ pip list
 <---omitted--->
 napalm (2.3.0)
@@ -138,7 +142,7 @@ netmiko (2.0.2)
 
 Get back to your local machine and stop the vagrant box.
 
-```
+```bash
 [vagrant@localhost ~]$ exit
 logout
 Shared connection to 127.0.0.1 closed.
@@ -151,7 +155,7 @@ ntc@ntc:vagrant_centos$
 
 Destroy the VM with the `vagrant destroy` command.
 
-```
+```bash
 ntc@ntc:vagrant_centos$ vagrant destroy
     default: Are you sure you want to destroy the 'default' VM? [y/N] y
 ==> default: Destroying VM and associated drives...

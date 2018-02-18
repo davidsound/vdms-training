@@ -1,5 +1,7 @@
 ## Lab - Vagrant
 
+**Use your local machine for Vagrant labs.**
+
 ### Task 1 - Install Vagrant
 
 ##### Step 1

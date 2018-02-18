@@ -1,5 +1,7 @@
 ## Lab - Vagrant
 
+**Use your local machine for Vagrant labs.**
+
 ### Task 1 - Build multiple boxes
 
 ##### Step 1
@@ -10,7 +12,7 @@ Download the EOS vagrant box from [this](https://drive.google.com/drive/folders/
 
 Add to vagrant the box you've just downloaded and rename it as `vEOS-lab-4.18.5M`.
 
-```
+```bash
 ntc@ntc:~$ vagrant box add --name vEOS-lab-4.18.5M ~/Downloads/vEOS-lab-4.18.5M-virtualbox.box
 ==> box: Box file was not detected as metadata. Adding it directly...
 ==> box: Adding box 'vEOS-lab-4.18.5M' (v0) for provider:
@@ -23,7 +25,7 @@ ntc@ntc:~$ vagrant box add --name vEOS-lab-4.18.5M ~/Downloads/vEOS-lab-4.18.5M-
 
 Verify the box has been imported.
 
-```
+```bash
 ntc@ntc:~$ vagrant box list
 vagrant box list
 centos/7                             (virtualbox, 1801.02)
@@ -36,7 +38,7 @@ vEOS-lab-4.18.5M                     (virtualbox, 0)
 
 Create a new directory called `vagrant_multiple` and move into it.
 
-```
+```bash
 ntc@ntc:~$ mkdir vagrant_multiple
 ntc@ntc:~$ cd vagrant_multiple
 ntc@ntc:vagrant_multiple
@@ -94,7 +96,7 @@ end
 
 Run `vagrant up` to spin up the topology.
 
-```
+```bash
 ntc@ntc:vagrant_multiple$ vagrant up
 Bringing machine 'centos' up with 'virtualbox' provider...
 Bringing machine 'eos' up with 'virtualbox' provider...
@@ -132,7 +134,7 @@ The process may take a while and it may end up with a warning for the EOS box, b
 
 Try to ssh into each box.
 
-```
+```bash
 ntc@ntc:vagrant_multiple$  vagrant ssh eos
 
 Arista Networks EOS shell
@@ -140,12 +142,12 @@ Arista Networks EOS shell
 -bash-4.3#
 ```
 
-```
+```bash
 ntc@ntc:vagrant_multiple$  vagrant ssh centos
 [vagrant@localhost ~]$
 ```
 
-```
+```bash
 ntc@ntc:vagrant_multiple$ vagrant ssh junos
 --- JUNOS 12.1X47-D15.4 built 2014-11-12 02:13:59 UTC
 root@vsrx%

@@ -1,5 +1,7 @@
 ## Lab - Vagrant Junos
 
+**Use your local machine for Vagrant labs.**
+
 ### Task 1 - Vagrant Junos
 
 In this lab we will get some practice with Vagrant and we will create a lab with Junos boxes.
@@ -8,7 +10,7 @@ In this lab we will get some practice with Vagrant and we will create a lab with
 
 As first step, let's explore the Vagrant command line by getting the `help` output.
 
-```
+```bash
 ntc@ntc:~$ vagrant --help
 Usage: vagrant [options] <command> [<args>]
 
@@ -59,7 +61,7 @@ Before importing a Junos box, we need to install a couple of plugins. First, ins
 
 Note: Windows user may fail to install this plugin.
 
-```
+```bash
 ntc@ntc:~$ vagrant plugin install vagrant-junos
 Installing the 'vagrant-junos' plugin. This can take a few minutes...
 Fetching: vagrant-junos-0.2.1.gem (100%)
@@ -73,7 +75,7 @@ Now install the `vagrant-host-shell` plugin.
 
 Note: Windows user may fail to install this plugin.
 
-```
+```bash
 $ntc@ntc:~$ vagrant plugin install vagrant-host-shell
 Installing the 'vagrant-host-shell' plugin. This can take a few minutes...
 Fetching: vagrant-host-shell-0.0.4.gem (100%)
@@ -83,7 +85,8 @@ Installed the plugin 'vagrant-host-shell (0.0.4)'!
 ##### Step 4
 
 Now we're ready to import the Junos box using the `box` command. Choose `virtualbox` when prompted with the provider choice.
-```
+
+```bash
 ntc@ntc:~$ vagrant box add juniper/ffp-12.1X47-D15.4-packetmode
 ==> box: Loading metadata for box 'juniper/ffp-12.1X47-D15.4-packetmode'
     box: URL: https://vagrantcloud.com/juniper/ffp-12.1X47-D15.4-packetmode
@@ -104,7 +107,7 @@ Enter your choice: 1
 
 Verify we have correctly imported the box with the `vagrant box list` command.
 
-```
+```bash
 $ntc@ntc:~$ vagrant box list
 juniper/ffp-12.1X47-D15.4-packetmode (virtualbox, 0.5.0)
 ```
@@ -113,7 +116,7 @@ juniper/ffp-12.1X47-D15.4-packetmode (virtualbox, 0.5.0)
 
 Create a new directory called `vagrant_junos`.
 
-```
+```bash
 ntc@ntc:~$ mkdir vagrant_junos
 ntc@ntc:~$ cd vagrant_junos
 ntc@ntc:vagrant_junos$
@@ -123,7 +126,7 @@ ntc@ntc:vagrant_junos$
 
 Initialize a Vagrant file with the newly imported box.
 
-```
+```bash
 ntc@ntc:vagrant_junos$ vagrant init juniper/ffp-12.1X47-D15.4-packetmode
 A `Vagrantfile` has been placed in this directory. You are now
 ready to `vagrant up` your first virtual environment! Please read
@@ -133,7 +136,7 @@ the comments in the Vagrantfile as well as documentation on
 
 The command creates a new Vagrant file with the following content.
 
-```
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -213,7 +216,7 @@ Spin up the vagrant box using the `vagrant up` command.
 
 Note: depending on your OS you may receive a warning regarding guest additions. Despite this, the box will boot up correctly.
 
-```
+```bash
 ntc@ntc:vagrant_junos$ vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Importing base box 'juniper/ffp-12.1X47-D15.4-packetmode'...
@@ -253,7 +256,7 @@ Sorry, don't know how to check guest version of Virtualbox Guest Additions on th
 
 Use `vagrant status` to verify the box state.
 
-```
+```bash
 ntc@ntc:vagrant_junos$ vagrant status
 Current machine states:
 
@@ -269,7 +272,7 @@ simply run `vagrant up`.
 
 Log into the box with `vagrant ssh`.
 
-```
+```bash
 ntc@ntc:vagrant_junos$ vagrant ssh
 --- JUNOS 12.1X47-D15.4 built 2014-11-12 02:13:59 UTC
 root@vsrx%
@@ -279,7 +282,7 @@ root@vsrx%
 
 Get back to your local machine and stop the vagrant box.
 
-```
+```bash
 root@vsrx% exit
 ntc@ntc:vagrant_junos$ vagrant halt
 ==> default: Attempting graceful shutdown of VM...

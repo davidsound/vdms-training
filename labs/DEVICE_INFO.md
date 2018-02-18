@@ -3,11 +3,13 @@
 | Hostname | Device | Management IP | Credentials | Access Method |
 |----------|--------|---------------|-------------|---------------|
 | ntc | Jump Host | 10.1.10.11 | ntc/ntc123 | RDP/SSH |
-| centos | Linux VM | 192.68.0.52 | ntc/ntc123 | SSH |
+| centos | Linux VM | 192.168.0.52 | ntc/ntc123 | SSH |
+| ubuntu | Ubuntu VM | 192.168.0.53 | ntc/ntc123 | SSH |
 | veos1 | Arista switch 1 | 10.0.0.10 | ntc/ntc123 | SSH/https/http |
 | veos2 | Arista switch 2 | 10.0.0.11 | ntc/ntc123 | SSH/https/http |
 | vmx1 | Juniper Router 1 | 10.0.0.12 | ntc/ntc123 | SSH |
 | vmx2 | Juniper Router 2 | 10.0.0.13 | ntc/ntc123 | SSH |
+| vASA1 | Cisco vASA1 | 10.0.0.101 | ntc/ntc123 | SSH |
 
 ### All hostnames are resolvable from the jump host.
 

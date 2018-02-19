@@ -548,6 +548,125 @@ class: ubuntu
 [ntc@ntc ~]$ rm -r dc_sites-backup
 ```
 
+
+---
+
+
+class: ubuntu
+
+# Links
+
+Links allow us to use different names to identify the same file. This is done internally by the use of `inodes`.
+The 2 types of links available in Linux are symbolic or soft links and hard links. 
+
+
+```
+[ntc@ntc etc]$ ls -ltr rc*
+lrwxrwxrwx.  1 root root  13 Feb  8 11:18 rc.local -> rc.d/rc.local
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc0.d -> rc.d/rc0.d
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc1.d -> rc.d/rc1.d
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc2.d -> rc.d/rc2.d
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc3.d -> rc.d/rc3.d
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc4.d -> rc.d/rc4.d
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc5.d -> rc.d/rc5.d
+lrwxrwxrwx.  1 root root  10 Feb  8 11:18 rc6.d -> rc.d/rc6.d
+
+```
+
+
+*Making changes to either file will result in the changes taking effect in both the files.*
+
+---
+
+class: ubuntu
+# Hard links
+
+Hard links map to the same `inode`. It is created using the `ln` command
+
+
+```
+[ntc@ntc ~]$ ln configs/nyc-rtr05.cfg nycr5.cfg
+```
+
+1. Can map only within the same file system
+2. Allows linking of files only
+3. On removal of original file, the link retains the file contents
+
+`inode` is a datastructure that stores the metadata of any given file or directory. Each inode is identified by a number
+
+
+```
+[ntc@ntc ~]$ ls -i configs/nyc-rtr05.cfg 
+116 configs/nyc-rtr05.cfg
+[ntc@ntc ~]$ ls -i nycr5.cfg 
+116 nycr5.cfg
+[ntc@ntc ~]$ 
+
+```
+---
+
+class: ubuntu
+# Inode
+
+The metadata information about a file contains among other things, file type, parent, creation date, size etc. This information can be printed on the screen using the `stat` command
+
+
+```
+[ntc@ntc ~]$ stat vlan.yml 
+  File: ‘vlan.yml’
+  Size: 2342      	Blocks: 8          IO Block: 4096   regular file
+Device: 805h/2053d	Inode: 67108966    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/     ntc)   Gid: ( 1001/     ntc)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2018-02-17 22:32:21.387893728 -0500
+Modify: 2018-02-08 11:20:19.269237281 -0500
+Change: 2018-02-08 11:20:19.269237281 -0500
+ Birth: -
+[ntc@ntc ~]$ 
+
+```
+
+---
+
+class: ubuntu
+
+# Soft links
+
+A new inode (and associated inode number) is generated while creating a soft link. A soft link is created using the `ln -s` command
+
+```
+[ntc@ntc ~]$ ln -s  configs linked_configs
+[ntc@ntc ~]$
+```
+
+1. Can map across file system boundaries
+2. Allows linking directories
+3. On removal of original file, soft links are broken
+
+
+```
+
+[ntc@ntc ~]$ ls -i nycr4.cfg 
+67113425 nycr4.cfg
+[ntc@ntc ~]$ ls -i configs/nyc-rtr04.cfg 
+114 configs/nyc-rtr04.cfg
+[ntc@ntc ~]$ 
+
+
+```
+
+---
+
+class: ubuntu
+
+# Soft links(Contd.)
+
+Unlike hard links when the original file is removed, the resulting link is broken.
+
+
+<img src="slides/media/broken_link.png" alt="Pep8" style="align: left:;width:800px;height:200px;">
+
+
 ---
 
 # Lab Time

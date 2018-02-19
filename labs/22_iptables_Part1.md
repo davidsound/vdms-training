@@ -2,7 +2,7 @@
 
 Iptables  are used to set up, maintain, and inspect the tables of packet filter rules in the Linux kernel.  Several different tables may be defined.  Each table contains a number of built-in chains and may also contain user-defined chains.
 
-** Note: Centos7 uses a firewall mangement interface named `firewalld`.  This uses `iptables` behind the scenes to control access.  You will be able to investigate rules through standard `iptables` commands, but must use `firewalld` to add/move/change rules. **
+** Note: The hosts in the lab are running straight `iptables` without any of the management packages such as `firewalld` or `ufw`.  These commands are standard for `iptables` as an application.  `iptables` is available on multiple platforms including `centos` and `ubuntu`.**
 
 
 
@@ -10,7 +10,7 @@ Iptables  are used to set up, maintain, and inspect the tables of packet filter 
 
 The default table is the `filter` table and it contains the built-in chains `INPUT`, `FORWARD`, and `OUTPUT`. The `INPUT` chain is used for packets destined to local sockets, the `FORWARD` chain is used for packets being routed through the box while the `OUTPUT` chain is used for locally-generated packets.
 
-This section takes place on your `centos` host.
+**This section takes place on your `centos` host.**
 
 ##### Step 1
 
@@ -113,80 +113,3 @@ num   pkts bytes target     prot opt in     out     source               destina
 ```
 
 Verbose mode adds the `pkts` and `bytes` counters for each rule.
-
-
-
-
-
-
-
-
-
-
-### Task 2 - Investigate rules using `firewalld` commands
-
-This section takes place on your `centos` host.
-
-
-##### Step 1
-
-Check the status of `firewalld`.
-
-```bash
-[ntc@ntc ~]$ sudo firewall-cmd  --state
-running
-```
-
-
-##### Step 2
-
-`Firewalld` uses the concept of `zones` for managing rules.  This is then translated into `iptables`.
-
-Check for active zones and interfaces in those zones.
-
-```bash
-[ntc@ntc ~]$ sudo firewall-cmd --get-active-zones
-public
-  interfaces: ens4
-```
-
-> The `centos` host only has one zone, `public`, with the `ens4` interface in that zone.
-
-
-##### Step 3
-
-Now check which rules are currently added to the `public` zone.
-
-```bash
-[ntc@ntc ~]$ sudo firewall-cmd --zone=public --list-all
-public (active)
-  target: default
-  icmp-block-inversion: no
-  interfaces: ens4
-  sources: 
-  services: ssh dhcpv6-client
-  ports: 
-  protocols: 
-  masquerade: no
-  forward-ports: 
-  source-ports: 
-  icmp-blocks: 
-  rich rules: 
-```
-
-From the above output you will see that there are currently no rules in place.
-
-
-##### Step 4
-
-List all services that are available for configuration within `firewalld`.
-
-> `Firewalld` can create rules based on services or direct port entry.  Service profiles allow for a standard format for standard services as well as custom services that may be used across an organization.
-
-```bash
-[ntc@ntc ~]$ sudo  firewall-cmd --get-services
-[sudo] password for ntc: 
-RH-Satellite-6 amanda-client amanda-k5-client bacula bacula-client bitcoin bitcoin-rpc bitcoin-testnet bitcoin-testnet-rpc ceph ceph-mon cfengine condor-collector ctdb dhcp dhcpv6 dhcpv6-client dns docker-registry dropbox-lansync elasticsearch freeipa-ldap freeipa-ldaps freeipa-replication freeipa-trust ftp ganglia-client ganglia-master high-availability http https imap imaps ipp ipp-client ipsec iscsi-target kadmin kerberos kibana klogin kpasswd kshell ldap ldaps libvirt libvirt-tls managesieve mdns mosh mountd ms-wbt mssql mysql nfs nrpe ntp openvpn ovirt-imageio ovirt-storageconsole ovirt-vmconsole pmcd pmproxy pmwebapi pmwebapis pop3 pop3s postgresql privoxy proxy-dhcp ptp pulseaudio puppetmaster quassel radius rpc-bind rsh rsyncd samba samba-client sane sip sips smtp smtp-submission smtps snmp snmptrap spideroak-lansync squid ssh synergy syslog syslog-tls telnet tftp tftp-client tinc tor-socks transmission-client vdsm vnc-server wbem-https xmpp-bosh xmpp-client xmpp-local xmpp-server
-```
-
-> **Tip:** The service definition `xml` files can be found in `/usr/lib/firewalld/services/`

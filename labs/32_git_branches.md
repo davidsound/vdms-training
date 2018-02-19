@@ -62,15 +62,15 @@ Push your local branch upstream on GitHub. This will create a new branch on the 
 
 ```bash
 ntc@ntc:backup_configs (CHG001)$ git push origin CHG001
-Username for 'https://github.com': smith-ntc
-Password for 'https://smith-ntc@github.com':
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com':
 Counting objects: 3, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 380 bytes | 0 bytes/s, done.
 Total 3 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-To https://github.com/smith-ntc/JS_configs
+To <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
  * [new branch]      CHG001 -> CHG001
 ```
 
@@ -117,9 +117,9 @@ Push changes upstream into master.
 
 ```bash
 ntc@ntc:backup_configs (master)$ git push origin master
-Username for 'https://github.com': smith-ntc
-Password for 'https://smith-ntc@github.com':
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com':
 Total 0 (delta 0), reused 0 (delta 0)
-To https://github.com/smith-ntc/JS_configs
+To <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
    b2c553b..afe84b3  master -> master
 ```

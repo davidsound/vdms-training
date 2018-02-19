@@ -1,5 +1,7 @@
 ## Lab - Vagrant
 
+**Use your local machine for Vagrant labs.**
+
 ### Task 1 - Build multiple boxes
 
 ##### Step 1
@@ -10,7 +12,7 @@ Download the EOS vagrant box from [this](https://drive.google.com/drive/folders/
 
 Add to vagrant the box you've just downloaded and rename it as `vEOS-lab-4.18.5M`.
 
-```
+```bash
 ntc@ntc:~$ vagrant box add --name vEOS-lab-4.18.5M ~/Downloads/vEOS-lab-4.18.5M-virtualbox.box
 ==> box: Box file was not detected as metadata. Adding it directly...
 ==> box: Adding box 'vEOS-lab-4.18.5M' (v0) for provider:
@@ -23,7 +25,7 @@ ntc@ntc:~$ vagrant box add --name vEOS-lab-4.18.5M ~/Downloads/vEOS-lab-4.18.5M-
 
 Verify the box has been imported.
 
-```
+```bash
 ntc@ntc:~$ vagrant box list
 vagrant box list
 centos/7                             (virtualbox, 1801.02)
@@ -36,7 +38,7 @@ vEOS-lab-4.18.5M                     (virtualbox, 0)
 
 Create a new directory called `vagrant_multiple` and move into it.
 
-```
+```bash
 ntc@ntc:~$ mkdir vagrant_multiple
 ntc@ntc:~$ cd vagrant_multiple
 ntc@ntc:vagrant_multiple
@@ -46,7 +48,7 @@ ntc@ntc:vagrant_multiple
 
 Create a new Vagrantfile with a CentOS box. Map port 22 into port 12200 and add a private network interface.
 
-```
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -63,7 +65,7 @@ Vagrant.configure(2) do |config|
 
 Append a JunOS box to the Vagrantfile. Map port 22 into port 12203 and add a private network interface.
 
-```
+```ruby
   config.vm.define "junos" do |junos|
     junos.vm.box = "juniper/ffp-12.1X47-D15.4-packetmode"
     junos.vm.network :forwarded_port, guest: 22, host: 12203, id: 'ssh'
@@ -77,7 +79,7 @@ Append a JunOS box to the Vagrantfile. Map port 22 into port 12203 and add a pri
 
 Append a JunOS box to the Vagrantfile. Map port 22 into port 12201 and port 443 into port 12443. Also add a private network interface.
 
-```
+```ruby
   config.vm.define "eos" do |eos|
     eos.vm.box = "vEOS-lab-4.18.5M"
 
@@ -87,13 +89,14 @@ Append a JunOS box to the Vagrantfile. Map port 22 into port 12201 and port 443 
     eos.vm.network "private_network", virtualbox__intnet: "link_1",
                                       ip: "169.254.1.13", auto_config: false
   end
+end
 ```
 
 ##### Step 7
 
 Run `vagrant up` to spin up the topology.
 
-```
+```bash
 ntc@ntc:vagrant_multiple$ vagrant up
 Bringing machine 'centos' up with 'virtualbox' provider...
 Bringing machine 'eos' up with 'virtualbox' provider...
@@ -131,7 +134,7 @@ The process may take a while and it may end up with a warning for the EOS box, b
 
 Try to ssh into each box.
 
-```
+```bash
 ntc@ntc:vagrant_multiple$  vagrant ssh eos
 
 Arista Networks EOS shell
@@ -139,13 +142,41 @@ Arista Networks EOS shell
 -bash-4.3#
 ```
 
-```
+```bash
 ntc@ntc:vagrant_multiple$  vagrant ssh centos
 [vagrant@localhost ~]$
 ```
 
-```
+```bash
 ntc@ntc:vagrant_multiple$ vagrant ssh junos
 --- JUNOS 12.1X47-D15.4 built 2014-11-12 02:13:59 UTC
 root@vsrx%
+```
+
+##### Final Vagrantfile
+
+Your final `Vagrantfile` should look like this.
+
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.define "centos" do |centos|
+    centos.vm.box = "centos/7"
+    centos.vm.network :forwarded_port, guest: 22, host: 12200, id: 'ssh'
+    centos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.10"
+  end
+  config.vm.define "junos" do |junos|
+    junos.vm.box = "juniper/ffp-12.1X47-D15.4-packetmode"
+    junos.vm.network :forwarded_port, guest: 22, host: 12203, id: 'ssh'
+    junos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.12", auto_config: false
+  end
+  config.vm.define "eos" do |eos|
+    eos.vm.box = "vEOS-lab-4.18.5M"
+    eos.vm.network :forwarded_port, guest: 22, host: 12201, id: 'ssh'
+    eos.vm.network :forwarded_port, guest: 443, host: 12443, id: 'https'
+    eos.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.13", auto_config: false
+  end
+end
 ```

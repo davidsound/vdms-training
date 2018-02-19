@@ -235,15 +235,15 @@ Push all updates to the remote repository.
 
 ```bash
 ntc@ntc:backup_configs (master)$ git push origin master
-Username for 'https://github.com': smith-ntc
-Password for 'https://smith-ntc@github.com':
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com':
 Counting objects: 7, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100% (7/7), done.
 Writing objects: 100% (7/7), 779 bytes | 0 bytes/s, done.
 Total 7 (delta 5), reused 0 (delta 0)
 remote: Resolving deltas: 100% (5/5), completed with 2 local objects.
-To https://github.com/smith-ntc/JS_configs
+To <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
    afe84b3..165c98b  master -> master
 
 ```

@@ -2,6 +2,8 @@
 
 ### Task 1 - Install Virtualbox
 
+**Use your local machine for VirtualBox labs.**
+
 ##### Step 1
 
 Go to [Virtualbox](https://www.virtualbox.org/wiki/Download_Old_Builds_5_1) website, download and install the version compatible with your OS. 

@@ -2,6 +2,8 @@
 
 In this lab we are going to dive into basic scripting using the Bash shell.  By the end of this lab, we will create a `backup.sh` script that backs up files in our `~/configs` directory
 
+**This lab will take place on your `centos` host**
+
 ### Task 1 - Basic Scripting
 
 Bash scripting is a way of taking Linux shell/cli command and building upon them.  Bash scripts are run serially - in the sequence the commands are entered.
@@ -12,101 +14,101 @@ Bash scripts start with a sequence `#!/bin/bash`.  The `#!` is commonly called [
 
 This sequence provides details on which interpreter to use to execute the lines that follow. 
 
-Create a file called `hello.sh` and copy the following contents:
+Create a file called `backup.sh` and copy the following contents:
 
 ```bash
 #!/bin/bash
 
-echo "HELLO!"
+echo "HELLO WORLD!"
 ```
 
-Once saved, we will need to provide `execution` permission to the script.  We can do this by running the command `chmod +x hello.sh` within the same directory.
+Once saved, provide `execution` permission to the script. Do this by running the command `chmod +x backup.sh` within the same directory.
 
-Now, let's run the script:
+Now run the script:
 
 ```bash
-[ntc@ntc ~]$ chmod +x hello.sh 
-[ntc@ntc ~]$ ./hello.sh 
-HELLO!
+[ntc@ntc ~]$ chmod +x backup.sh 
+[ntc@ntc ~]$ ./backup.sh
+HELLO WORLD!
 [ntc@ntc ~]$ 
 ```
 
-> If we did not add execution permissions to the script, we would see this output:
+> If the script was not provided execution permissions you would see the following error.
 
 ```bash
-[ntc@ntc ~]$ ./hello.sh
--bash: ./hello.sh: Permission denied
+[ntc@ntc ~]$ ./backup.sh
+-bash: ./backup.sh: Permission denied
 ```
 
 ##### Step 2 - Variables
 
-Let's build upon our script by adding variables.  Variables provide an easy way to account for varations in your script.  For example, let's change our `echo command` to look like this:
+Build upon the previous script by adding variables.  Variables provide an easy way to account for varations in your script.  For example, change the `echo command` to look like this:
 
 ```bash
 #!/bin/bash
 
-HELLO="How's it going today?"
+SCRIPT_DESC="This script will show the value of an environmental variable."
 
-echo $HELLO
+echo $SCRIPT_DESC
 ```
 
-Run the script & view the output:
+Run the script and view the output:
 
 ```bash
-[ntc@ntc ~]$ ./hello.sh 
-How's it going today?
+[ntc@ntc ~]$ ./backup.sh 
+This script will show the value of an environmental variable.
 [ntc@ntc ~]$ 
 ```
 
-> Note: Notice that we do not have to change permissions every time we change the file
+> Note: There is no need to update file permissions after each change.
 
-Lets change the script again:
+Change the script again:
 
 ```bash
 #!/bin/bash
 
-HELLO="You Changed ME!"
+SCRIPT_DESC="Find value of environmental variable below."
 
-echo $HELLO
+echo $SCRIPT_DESC
 ```
 
-You can probably guess the output:
+This will change the output given when the script is run.
 
 ```bash
-[ntc@ntc ~]$ ./hello.sh 
-You Changed ME!
+[ntc@ntc ~]$ ./backup.sh  
+Find value of environmental variable below.
 [ntc@ntc ~]$ 
 ```
 
 Variables are assigned using a `VARIABLE=VALUE` syntax
 
-They are called in using a `$VARIABLE` syntax, which translates to `VALUE`
+> It is important to note that in bash there are no spaces before or after the `=` in the variable assignment.
 
-Also, it is important to note that in bash, there are no spaces before or after the `=` in the variable assignment.
+They are called using a `$VARIABLE` syntax, which translates to `VALUE`
+ 
 
 ##### Step 3 - External Variables
 
 Varibles can also be referenced from external sources.  For example, many built-in variables called [environment variables](https://www.centoshowtos.org/environment-variables/) are automatically imported into bash scripts.
 
-Let's edit our script:
+Edit the script to call the external environmental variable `$USER`.
 
 ```bash
 #!/bin/bash
 
-GREETING="Hi "
-OUTPUT=" it's great to meet you!"
+SCRIPT_DESC="Find value of environmental variable below."
 
-echo $GREETING $USER $OUTPUT
+echo $SCRIPT_DESC
+echo "User:" $USER
 ```
-
-Save the script, but, before running it, notice that `$USER` is not defined in the script
 
 Run the script and view the output:
 
 ```bash
-[ntc@ntc ~]$ ./hello.sh 
-Hi ntc it's great to meet you!
-[ntc@ntc ~]$ 
+[ntc@ntc ~]$ ./backup.sh  
+Find value of environmental variable below.
+User: ntc
+[ntc@ntc ~]$  
 ```
 Where did the value of `$USER` come from?
 
@@ -118,19 +120,24 @@ ntc
 [ntc@ntc ~]$
 ```
 
-Since `$USER` is an environment variable, bash will evaluate it  automatically.  This can be extremely useful when building generic scripts.
+Since `$USER` is an environment variable, bash will evaluate it automatically.  This can be  useful when building scripts.
 
-> CHALLENGE: Incorporate other environment variables in your script. View them by executing `env`
+> CHALLENGE: Incorporate other environment variables in your script. View them by executing `env`.
+
+
+
+
+
+
+
+
+
 
 ### Task 2 - Conditionals
 
 Conditionals provide an easy way to change a scripts behavior based on a certain value, assignment, or input.
 
-The basic syntax for conditionals is `if ... then`.  Example:
-
-```
-if you are happy then smile
-```
+The basic syntax for conditionals is `if ... then`.
 
 A real example:
 
@@ -145,115 +152,93 @@ In bash the `if .. fi` indicates the beginning and end of an `if, then` condntio
 
 ##### Step 1 - Basic conditional
 
-Building on our previous script, we will add a conditional:
+Building on the previous script, we will add a conditional:
 
 ```bash
 #!/bin/bash
 
-GREETING="Hi "
-OUTPUT=" it's great to meet you!"
+echo "Backup Script"
 
-if [ $mood == "happy" ]; then
-    echo $GREETING $USER $OUTPUT
+echo "Does the configs directory exist?"
+
+if [ -d "/home/${USER}/configs" ]; then
+  echo "Yes.  It does exist."
 fi
 ```
 
-```bash
-[ntc@ntc ~]$ ./hello.sh 
-[ntc@ntc ~]$ 
-```
-
-Notice the lack of output.  In order for this to work, we need to set an environmental variable `$mood`.  Run the following command from the terminal: `export mood=happy`
-
-That will set a `$mood` variable for the duration of your terminal session.
-
-Now, let's re-run our script:
+This `if/then` conditional checks to see if the `./configs` directory exists in the current directory.  If this case that directory exists in the `ntc` users home directory.  Since this directory does exist, the script returns `Yes.  It does exist.`.
 
 ```bash
-[ntc@ntc ~]$ ./hello.sh 
-Hi ntc it's great to meet you!
+[ntc@ntc ~]$ ./backup.sh 
+Backup Script
+Does the configs directory exist?
+Yes.  It does exist.
 [ntc@ntc ~]$ 
 ```
 
 ##### Step 2 - Advanced Conditionals
 
-The above wasn't very useful, lets add some more logic.  We are going to add an `else` to the script.
+The script also needs logic in place to report if the `./configs` directory did not exist.
 
 ```bash
 #!/bin/bash
 
-GREETING="Hi "
-OUTPUT=" it's great to meet you!"
-REPLY=" I hope you feel better"
+echo "Backup Script"
 
-if [ "$mood" == "happy" ]; then
-    echo $GREETING $USER $OUTPUT
+echo "Does the configs directory exist?"
+
+if [ -d "/home/${USER}/configs" ]; then
+  echo "Yes. It does exist."
 else
-    echo $USER $REPLY
-fi 
+  echo "No. It does not exist."
+fi
 ```
 
-> It is often very useful to 'talk' through the logic in a conditional
+This adds an `else` statement.  This says that `if` the `./configs` directory does not exist return `No. It does not exist.`
 
-This adds another element to our script.  Let's change the mood variable's value and re-run it:
-
-```bash
-[ntc@ntc ~]$ export mood=unhappy
-[ntc@ntc ~]$ ./hello.sh 
-ntc I hope you feel better
-[ntc@ntc ~]$ 
-```
-
-Let's change mood to its original value:
+If you run the script again the ouput will be the same.
 
 ```bash
-[ntc@ntc ~]$ export mood=happy
-[ntc@ntc ~]$ ./hello.sh 
-Hi ntc it's great to meet you!
+[ntc@ntc ~]$ ./backup.sh   
+Backup Script
+Does the configs directory exist?
+Yes. It does exist.
 [ntc@ntc ~]$
 ```
 
-> CHALLENGE:  Add More `else` conditionals to account for different moods: sad, unhappy, and jolly.  Also, change the REPLY depending on the mood
+##### Step 3
 
-### Task 3 - Backup Script
-
-This script will be used for the advanced module.  It will combine all of the things we have discussed and expound on them
-
-##### Step 1 - Backup Script
-
-Navigate to the `~/configs`  directory and have a look around.  
-
-Create a `backup.sh` script that contains the following:
+Add another conditional to check and see if the `backups` directory exists in the current directory (which is the `ntc` user home directory).
 
 ```bash
 #!/bin/bash
 
-# Backup Script
-# Copies files that end with .cfg to the backup directory
+echo "Backup Script"
 
-BACKUP_DIR="/home/${USER}/backups"
-CONFIG_DIR="/home/${USER}/configs"
+echo "Does the configs directory exist?"
 
-# Check to see if Backup directory exists
-# If not, create it
+if [ -d "/home/${USER}/configs" ]; then
+  echo "Yes. It does exist."
+else
+  echo "No. It does not exist."
+fi
 
-if [ ! -d $BACKUP_DIR ]; then
-        echo " >>> CREATING $BACKUP_DIR <<< "
-        mkdir -p $BACKUP_DIR
-        echo " >>> BACKUP DIRECTORY CREATED <<< "
-    else
-      echo " >>> DIRECTORY $BACKUP_DIR ALREADY EXISTS <<< "
-    fi
+echo "Does the backups directory exist?"
 
-# Backup files from config directory to backup directory
-echo " >>> BACKING UP FILES <<< "
+if [ -d "/home/${USER}/backups" ]; then
+  echo "Yes. It does exist."
+else
+  echo "No. It does not exist."
+fi
+```
 
-# Search $CONFIG_DIR for files that end with *.cfg then
-# Copy those to the $BACKUP_DIR
+Since the `backups` directory does not exist, the script will tell us that it does not exist.
 
-find $CONFIG_DIR -name "*.cfg" -print0 | xargs -0 -I{} cp -p {} $BACKUP_DIR
-
-echo " >>> FILES BACKED UP <<< "
-
-echo " ####### ALL DONE ####### "
+```bash
+[ntc@ntc ~]$ ./backup.sh
+Backup Script
+Does the configs directory exist?
+Yes. It does exist.
+Does the backups directory exist?
+No. It does not exist.
 ```

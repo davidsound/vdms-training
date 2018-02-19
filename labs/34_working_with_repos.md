@@ -49,15 +49,15 @@ Push your branch upstream to GitHub.
 
 ```bash
 ntc@ntc:backup_configs (CHG003)$ git push origin CHG003
-Username for 'https://github.com': smith-ntc
-Password for 'https://smith-ntc@github.com':
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com':
 Counting objects: 3, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 440 bytes | 0 bytes/s, done.
 Total 3 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-To https://github.com/smith-ntc/JS_configs
+To <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
  * [new branch]      CHG003 -> CHG003
 ntc@ntc:backup_configs (CHG003)$
 ```
@@ -130,7 +130,7 @@ Once you have the link you will use `git clone` from your home directory on the 
 > I am using my `https` clone link.  You will need to use the one you collected above.
 
 ```bash
-ntc@ntc:~$ git clone https://github.com/dancwilliams/training.git
+ntc@ntc:~$ git clone https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git
 Cloning into 'training'...
 remote: Counting objects: 150, done.
 remote: Total 150 (delta 0), reused 0 (delta 0), pack-reused 150
@@ -191,15 +191,15 @@ ntc@ntc:training (master)$ git commit -m "Added rtr1.cfg"
  create mode 100644 rtr1.cfg
 ntc@ntc:training (master)$ 
 ntc@ntc:training (master)$ git push
-Username for 'https://github.com': dancwilliams
-Password for 'https://dancwilliams@github.com': 
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com': 
 Counting objects: 3, done.
 Delta compression using up to 8 threads.
 Compressing objects: 100% (2/2), done.
 Writing objects: 100% (3/3), 278 bytes | 0 bytes/s, done.
 Total 3 (delta 1), reused 0 (delta 0)
 remote: Resolving deltas: 100% (1/1), completed with 1 local object.
-To https://github.com/dancwilliams/training.git
+To https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git
    d21c412..2ea5527  master -> master
 ```
 
@@ -264,12 +264,12 @@ On your **jumphost** you will use this address to create a git remote named `ups
 
 ```bash
 ntc@ntc:training (master)$ git remote -v
-origin  https://github.com/dancwilliams/training.git (fetch)
-origin  https://github.com/dancwilliams/training.git (push)
+origin  https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git (fetch)
+origin  https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git (push)
 ntc@ntc:training (master)$ git remote add upstream https://github.com/networktocode/training.git
 ntc@ntc:training (master)$ git remote -v
-origin  https://github.com/dancwilliams/training.git (fetch)
-origin  https://github.com/dancwilliams/training.git (push)
+origin  https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git (fetch)
+origin  https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git (push)
 upstream        https://github.com/networktocode/training.git (fetch)
 upstream        https://github.com/networktocode/training.git (push)
 ```
@@ -333,15 +333,15 @@ Fast-forward
 
 ```bash
 ntc@ntc:training (master)$ git push
-Username for 'https://github.com': dancwilliams
-Password for 'https://dancwilliams@github.com': 
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com': 
 Counting objects: 4, done.
 Delta compression using up to 8 threads.
 Compressing objects: 100% (3/3), done.
 Writing objects: 100% (4/4), 1.29 KiB | 0 bytes/s, done.
 Total 4 (delta 1), reused 0 (delta 0)
 remote: Resolving deltas: 100% (1/1), completed with 1 local object.
-To https://github.com/dancwilliams/training.git
+To https://github.com/<YOUR PUBLIC GITHUB USERNAME>/training.git
    2ea5527..6c94fc9  master -> master
 ```
 

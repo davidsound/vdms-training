@@ -22,7 +22,7 @@ While in your home directory, clone the remote repository created in the previou
 > You should have the address of your GitHub repository form the previous lab.
 
 ```bash
-ntc@ntc:~$ git clone https://github.com/smith-ntc/JS_configs backup_configs
+ntc@ntc:~$ git clone <GIT CLONE HTTPS LINK TO YOUR REPOSITORY> backup_configs
 Cloning into 'backup_configs'...
 remote: Counting objects: 22, done.
 remote: Compressing objects: 100% (9/9), done.
@@ -63,15 +63,15 @@ Push the changes to the remote repository on GitHub.
 
 ```bash
 ntc@ntc:backup_configs (master)$ git push origin master
-Username for 'https://github.com': smith-ntc
-Password for 'https://smith-ntc@github.com':
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com':
 Counting objects: 3, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100% (2/2), done.
 Writing objects: 100% (3/3), 284 bytes | 0 bytes/s, done.
 Total 3 (delta 1), reused 0 (delta 0)
 remote: Resolving deltas: 100% (1/1), completed with 1 local object.
-To https://github.com/smith-ntc/JS_configs
+To <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
    fc348cd..b2c553b  master -> master
 ```
 

@@ -90,7 +90,7 @@ Interfaces to add to NYC-RTR01:
 
 ### Task 2 - Using NANO
 
-`nano` is an add on command line editor (pre-installed on your jumphosts) that is easy to use. 
+`nano` is an add-on command line editor (pre-installed on your lab VM) that is easy to use. 
 
 ##### Step 1 
 

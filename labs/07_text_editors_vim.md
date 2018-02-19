@@ -131,7 +131,7 @@ In this task we will learn how to use some common plugins and use one of the mos
 Install the `vim-plug` plugin manager. This step can be achieved by copying and pasting the following command 
 
 ```
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+curl  -x http://proxy.ntc.com:8080-fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 

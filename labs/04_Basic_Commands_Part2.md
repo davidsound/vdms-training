@@ -10,48 +10,47 @@ In this lab you will learn how to copy files and directories, move them permanen
 
 ##### Step 1 
 
-Copy the `greetings.txt` file from the home directory into `tux` and every sub-directory within.
+Copy the `ospf_config_guide.txt` file from the home directory into `dc_sites` and every sub-directory within.
 
 
 ```
-[ntc@ntc ~]$ cp greetings.txt tux/
+[ntc@ntc ~]$ cp ospf_config_guide.txt dc_sites/
 [ntc@ntc ~]$ 
 
 ```
 
 ```
 
-[ntc@ntc ~]$ cp greetings.txt tux/level-1/
+[ntc@ntc ~]$ cp ospf_config_guide.txt dc_sites/USA/
 [ntc@ntc ~]$ 
 
 ```
 
 ```
 
-[ntc@ntc ~]$ cp greetings.txt tux/level-1/level-2/
+[ntc@ntc ~]$ cp ospf_config_guide.txt dc_sites/USA/ATL/
 [ntc@ntc ~]$ 
 
 ```
 
 ```
 
-[ntc@ntc ~]$ cp greetings.txt tux/level-1/level-2/level-3/
+[ntc@ntc ~]$ cp ospf_config_guide.txt dc_sites/USA/ATL/alpha_dc/
 [ntc@ntc ~]$ 
 
 ```
 
 ```
 
-[ntc@ntc ~]$ tree tux
-tux
-├── directory_listing.txt
-├── greetings.txt
-└── level-1
-    ├── greetings.txt
-    └── level-2
-        ├── greetings.txt
-        └── level-3
-            └── greetings.txt
+[ntc@ntc ~]$ tree dc_sites
+dc_sites
+├── ospf_config_guide.txt
+└── USA
+    ├── ospf_config_guide.txt
+    └── ATL
+        ├── ospf_config_guide.txt
+        └── alpha_dc
+            └── ospf_config_guide.txt
 
 3 directories, 5 files
 [ntc@ntc ~]$ 
@@ -61,17 +60,17 @@ tux
 
 ##### Step 2
 
-Try using the `cp` command to make a backup of the `tux` directory. Call it `tux-backup`.
+Try using the `cp` command to make a backup of the `dc_sites` directory. Call it `dc_sites-backup`.
 
 ```
-[ntc@ntc ~]$ cp tux tux-backup
-cp: omitting directory ‘tux’
+[ntc@ntc ~]$ cp dc_sites dc_sites-backup
+cp: omitting directory ‘dc_sites’
 [ntc@ntc ~]$ 
 ```
 While copying a directory, you have to use the `-r` flag to instruct the shell to copy the contents of the directories "recursively". Go ahead and make the backup using the `cp -r` command:
 
 ```
-[ntc@ntc ~]$ cp -r tux tux-backup
+[ntc@ntc ~]$ cp -r dc_sites dc_sites-backup
 [ntc@ntc ~]$ 
 
 ```
@@ -84,81 +83,80 @@ drwxrwxr-x. 3 ntc ntc  45 Jan 23 17:02 VirtualBoxVMs
 -rw-rw-r--. 1 ntc ntc   0 Jan 25 16:01 test
 -rw-rw-r--. 1 ntc ntc   0 Jan 25 16:06 error
 -rw-rw-r--. 1 ntc ntc 225 Jan 25 16:11 output
--rw-rw-r--. 1 ntc ntc  92 Jan 25 17:20 greetings.txt
+-rw-rw-r--. 1 ntc ntc  92 Jan 25 17:20 ospf_config_guide.txt
 -rw-rw-r--. 1 ntc ntc   2 Jan 25 18:00 file_count.txt
-drwxrwxr-x. 3 ntc ntc  71 Jan 25 18:09 tux
-drwxrwxr-x. 3 ntc ntc  71 Jan 26 10:44 tux-backup
+drwxrwxr-x. 3 ntc ntc  71 Jan 25 18:09 dc_sites
+drwxrwxr-x. 3 ntc ntc  71 Jan 26 10:44 dc_sites-backup
 
 ```
 
 
 ##### Step 3
-Rename the `greetings.txt` file within all the subdirectories of `tux` to the format `$directoryName-greetings.txt`. Use the `mv` command to accomplish this.
+Rename the `ospf_config_guide.txt` file within all the subdirectories of `dc_sites` to the format `$directoryName-ospf_config_guide.txt`. Use the `mv` command to accomplish this.
 
 ```
-[ntc@ntc ~]$ cd tux
-[ntc@ntc tux]$ ls
-directory_listing.txt  greetings.txt  level-1
-[ntc@ntc tux]$ mv greetings.txt tux-greetings.txt
-[ntc@ntc tux]$ 
-
-```
-
-```
-
-[ntc@ntc tux]$ mv level-1/greetings.txt level-1/level-1-greetings.txt
-[ntc@ntc tux]$ 
+[ntc@ntc ~]$ cd dc_sites
+[ntc@ntc dc_sites]$ ls
+directory_listing.txt  ospf_config_guide.txt  USA
+[ntc@ntc dc_sites]$ mv ospf_config_guide.txt dc_sites-ospf_config_guide.txt
+[ntc@ntc dc_sites]$ 
 
 ```
 
 ```
 
-[ntc@ntc tux]$ mv level-1/level-2/greetings.txt level-1/level-2/level-2-greetings.txt
-[ntc@ntc tux]$ 
+[ntc@ntc dc_sites]$ mv USA/ospf_config_guide.txt USA/USA-ospf_config_guide.txt
+[ntc@ntc dc_sites]$ 
 
 ```
 
 ```
 
-[ntc@ntc tux]$ mv level-1/level-2/level-3/greetings.txt level-1/level-2/level-3/level-3-greetings.txt
-[ntc@ntc tux]$ 
+[ntc@ntc dc_sites]$ mv USA/ATL/ospf_config_guide.txt USA/ATL/ATL-ospf_config_guide.txt
+[ntc@ntc dc_sites]$ 
+
+```
+
+```
+
+[ntc@ntc dc_sites]$ mv USA/ATL/alpha_dc/ospf_config_guide.txt USA/ATL/alpha_dc/alpha_dc-ospf_config_guide.txt
+[ntc@ntc dc_sites]$ 
 
 ```
 
 
 
 ```
-[ntc@ntc tux]$ tree
+[ntc@ntc dc_sites]$ tree
 .
-├── directory_listing.txt
-├── level-1
-│   ├── level-1-greetings.txt
-│   └── level-2
-│       ├── level-2-greetings.txt
-│       └── level-3
-│           └── level-3-greetings.txt
-└── tux-greetings.txt
+├── USA
+│   ├── USA-ospf_config_guide.txt
+│   └── ATL
+│       ├── ATL-ospf_config_guide.txt
+│       └── alpha_dc
+│           └── alpha_dc-ospf_config_guide.txt
+└── dc_sites-ospf_config_guide.txt
 
 3 directories, 5 files
-[ntc@ntc tux]$ 
+[ntc@ntc dc_sites]$ 
 ```
 
 
 ##### Step 4
 
-Use the `rm` command to delete the `$directoryName-greetings.txt` file from each subdirectory of `tux`.
+Use the `rm` command to delete the `$directoryName-ospf_config_guide.txt` file from each subdirectory of `dc_sites`.
 
 ```
-[ntc@ntc tux]$ pwd
-/home/ntc/tux
-[ntc@ntc tux]$ rm tux-greetings.txt 
-[ntc@ntc tux]$ 
-[ntc@ntc tux]$ rm level-1/level-1-greetings.txt 
-[ntc@ntc tux]$ 
-[ntc@ntc tux]$ rm level-1/level-2/level-2-greetings.txt 
-[ntc@ntc tux]$ 
-[ntc@ntc tux]$ rm level-1/level-2/level-3/level-3-greetings.txt 
-[ntc@ntc tux]$ 
+[ntc@ntc dc_sites]$ pwd
+/home/ntc/dc_sites
+[ntc@ntc dc_sites]$ rm dc_sites-ospf_config_guide.txt 
+[ntc@ntc dc_sites]$ 
+[ntc@ntc dc_sites]$ rm USA/USA-ospf_config_guide.txt 
+[ntc@ntc dc_sites]$ 
+[ntc@ntc dc_sites]$ rm USA/ATL/ATL-ospf_config_guide.txt 
+[ntc@ntc dc_sites]$ 
+[ntc@ntc dc_sites]$ rm USA/ATL/alpha_dc/alpha_dc-ospf_config_guide.txt 
+[ntc@ntc dc_sites]$ 
 
 ```
 
@@ -166,24 +164,23 @@ Use the `rm` command to delete the `$directoryName-greetings.txt` file from each
 
 
 ```
-[ntc@ntc tux]$ tree
+[ntc@ntc dc_sites]$ tree
 .
-├── directory_listing.txt
-└── level-1
-    └── level-2
-        └── level-3
+└── USA
+    └── ATL
+        └── alpha_dc
 
 3 directories, 1 file
-[ntc@ntc tux]$ 
+[ntc@ntc dc_sites]$ 
 
 ```
 
 ##### Step 5
 
-Similar to the recursive copy, use the `-r` flag with the `rm` command to remove the `tux-backup` directory and all files within it.
+Similar to the recursive copy, use the `-r` flag with the `rm` command to remove the `dc_sites-backup` directory and all files within it.
 
 ```
-[ntc@ntc ~]$ rm -r tux-backup
+[ntc@ntc ~]$ rm -r dc_sites-backup
 [ntc@ntc ~]$ ls -ltr
 total 12
 drwxrwxr-x. 3 ntc ntc  51 Jan 22 19:56 configs
@@ -193,7 +190,7 @@ drwxrwxr-x. 3 ntc ntc  45 Jan 23 17:02 VirtualBoxVMs
 -rw-rw-r--. 1 ntc ntc 225 Jan 25 16:11 output
 -rw-rw-r--. 1 ntc ntc  92 Jan 25 17:20 greetings.txt
 -rw-rw-r--. 1 ntc ntc   2 Jan 25 18:00 file_count.txt
-drwxrwxr-x. 3 ntc ntc  50 Jan 26 11:03 tux
+drwxrwxr-x. 3 ntc ntc  50 Jan 26 11:03 dc_sites
 [ntc@ntc ~]$ 
 
 ```

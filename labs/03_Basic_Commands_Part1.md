@@ -1,3 +1,4 @@
+
 ## Lab 3 - Viewing file contents, redirection and command chaining.
 
 In this lab you will master basic commands to view files and understand powerful features of output redirection and command chaining in *nix.
@@ -152,31 +153,31 @@ systat          11/tcp          users
 
 ##### Step 4
 
-What happens if you try to use any of these commands against a directory? Try using `cat/less/more` to view the `tux` directory you created in the previous lab:
+What happens if you try to use any of these commands against a directory? Try using `cat/less/more` to view the `dc_sites` directory you created in the previous lab:
 
 
 ```
-[ntc@ntc ~]$ cat tux/
-cat: tux/: Is a directory
+[ntc@ntc ~]$ cat dc_sites/
+cat: dc_sites/: Is a directory
 
 ```
 
 ```
-[ntc@ntc ~]$ more tux
+[ntc@ntc ~]$ more dc_sites
 
-*** tux: directory ***
+*** dc_sites: directory ***
 
 [ntc@ntc ~]$ 
 
 ```
 
 ```
-[ntc@ntc ~]$ less tux
+[ntc@ntc ~]$ less dc_sites
 total 0
 drwxrwxr-x. 3 ntc ntc  21 Jan 24 17:56 ./
 drwx------. 7 ntc ntc 197 Jan 24 17:53 ../
 drwxrwxr-x. 3 ntc ntc  21 Jan 24 17:56 level-1/
-tux (END)
+dc_sites (END)
 
 ```
 
@@ -186,11 +187,11 @@ tux (END)
 
 ##### Step 5
 
-In the previous step we learned that using the `cat` or `more` command helps identify a regular file vs a directory. There is a specific command in *nix that can be used to identify file type called `file`. Use the `file` command to test they file type of both `tux` and `/etc/services`.
+In the previous step we learned that using the `cat` or `more` command helps identify a regular file vs a directory. There is a specific command in *nix that can be used to identify file type called `file`. Use the `file` command to test they file type of both `dc_sites` and `/etc/services`.
 
 ```
-[ntc@ntc ~]$ file tux
-tux: directory
+[ntc@ntc ~]$ file dc_sites
+dc_sites: directory
 [ntc@ntc ~]$ 
 
 ```
@@ -211,98 +212,62 @@ In *nix everything is a file. The standard output to the screen as we see it, is
 
 ##### Step 1
 
-Use the `echo` command to print "Hello, World :)". Redirect this into a file called `greetings.txt`. *nix uses the `>` and `<` symbols to redirect output.
+Use the `echo` command to print "OSPF STANDARDS". Redirect this into a file called `ospf_config_guide.txt`. *nix uses the `>` and `<` symbols to redirect output.
 
 
 ```
-[ntc@ntc ~]$ echo "Hello, World :)"
-Hello, World :)
+[ntc@ntc ~]$ echo "OSPF STANDARDS"
+OSPF STANDARDS
 [ntc@ntc ~]$
 ```
 
 ```
-[ntc@ntc ~]$ echo "Hello, World :)" > greetings.txt
+[ntc@ntc ~]$ echo "OSPF STANDARDS" > ospf_config_guide.txt
 [ntc@ntc ~]$ 
 ```
 
-> Note: Observe that the output is not sent to the screen. It is instead, redirected to the file called `greetings.txt`
+> Note: Observe that the output is not sent to the screen. It is instead, redirected to the file called `ospf_config_guide.txt`
 
 ```
-[ntc@ntc ~]$ cat greetings.txt 
-Hello, World :)
+[ntc@ntc ~]$ cat ospf_config_guide.txt 
+OSPF STANDARDS
 [ntc@ntc ~]$ 
 
 ```
 
-##### Step 2 
 
-From the user home, redirect the output of the `ls -ltr` command to a file called `directroy_listing.txt` under the `tux` directory.
+##### Step 2
+
+Create a directory called `test_redirection` in the ntc home directory
 
 ```
-[ntc@ntc ~]$ ls -ltr > tux/directory_listing.txt 
-[ntc@ntc ~]$ 
-```
+[ntc@ntc ~]$mkdir test_redirection
+[ntc@ntc ~]$
 
+```
 
 ##### Step 3
 
-Redirection also works for input. Redirect the contents of the file created in the previous step as an input to the `cat command:
-
+From the user home, redirect the output of the `ls -ltr` command to a file called `directroy_listing.txt` under the `test_redirection` directory.
 
 ```
-[ntc@ntc ~]$ cat < tux/directory_listing.txt 
-total 4
-drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
-drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
--rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 greetings.txt
+[ntc@ntc ~]$ ls -ltr > test_redirection/directory_listing.txt 
 [ntc@ntc ~]$ 
-
 ```
 
 
 ##### Step 4
 
-By default, the redirect will only redirect the **stdout** to a file. What if the command errored-out? How would you capture both the **stdout** and the **stderr** to different files? The pattern `>2` is used to capture the error output.
-
-Capture the **stdout** and **stderr** while incorrectly executing `cat tux` from the user home:
-
+Redirection also works for input. Redirect the contents of the file created in the previous step as an input to the `cat` command:
 
 
 ```
-[ntc@ntc ~]$ cat tux >output 2>error
-[ntc@ntc ~]$ 
-
-```
-
-```
-
-[ntc@ntc ~]$ cat error
-cat: tux: Is a directory
-[ntc@ntc ~]$ 
-
-```
-
-```
-
-[ntc@ntc ~]$ cat output
-[ntc@ntc ~]$ 
-
-```
-
-```
-
-[ntc@ntc ~]$ cat tux/directory_listing.txt > output 2>error
-[ntc@ntc ~]$ 
-[ntc@ntc ~]$ cat error
-[ntc@ntc ~]$ 
-[ntc@ntc ~]$ cat output
+[ntc@ntc ~]$ cat < test_redirection/directory_listing.txt 
 total 4
 drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
 drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
--rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 greetings.txt
-[ntc@ntc ~]$ 
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 dc_sites
+-rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 ospf_config_guide.txt
 [ntc@ntc ~]$ 
 
 ```
@@ -311,25 +276,47 @@ drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
 
 ##### Step 5
 
-A common pattern  with redirection to send standard output and standard error to a single file is `_command_ > filename2>&1 `. Here `1` indicates **stdout** and `2` indicates **stderr**.
+By default, the redirect will only redirect the **stdout** to a file. What if the command errored-out? How would you capture both the **stdout** and the **stderr** to different files? The pattern `>2` is used to capture the error output.
 
-Use this pattern to capture the standard output and error while executing `cat tux tux/directory_listing.txt`
+Capture the **stdout** and **stderr** while incorrectly executing `cat dc_sites` from the user home:
 
 
 
 ```
-[ntc@ntc ~]$ cat tux tux/directory_listing.txt >output  2>&1 
+[ntc@ntc ~]$ cat test_redirection >output 2>error
 [ntc@ntc ~]$ 
+
 ```
 
 ```
-[ntc@ntc ~]$ cat output 
-cat: tux: Is a directory
+
+[ntc@ntc ~]$ cat error
+cat: test_redirection: Is a directory
+[ntc@ntc ~]$ 
+
+```
+
+```
+
+[ntc@ntc ~]$ cat output
+[ntc@ntc ~]$ 
+
+```
+
+```
+
+[ntc@ntc ~]$ cat test_redirection/directory_listing.txt > output 2>error
+[ntc@ntc ~]$ 
+[ntc@ntc ~]$ cat error
+[ntc@ntc ~]$ 
+[ntc@ntc ~]$ cat output
 total 4
 drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
 drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
--rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 greetings.txt
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 dc_sites
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 16:44 test_redirection
+-rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 ospf_config_guide.txt
+[ntc@ntc ~]$ 
 [ntc@ntc ~]$ 
 
 ```
@@ -338,32 +325,26 @@ drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
 
 ##### Step 6
 
-Whenever you use the `>` to redirect output, the latest output will overwrite existing data. Update the contents of `tux/directory_listing.txt` to contain the directory listing of the `tux/level-1` subdirectory.
+A common pattern  with redirection to send standard output and standard error to a single file is `_command_ > filename 2>&1 `. Here `1` indicates **stdout** and `2` indicates **stderr**.
 
-**BEFORE**
+Use this pattern to capture the standard output and error while executing `cat test_redirection test_redirection/directory_listing.txt`
 
-```
-[ntc@ntc ~]$ cat tux/directory_listing.txt 
-total 4
-drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
-drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
--rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 greetings.txt
-
-```
 
 
 ```
-[ntc@ntc ~]$ ls -ltr tux/level-1 > tux/directory_listing.txt 
+[ntc@ntc ~]$ cat test_redirection test_redirection/directory_listing.txt >output  2>&1 
 [ntc@ntc ~]$ 
 ```
 
-**AFTER**
-
 ```
-[ntc@ntc ~]$ cat tux/directory_listing.txt 
-total 0
-drwxrwxr-x. 3 ntc ntc 20 Jan 24 17:56 level-2
+[ntc@ntc ~]$ cat output 
+cat: test_redirection: Is a directory
+total 4
+drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
+drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 dc_sites
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 16:44 test_redirection
+-rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 ospf_config_guide.txt
 [ntc@ntc ~]$ 
 
 ```
@@ -372,38 +353,73 @@ drwxrwxr-x. 3 ntc ntc 20 Jan 24 17:56 level-2
 
 ##### Step 7
 
-A commonly observed pattern is to use the `>` to "zero-out" a file by redirecting "null" to it. Go ahead and zero out the contents of `directory_listing.txt` without deleting the file:
+Whenever you use the `>` to redirect output, the latest output will overwrite existing data. Update the contents of `test_redirection/directory_listing.txt` to contain the directory listing of the `dc_sites/USA` subdirectory.
+
+**BEFORE**
+
+```
+[ntc@ntc ~]$ cat test_redirection/directory_listing.txt 
+total 4
+drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
+drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 dc_sites
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 16:44 test_redirection
+-rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 ospf_config_guide.txt
+
+```
 
 
 ```
-[ntc@ntc ~]$ > tux/directory_listing.txt 
+[ntc@ntc ~]$ ls -ltr dc_sites/USA > test_redirection/directory_listing.txt 
+[ntc@ntc ~]$ 
+```
+
+**AFTER**
+
+```
+[ntc@ntc ~]$ cat test_redirection/directory_listing.txt 
+total 0
+drwxrwxr-x. 3 ntc ntc 20 Jan 24 17:56 ATL
 [ntc@ntc ~]$ 
 
 ```
 
-```
-
-[ntc@ntc ~]$ cat tux/directory_listing.txt 
-[ntc@ntc ~]$ 
-
-```
 
 
 ##### Step 8
 
-The `>>` symbol is used to "concatenate" the output to an existing file. Use the `echo` command to add the following (_iconic_) line to `greetings.txt`: 
+A commonly observed pattern is to use the `>` to "zero-out" a file by redirecting "null" to it. Go ahead and zero out the contents of `directory_listing.txt` without deleting the file:
 
->"I am completely operational, and all my circuits are functioning perfectly."
 
 ```
-[ntc@ntc ~]$ echo "I am completely operational, and all my circuits are functioning perfectly." >> greetings.txt 
+[ntc@ntc ~]$ > test_redirection/directory_listing.txt 
+[ntc@ntc ~]$ 
+
+```
+
+```
+
+[ntc@ntc ~]$ cat test_redirection/directory_listing.txt 
+[ntc@ntc ~]$ 
+
+```
+
+
+##### Step 9
+
+The `>>` symbol is used to "concatenate" the output to an existing file. Use the `echo` command to add the following line to `ospf_config_guide.txt`: 
+
+>"OSPF will be used as the standard IGP routing protocol"
+
+```
+[ntc@ntc ~]$ echo "OSPF will be used as the standard IGP routing protocol" >> ospf_config_guide.txt 
 [ntc@ntc ~]$ 
 ```
 
 ```
-[ntc@ntc ~]$ cat greetings.txt 
-Hello, World :)
-I am completely operational, and all my circuits are functioning perfectly.
+[ntc@ntc ~]$ cat ospf_config_guide.txt 
+OSPF STANDARDS
+OSPF will be used as the standard IGP routing protocol
 [ntc@ntc ~]$ 
 
 ```
@@ -452,10 +468,10 @@ lrwxrwxrwx.   1 root root         6 Jul  5  2017 apropos -> whatis
 Pipes can be added in series. The output of one command can serve as the input for the next command whose output can then be used as an input for the next and so on...
 Pipes can also be used in combination with redirection.
 
-Write a combination of commands to count the number of files and directories in the `tux` directory and write this to a file called `file_count.txt`. For this you will use the `wc -l` command to count the lines. Review the man pages for the `wc` command, which by default does a "word count" on the input.
+Write a combination of commands to count the number of files and directories in the `dc_sites` directory and write this to a file called `file_count.txt`. For this you will use the `wc -l` command to count the lines. Review the man pages for the `wc` command, which by default does a "word count" on the input.
 
 ```
-[ntc@ntc ~]$ ls -l tux/ | wc -l > file_count.txt
+[ntc@ntc ~]$ ls -l dc_sites/ | wc -l > file_count.txt
 [ntc@ntc ~]$ 
 
 ```
@@ -468,8 +484,9 @@ Write a combination of commands to count the number of files and directories in 
 
 ```
 
-> Break down each command and try them out separately. Does this number correctly reflect the number of files and directories within the `tux` directory?
+> Break down each command and try them out separately. Does this number correctly reflect the number of files and directories within the `dc_sites` directory?
 
 
 
 
+    

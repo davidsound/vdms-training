@@ -216,20 +216,43 @@ DESCRIPTION
 <output truncated for readability>
 ```
 ---
+
+class: ubuntu
 # The Linux directory layout
 
 */bin*: Binaries for system operations
+
 */sbin*: Binaries that requires "Superuser" privileges
+
 */lib*: System libraries
+
 */dev*: Hardware devices
+
 */opt*: Optional, 3rd Party applications
+
 */home*: User home directories
+
+
+---
+
+class: ubuntu
+# The Linux directory layout(Contd.)
+
+
 */tmp*: Temporary files - Wiped at every reboot
+
 */etc*: System Wide configurations
+
 */boot*: Kernel
+
 */proc*: Runtime process information
+
 */usr*: User binaries - most apps get installed here
+
 */var*: Variable files (Files that change during system operation)
+
+
+
 
 
 ---
@@ -245,13 +268,13 @@ class: ubuntu
 
 
 ```
-[ntc@ntc ~]$ mkdir tux
+[ntc@ntc ~]$ mkdir dc_sites
 
 [ntc@ntc ~]$ ls -ltr
 total 0
 drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
 drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 2 ntc ntc  6 Jan 24 17:53 tux
+drwxrwxr-x. 2 ntc ntc  6 Jan 24 17:53 dc_sites
 [ntc@ntc ~]$ 
 
 
@@ -259,9 +282,31 @@ drwxrwxr-x. 2 ntc ntc  6 Jan 24 17:53 tux
 
 
 ```
-[ntc@ntc ~]$ mkdir -p tux/level-1/level-2/level-3
+[ntc@ntc ~]$ mkdir -p dc_sites/EMEA/LON/beta_dc
 
 ```
+
+---
+
+class: ubuntu
+# Removing directories
+
+- Use the `rmdir` command to remove directories
+- By default only empty directories can be removed
+- To delete a directory structure including all directories in a path use the `-p` flag
+
+
+
+```
+[ntc@ntc dc_sites]$rmdir EMEA/LON/beta_dc
+```
+*Removes the `beta_dc` folder*
+
+
+```
+[ntc@ntc dc_sites]$rmdir -p EMEA/LON/
+```
+*Removes the EMEA and LON folders*
 
 ---
 
@@ -279,6 +324,12 @@ class: ubuntu
 [ntc@ntc home]$ pwd
 /home
 ```
+---
+
+# Before the first lab
+
+- The `bash` shell retains command history. This can be accessed by pressing the `UP` and `DOWN` arrow buttons
+- Typing `clear` will clear the screen. 
 
 ---
 
@@ -349,14 +400,14 @@ class: ubuntu
 ---
 
 class: ubuntu
-
+ 
 # The `file` command
 
 - Used to identify the type of file (binary, text etc)
 
 ```
-[ntc@ntc ~]$ file tux
-tux: directory
+[ntc@ntc ~]$ file dc_sites
+dc_sites: directory
 [ntc@ntc ~]$ 
 
 ```
@@ -384,16 +435,16 @@ class: ubuntu
 - `2>` is used to redirect **standard error**
 
 ```
-[ntc@ntc ~]$ echo "Hello, World :)" > greetings.txt
+[ntc@ntc ~]$ echo "OSPF STANDARDS" > ospf_config_guide.txt
 [ntc@ntc ~]$ 
 
 ```
->Note: Observe that the output is not sent to the screen. It is instead, redirected to the file called greetings.txt
+>Note: Observe that the output is not sent to the screen. It is instead, redirected to the file called ospf_config_guide.txt
 
 ```
 
-[ntc@ntc ~]$ cat greetings.txt 
-Hello, World :)
+[ntc@ntc ~]$ cat ospf_config_guide.txt 
+OSPF STANDARDS
 [ntc@ntc ~]$ 
 
 
@@ -410,7 +461,7 @@ Redirect output and errors into separate files
 
 ```
 
-[ntc@ntc ~]$ cat tux/directory_listing.txt > output 2>error
+[ntc@ntc ~]$ cat test_redirection/directory_listing.txt > output 2>error
 [ntc@ntc ~]$ 
 [ntc@ntc ~]$ cat error
 [ntc@ntc ~]$ 
@@ -418,7 +469,7 @@ Redirect output and errors into separate files
 total 4
 drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
 drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 dc_sites
 -rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 greetings.txt
 [ntc@ntc ~]$ 
 [ntc@ntc ~]$ 
@@ -430,7 +481,7 @@ drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
 Redirect output and errors into the same file:
 
 ```
-[ntc@ntc ~]$ cat tux tux/directory_listing.txt >output  2>&1 
+[ntc@ntc ~]$ cat test_redirection test_redirection/directory_listing.txt >output  2>&1 
 [ntc@ntc ~]$ 
 
 [ntc@ntc ~]$ cat output 
@@ -438,7 +489,7 @@ cat: tux: Is a directory
 total 4
 drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
 drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 tux
+drwxrwxr-x. 3 ntc ntc 50 Jan 25 15:44 dc_sites
 -rw-rw-r--. 1 ntc ntc 16 Jan 25 15:48 greetings.txt
 [ntc@ntc ~]$ 
 
@@ -461,7 +512,7 @@ total 72192
 
 
 ```
-[ntc@ntc ~]$ ls -l tux/ | wc -l > file_count.txt
+[ntc@ntc ~]$ ls -l dc_sites/ | wc -l > file_count.txt
 [ntc@ntc ~]$ 
 ```
 
@@ -484,7 +535,7 @@ class: ubuntu
 ```
 
 ```
-[ntc@ntc ~]$ cp -r tux tux-backup
+[ntc@ntc ~]$ cp -r dc_sites dc_sites-backup
 [ntc@ntc ~]$
 ```
 
@@ -494,7 +545,7 @@ class: ubuntu
 ```
 
 ```
-[ntc@ntc ~]$ rm -r tux-backup
+[ntc@ntc ~]$ rm -r dc_sites-backup
 ```
 
 ---
@@ -662,7 +713,7 @@ class: ubuntu
 
 2. Now type the `:` key. Now your cursor will be blinking at the bottom of the file.
 
-3. Type `se nu`; short for "set numbers" to enable line numbers.
+3. Type `se nu`; short for "set number" to enable line numbers.
 
 
 **To go to a particular line you can simply type the line number after steps 1 and 2**
@@ -711,6 +762,8 @@ To find and replace use the following steps:
 
 > The `/g` implies "make the replacements globally for all matches in the file"
 
+> To make interactive replacements use `/gc` instead. This option will prompt for confirmation for each replacement
+
 ---
 class: ubuntu
 
@@ -720,10 +773,17 @@ class: ubuntu
 
 <img src="slides/media/vim/vim4.png" alt="Pep8" style="align: right:;width:800px;height:350px;">
 
-```
-Use `CTRL-ww` to jump between the split
 
-```
+---
+class: ubuntu
+
+# Basic operations with split screens
+
+
+- Use `CTRL-ww` to jump between the split
+
+- Using the `set scrollbind` setting on each window allows scrolling both windows simultaneously
+
 
 
 ---
@@ -755,8 +815,8 @@ class: ubuntu
 # The `.vimrc` file
 
 - Is executed soon as vim is started
-- Stores user customizations and  placed in the `home directory`
-- Not automatically generated
+- Stores user customizations and  placed in the `home` directory
+- **Not automatically generated**
 - The `.` implies "hidden" file
 - The `rc` stands for "run commands"
 
@@ -794,6 +854,33 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
+
+---
+
+class: ubuntu
+# Curl - short introduction
+
+Curl is a command line tool to transfer data to or from a server. Supports multiple protocols:
+
+- HTTP/S
+- FTP/S
+- SCP
+- SFTP
+- TFTP etc.
+
+Designed to run without user interaction
+
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+```
+-f : Quitely ignore failures
+-L : Follow links
+-o : Output to a file
+
+```
 
 ---
 

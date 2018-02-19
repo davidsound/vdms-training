@@ -155,7 +155,7 @@ Use the `u` key to undo changes. Using `u`, restore the line containing the vers
 
 ##### Step 1
 
-Use the `find` to go to the vrf configuration of the file. You can do that by  typing `ESC-/vrf def`
+Use the `/` key to "find" the vrf configuration of the file. You can do that by  typing `ESC-/vrf def`
 
 ![](images/vim1.png)
 
@@ -247,11 +247,22 @@ To jump from one file to another, use the key combination `CTRL-ww`.
 
 ##### Step 3
 
-Close the second buffer by switching focus to it and issuing the `ESC-:q` command.
+Use the `set scrollbind` command by typing `ESC-:set scrollbind` on each of the split windows
 
 
 
 ##### Step 4
+
+Using standard navigation keys scroll down any one window and observe that both files scroll simultaneously.
+
+
+##### Step 5
+
+Close the second buffer by switching focus to it and issuing the `ESC-:q` command.
+
+
+
+##### Step 6
 
 To `copy` a line, use the `yy` key combination. This will "yank" the line. To paste it use the `p` key. Use the search to locate the static route configuration within the file. `ip route vrf ADMIN 0.0.0.0 0.0.0.0 10.0.0.2`
 With the cursor place on this line, press they `yy` key to yank it followed by the `p` key. This will duplicate the line.
@@ -260,7 +271,7 @@ With the cursor place on this line, press they `yy` key to yank it followed by t
 
 
 
-##### Step 5
+##### Step 7
 
 Edit this new line to add a new route to 10.255.0.0/24 using the gateway 10.0.0.254, using the ADMIN vrf.
 
@@ -269,7 +280,7 @@ Save the file.
 ![ ](images/vim6.png)
 
 
-##### Step 6
+##### Step 8
 
 To copy more than one line at a time, you can specify the number of lines followed by the `yy` key combination. 
 
@@ -283,7 +294,7 @@ Copy and paste the vrf definition for the `ADMIN` vrf (7 lines, therefore use `7
 
 
 
-##### Step 7
+##### Step 9
 
 Use the `dd` key combination in lieu of `yy` for "cutting" instead of pasting. `dd` is also used to delete lines from a file. Delete the new route added  in step 4.
 
@@ -291,6 +302,6 @@ Save the file.
 
 
 
-##### Step 8 - Challenge task
+##### Step 10 - Challenge task
 
 Using `vsp` open `nyc-rtr02.cfg` in a separate window. **Cut** the vrf configuration from `nyc-rtr01.cfg` and paste it into `nyc-rtr02.cfg`

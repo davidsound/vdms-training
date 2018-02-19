@@ -163,10 +163,10 @@ total 12
 
 ##### Step 1 
 
-Use the `mkdir` command to create a directory called `tux` within you home directory.
+Use the `mkdir` command to create a directory called `dc_sites` within you home directory.
 
 ```
-[ntc@ntc ~]$ mkdir tux
+[ntc@ntc ~]$ mkdir dc_sites
 
 ```
 
@@ -175,7 +175,7 @@ Use the `mkdir` command to create a directory called `tux` within you home direc
 total 0
 drwxrwxr-x. 3 ntc ntc 51 Jan 22 19:56 configs
 drwxrwxr-x. 3 ntc ntc 45 Jan 23 17:02 VirtualBoxVMs
-drwxrwxr-x. 2 ntc ntc  6 Jan 24 17:53 tux
+drwxrwxr-x. 2 ntc ntc  6 Jan 24 17:53 dc_sites
 [ntc@ntc ~]$ 
 
 ```
@@ -187,10 +187,10 @@ drwxrwxr-x. 2 ntc ntc  6 Jan 24 17:53 tux
 Similar to `ls` the `mkdir` command supports many flags. A commonly used way to create a nested directory structure is by using the `mkdir -p` flag. Use the `man` page of mkdir to understand this option. Then go ahead and create the following directory structure:
 
 ```
-tux
-└── level-1
-    └── level-2
-        └── level-3
+dc_sites
+└── US
+    └── ATL
+        └── alpha-dc
 
 ```
 
@@ -199,21 +199,21 @@ tux
 Solution:
 
 ```
-[ntc@ntc ~]$ mkdir -p tux/level-1/level-2/level-3
+[ntc@ntc ~]$ mkdir -p dc_sites/US/ATL/alpha_dc
 
 ```
 
 
 ##### Step 3
 
-The command used to navigate to a particular directory is `cd` - "change directory". Use this command to navigate to the `tux` directory. Use the `pwd` command to validate.
+The command used to navigate to a particular directory is `cd` - "change directory". Use this command to navigate to the `dc_sites` directory. Use the `pwd` command to validate.
 
 
 ```
-[ntc@ntc ~]$ cd tux
-[ntc@ntc tux]$ pwd
-/home/ntc/tux
-[ntc@ntc tux]$ 
+[ntc@ntc ~]$ cd dc_sites
+[ntc@ntc dc_sites]$ pwd
+/home/ntc/dc_sites
+[ntc@ntc dc_sites]$ 
 
 ```
 
@@ -227,7 +227,7 @@ The command used to navigate to a particular directory is `cd` - "change directo
 
 
 ```
-[ntc@ntc tux]$ cd ../
+[ntc@ntc dc_sites]$ cd ../
 [ntc@ntc ~]$ pwd
 /home/ntc
 [ntc@ntc ~]$ 
@@ -239,13 +239,13 @@ The command used to navigate to a particular directory is `cd` - "change directo
 
 ##### Step 5
 
-`cd` to the `level-3` subdirectory under `tux`
+`cd` to the `alpha_dc` subdirectory under `dc_sites`
 
 ```
-[ntc@ntc ~]$ cd tux/level-1/level-2/level-3/
-[ntc@ntc level-3]$ pwd
-/home/ntc/tux/level-1/level-2/level-3
-[ntc@ntc level-3]$ 
+[ntc@ntc ~]$ cd dc_sites/US/ATL/alpha_dc/
+[ntc@ntc alpha_dc]$ pwd
+/home/ntc/dc_sites/US/ATL/alpha_dc
+[ntc@ntc alpha_dc]$ 
 
 ```
 
@@ -257,7 +257,7 @@ The command used to navigate to a particular directory is `cd` - "change directo
 Use relative paths to navigate back to `/home`
 
 ```
-[ntc@ntc level-3]$ cd ../../../../../../home
+[ntc@ntc alpha_dc]$ cd ../../../../../../home
 [ntc@ntc home]$ pwd
 /home
 
@@ -275,10 +275,10 @@ In the bash shell, using the `cd` command with a `-` will place you in the previ
 
 ```
 [ntc@ntc home]$ cd -
-/home/ntc/tux/level-1/level-2/level-3
-[ntc@ntc level-3]$ pwd
-/home/ntc/tux/level-1/level-2/level-3
-[ntc@ntc level-3]$ 
+/home/ntc/dc_sites/US/ATL/alpha_dc
+[ntc@ntc alpha_dc]$ pwd
+/home/ntc/dc_sites/US/ATL/alpha_dc
+[ntc@ntc alpha_dc]$ 
 
 ```
 
@@ -289,15 +289,15 @@ Simply typing the `cd` command, without specifying any path, will result in land
 
 
 ```
-[ntc@ntc level-3]$ pwd
-/home/ntc/tux/level-1/level-2/level-3
-[ntc@ntc level-3]$ 
+[ntc@ntc alpha_dc]$ pwd
+/home/ntc/dc_sites/US/ATL/alpha_dc
+[ntc@ntc alpha_dc]$ 
 
 ```
 
 ```
 
-[ntc@ntc level-3]$ cd
+[ntc@ntc alpha_dc]$ cd
 [ntc@ntc ~]$ 
 
 ```
@@ -309,21 +309,87 @@ Simply typing the `cd` command, without specifying any path, will result in land
 [ntc@ntc ~]$ 
 ```
 
-
-
 ##### Step 9
 
-A thrid-party utility called `tree` is pre-installed on your jumphosts. This is a handy tool that helps visualize the directory structure from the command line. Use `tree` to visualize the directory structure of the `tux` directory.
+A thrid-party utility called `tree` is pre-installed on your jumphosts. This is a handy tool that helps visualize the directory structure from the command line. Use `tree` to visualize the directory structure of the `dc_sites` directory.
 
 ```
-[ntc@ntc ~]$ tree tux
-tux
-└── level-1
-    └── level-2
-        └── level-3
+[ntc@ntc ~]$ tree dc_sites
+dc_sites
+└── US
+    └── ATL
+        └── alpha_dc
 
 3 directories, 0 files
 [ntc@ntc ~]$ 
+
+```
+
+
+##### Step 10
+
+Create a new directory path for the EMEA datacenter site within `dc_sites`. Create the directory structure that looks as follows:
+
+```
+dc_sites/
+├── EMEA
+│   └── LON
+│       └── beta_dc
+└── US
+    └── ATL
+        └── alpha_dc
+
+```
+
+
+
+##### Step 11
+
+Use the `rmdir` command to remove the `beta_dc` directory
+
+```
+[ntc@ntc dc_sites]$rmdir EMEA/LON/beta_dc
+[ntc@ntc dc_sites]$tree
+.
+├── EMEA
+│   └── LON
+└── US
+    └── ATL
+        └── alpha_dc
+
+5 directories, 0 files
+
+```
+
+
+##### Step 12
+
+What happens when you try to delete the `EMEA` directory?
+
+```
+[ntc@ntc dc_sites]$rmdir EMEA
+rmdir: failed to remove ‘EMEA’: Directory not empty
+[ntc@ntc dc_sites]$
+
+```
+
+By default only empty directories can be removed. 
+
+
+##### Step 13
+
+To remove a directory structure recursively, use the `rmdir -p` command. Use this command to remove the `EMEA` and `LON` directories
+
+```
+[ntc@ntc dc_sites]$rmdir -p EMEA/LON/
+[ntc@ntc dc_sites]$tree
+.
+└── US
+    └── ATL
+        └── alpha_dc
+
+3 directories, 0 files
+[ntc@ntc dc_sites]$
 
 ```
 

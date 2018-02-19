@@ -43,7 +43,7 @@ From the commad line on your **jumphost**, set the origin of your `~/config/` lo
 > The address of your repo should be shown on your github page once you create the new, empty, repository.
 
 ```bash
-ntc@ntc:configs (master)$ git remote add origin https://github.com/smith-ntc/JS_configs
+ntc@ntc:configs (master)$ git remote add origin <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
 ntc@ntc:configs (master)$
 ```
 
@@ -54,8 +54,8 @@ Verify the configuration is properly set.
 
 ```bash
 ntc@ntc:configs (master)$ git remote -v
-origin  https://github.com/smith-ntc/JS_configs (fetch)
-origin  https://github.com/smith-ntc/JS_configs (push)
+origin  <GIT CLONE HTTPS LINK TO YOUR REPOSITORY> (fetch)
+origin  <GIT CLONE HTTPS LINK TO YOUR REPOSITORY> (push)
 ```
 
 
@@ -65,15 +65,15 @@ Push your local commits to origin.
 
 ```bash
 ntc@ntc:configs (master)$ git push origin master
-Username for 'https://github.com': smith-ntc
-Password for 'https://smith-ntc@github.com':
+Username for 'https://github.com': <YOUR PUBLIC GITHUB USERNAME>
+Password for 'https://<YOUR PUBLIC GITHUB USERNAME>@github.com':
 Counting objects: 22, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100% (22/22), done.
 Writing objects: 100% (22/22), 4.45 KiB | 0 bytes/s, done.
 Total 22 (delta 13), reused 0 (delta 0)
 remote: Resolving deltas: 100% (13/13), done.
-To https://github.com/smith-ntc/JS_configs
+To <GIT CLONE HTTPS LINK TO YOUR REPOSITORY>
  * [new branch]      master -> master
 ```
 

@@ -8,7 +8,7 @@ In this lab we will build upon our earlier `Net Tools` lab.  We will need to ens
 
 [Netcat](http://netcat.sourceforge.net/) can be used to read network data on a local server.  It can also be used to verify/validate connectivity to local & exernal network resources.
 
-Like `tcpdump` `netcat` has *MANY* options:
+Like `tcpdump`, `netcat` has *MANY* options:
 
 ```bash
 [ntc@ntc web]$ nc -h
@@ -62,23 +62,23 @@ Options taking a time assume seconds. Append 'ms' for milliseconds,
       --version              Display Ncat's version information and exit
 ```
 
-For basic listening, we can use the `-l` flag.  However, if we try to listen on our server's port, we will throw an error:
-
-```bash
-[ntc@ntc web]$ nc -l -p 5000
-Ncat: bind to 0.0.0.0:5000: Address already in use. QUITTING.
-```
-
-This is because netcat works a bit differently than tcpdump.  It does not listen passively.  The details are beyond the scope of this lab, but netcat is _normally_ used to test connectivity.  It can also act as a server, listening on a certain port.
 
 ##### Step 2 - Netcat connection
 
-Let's imagine that we want to test that port 5000 is open on our host.  From our host we could run the following netcat command:
+Use `netcat` to test connectivity from the **jumphost** to the web server on the `centos` host.  From our `centos` host we could run the following command if you shutdown the webserver used in Lab 20:
 
 ```bash
-[ntc@ntc ~]$ nc -v 127.0.0.1 5000
-Ncat: Version 7.60 ( https://nmap.org/ncat )
-Ncat: Connected to 127.0.0.1:5000.
+[ntc@ntc ~]$ cd web
+[ntc@ntc web]$ python server.py &
+[1] 5738
+[ntc@ntc web]$ Server at Port 5000
+```
+
+Now, from the **jumphost**, run the following command
+
+```bash
+ntc@ntc:~$ nc -v centos 5000   
+Connection to centos 5000 port [tcp/*] succeeded!
 ```
 
 > You can stop netcat with <CTRL>+c
@@ -90,15 +90,14 @@ We could also run the above command from a remote host to ensure connectivity
 Netcat can also be used to _scan_ ports, looking for an open port.  Let's assume we don't know what port our web server is configured to use.  We can check by adding a `-z` flag:
 
 ```bash
-nc -z -v 127.0.0.1 1-65535 #this will scan all ports
+nc -z -v centos 1-65535 #this will scan all ports
 ```
 
 We can also use netcat to check external connectivity:
 
 ```bash
-nc -v google.com 80
-Ncat: Version 7.60 ( https://nmap.org/ncat )
-Ncat: Connected to 172.217.1.46:80.
+ntc@ntc:~$ nc -v google.com 80
+Connection to google.com 80 port [tcp/http] succeeded!
 ```
 
 ##### Step 3 - Netcat Listener
@@ -107,13 +106,13 @@ Let's revisit the netcat listener option.  It can be very useful in troubleshoot
 
 Let's assume we are having a problem with our webserver, and we want to ensure that it's not a network issue.  All signs indicate that ports 5000-6000 should be open & available.  We can use netcat to serve our `index.html` file on a different port.  Let's use port 5001.
 
-Ensure we are in the `~/web` directory we created earlier, and the `index.html` file is available.  Then enter the following command:
+**Ensure we are in the `~/web` directory on the `centos` host.**
 
 ```bash
 [ntc@ntc web]$ nc -l 5001 < index.html 
 ```
 
-Opening a browser and navigating to: `host:5001`, we should be greeted with the following:
+Opening a browser on your **jumphost** and navigating to: `centos:5001`, we should be greeted with the following:
 
 ![](images/netcatserver.png)
 
@@ -135,7 +134,7 @@ Upgrade-Insecure-Requests: 1
 
 Unlike a _true_ web server, netcat serves the file only once.  If you refresh the browser, you'll notice that the web page is unavailable. 
 
-> CHALLENGE: Configure a `netcat` listener on your jumphost, to use port 9125, and transfer the `index.html` file via `netcat` on a different host
+> CHALLENGE: Configure a `netcat` listener on your `centos` host, to use port 5500, and transfer the `index.html` file via `netcat` on a different host
 
 > CHALLENGE 2: Use `netcat` to query the `ntp` servers configured on your host
 
@@ -278,7 +277,9 @@ With so many options, lets identify some of the most used command line flags:
 
 ##### Step 2 - Ping Sweep
 
-We can use nmap to issue a ping to all hosts in a given subnet, and return information about those that respond:
+We can use nmap to issue a ping to all hosts in a given subnet, and return information about those that respond.
+
+On you `centos` host run the following commands.
 
 ```bash
 [ntc@ntc ~]$ nmap -sn 192.168.0.0/24
@@ -344,7 +345,7 @@ Ping sweeping is a good way to determine which hosts are responding on the netwo
 * Limited to hosts that respond to ping
 * Does not provide information about open ports
 
-Let's add port scanning to our nmap commands.  We will the proxy we configured in previous labs:
+Let's add port scanning to our nmap commands.  We will use the proxy we configured in previous labs to run a scan from the `centos` host.
 
 ```bash
 [ntc@ntc ~]$ sudo nmap -n -p 1-65535 -sV -sS -T4 192.168.0.51
@@ -381,7 +382,7 @@ In `plain-human`:
 
 The example above was more useful in identifying services available on a certain host.  At times, we may need to identify a _service_ on a network, or among a list of hosts.  As such our approach would be more targeted, but against a wider subset of hosts.
 
-Let's say we wanted to search for available webservers on our network.  Nmap has a handy way of doing this:
+Let's say we wanted to search for available webservers on our network.  Nmap has a handy way of doing this.  From the `centos` host, run the following.
 
 ```bash
 [ntc@ntc ~]$ nmap -n -p80,443 192.168.0.0/24
@@ -405,7 +406,7 @@ Nmap done: 256 IP addresses (2 hosts up) scanned in 21.75 seconds
 
 In the previous equest, we are searching our network for open _known_ http/s ports.
 
-Let's target our proxy configuration from an earlier lab:
+Let's target our proxy configuration from an earlier lab. From the `centos` host, run the following.:
 
 ```bash
 [ntc@ntc ~]$ nmap -n -p8080 192.168.0.0/24

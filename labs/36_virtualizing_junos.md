@@ -1,5 +1,7 @@
 ## Lab - Junos in  VirtualBox
 
+**Use your local machine for VirtualBox labs.**
+
 ### Task 1 - Junos
 
 ##### Step 1

@@ -1,5 +1,7 @@
 ## Lab - Arista
 
+**Use your local machine for VirtualBox labs.**
+
 ### Task 1 - Arista
 
 ##### Step 1
@@ -17,6 +19,8 @@ From VirtualBox, create a new VM by clicking `New`.
 Name the new VM as `ntc_eos01`, select `Linux` as type and `Other Linux (64-bit)` as version. Press `Continue`
 
 ![New_vm_settings](images/new_vm_settings.png)
+
+> NOTE: If you are not seeing 64-bit as an available option, you may need to enable virtualization in your BIOS settings.
 
 ##### Step 4
 
